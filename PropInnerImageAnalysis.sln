@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.32428.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropInnerImageAnalysis", "PropInnerImageAnalysis.csproj", "{E0F9D561-02F5-4250-A350-5F207C389266}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropImages", "..\PropImages\PropImages.csproj", "{E01BBCA4-D799-4590-A4FB-EE371DB7E698}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropImages", "..\PropImagesEmguCV4\PropImages.csproj", "{E01BBCA4-D799-4590-A4FB-EE371DB7E698}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
