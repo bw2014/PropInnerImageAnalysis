@@ -143,7 +143,7 @@
   <metadata name="folderBrowserDialog_load.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>656, 6</value>
   </metadata>
-  <data name="xuiButton1.ButtonImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btn_adjust.ButtonImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         wwAADsMBx2+oZAAABN9JREFUeF7tmIGtEzEMhjsCIzACIzACIzACGzACIzACIzACIzACI8B9EpFOlp3Y
@@ -170,7 +170,7 @@
         AOz46/yDx+QqAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="btn_Rotate_OrgImg.ButtonImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btn_rotate.ButtonImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         wwAADsMBx2+oZAAAA9pJREFUeF7tm4GNFDEMRa8ESqAESqAESqAEOqAESqAESqAESqAESoA86SKdRt7Z
@@ -192,7 +192,7 @@
         Z8IOlA5h1GIkldS2msJkxKaJ97C+YDiVl0wXQgghhBBCCCGK8/LyD8Spxo0ICeXoAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="button_recgon.ButtonImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btn_contour_rec.ButtonImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAGYAAAB7CAYAAACGl/UnAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAX
         EQAAFxEByibzPwAABjZJREFUeF7tnIGN5DYMRbeEKyElXAlXQkpICengSkgJV8KVkBJSQkpICYkfEAKG
@@ -225,7 +225,7 @@
         rkJggg==
 </value>
   </data>
-  <data name="button_prev.ButtonImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btn_prev.ButtonImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAFMAAABcCAYAAAAS5InVAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAX
         EQAAFxEByibzPwAAAktJREFUeF7tnEFxHEEQBAXBEAzBEAzBEAxBDAzBEAzBEARBEARBEOSpf1/7sbmK
@@ -241,7 +241,7 @@
         H5jj5vZw4s/1AAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="button_next.ButtonImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btn_next.ButtonImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACgAAAAsCAYAAAAXb/p7AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
         EwAACxMBAJqcGAAAAxJJREFUWEe92VmozlscxvFNGS7I0EkuFDKUC3IKIZI6SKYoUYaQlFJKKApFStFJ
@@ -260,7 +260,7 @@
         6fhiPvKkm3prr4+LKnqTUJiWlu/olB6xAtsNCgAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="button_side_length.ButtonImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btn_deter_per.ButtonImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAI0AAACOCAYAAAAMyosLAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAX
         EQAAFxEByibzPwAABVVJREFUeF7t3IGN20YQRuErISWkBJeQElJCSkgHKSElpISUkBJSQkpwCQkHxm8I
@@ -289,7 +289,7 @@
         oduX8jAzlAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="button_all_auto.ButtonImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btn_auto.ButtonImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAHwAAAB8CAYAAACrHtS+AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAX
         EQAAFxEByibzPwAABoVJREFUeF7tnA2x3TYQhR+EQiiEQiiEQiiEMCiEQiiEQCiEQiiEQEj9TeOJx1nf

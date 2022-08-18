@@ -48,11 +48,11 @@ namespace PropInnerImageAnalysis
             this.gswComport = new System.Windows.Forms.Button();
             this.label_SideSample_stat = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.trackbar_fixed_threshold = new System.Windows.Forms.TrackBar();
-            this.textBox_fixed_threshold = new System.Windows.Forms.TextBox();
+            this.tb_threshold = new System.Windows.Forms.TrackBar();
+            this.txt_threshold = new System.Windows.Forms.TextBox();
             this.label85 = new System.Windows.Forms.Label();
             this.pictureBox29 = new System.Windows.Forms.PictureBox();
-            this.button_reset = new System.Windows.Forms.Button();
+            this.btn_reset = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.textBox_sample_count = new System.Windows.Forms.TextBox();
             this.Timer_system = new System.Windows.Forms.Timer(this.components);
@@ -63,6 +63,25 @@ namespace PropInnerImageAnalysis
             this.picBoxCam = new System.Windows.Forms.PictureBox();
             this.label22 = new System.Windows.Forms.Label();
             this.panel_Prop_Select = new System.Windows.Forms.Panel();
+            this.txt_feedcount03_default = new System.Windows.Forms.TextBox();
+            this.txt_feedcount03 = new System.Windows.Forms.TextBox();
+            this.txt_feedcount02_default = new System.Windows.Forms.TextBox();
+            this.txt_feedcount02 = new System.Windows.Forms.TextBox();
+            this.txt_feedcount01_default = new System.Windows.Forms.TextBox();
+            this.txt_feedcount01 = new System.Windows.Forms.TextBox();
+            this.btn_factory_reset = new System.Windows.Forms.Button();
+            this.txt_feedrate03_default = new System.Windows.Forms.TextBox();
+            this.txt_feedrate02_default = new System.Windows.Forms.TextBox();
+            this.txt_feedrate01_default = new System.Windows.Forms.TextBox();
+            this.btn_feedrate03 = new System.Windows.Forms.Button();
+            this.txt_feedrate03 = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.btn_feedrate02 = new System.Windows.Forms.Button();
+            this.txt_feedrate02 = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.btn_feedrate01 = new System.Windows.Forms.Button();
+            this.txt_feedrate01 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.cboProType = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
             this.folderBrowserDialog_working_dir = new System.Windows.Forms.FolderBrowserDialog();
@@ -116,96 +135,89 @@ namespace PropInnerImageAnalysis
             this.lblProcess2 = new System.Windows.Forms.Label();
             this.folderBrowserDialog_load = new System.Windows.Forms.FolderBrowserDialog();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cbo_polish_cnt = new System.Windows.Forms.ComboBox();
-            this.label47 = new System.Windows.Forms.Label();
-            this.textBox_sample_dir = new System.Windows.Forms.TextBox();
-            this.btn_setup_sampledir = new XanderUI.XUIButton();
-            this.btn_save_sample = new XanderUI.XUIButton();
             this.btn_load_sample = new XanderUI.XUIButton();
+            this.label47 = new System.Windows.Forms.Label();
+            this.txt_sample_dir = new System.Windows.Forms.TextBox();
+            this.btn_select_sampledir = new XanderUI.XUIButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblMarkDel = new System.Windows.Forms.Label();
-            this.gswDelMark = new System.Windows.Forms.Button();
-            this.lblSplDel = new System.Windows.Forms.Label();
-            this.gswDelSpl = new System.Windows.Forms.Button();
-            this.xuiButton3 = new XanderUI.XUIButton();
-            this.xuiButton2 = new XanderUI.XUIButton();
-            this.btn_sample_mark = new XanderUI.XUIButton();
-            this.xuiButton1 = new XanderUI.XUIButton();
-            this.btn_Rotate_OrgImg = new XanderUI.XUIButton();
-            this.Button_abandon = new XanderUI.XUIButton();
-            this.button_recgon = new XanderUI.XUIButton();
-            this.button_prev = new XanderUI.XUIButton();
-            this.button_next = new XanderUI.XUIButton();
-            this.button_side_length = new XanderUI.XUIButton();
-            this.button_all_auto = new XanderUI.XUIButton();
+            this.btn_save = new XanderUI.XUIButton();
+            this.btn_measure = new XanderUI.XUIButton();
+            this.btn_adjust = new XanderUI.XUIButton();
+            this.btn_rotate = new XanderUI.XUIButton();
+            this.btn_discard = new XanderUI.XUIButton();
+            this.btn_contour_rec = new XanderUI.XUIButton();
+            this.btn_prev = new XanderUI.XUIButton();
+            this.btn_next = new XanderUI.XUIButton();
+            this.btn_deter_per = new XanderUI.XUIButton();
+            this.btn_auto = new XanderUI.XUIButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btn_load_parafile = new XanderUI.XUIButton();
+            this.btn_save_config = new XanderUI.XUIButton();
             this.label20 = new System.Windows.Forms.Label();
-            this.btn_save_parafile = new XanderUI.XUIButton();
-            this.textBox_parafile = new System.Windows.Forms.TextBox();
-            this.btn_setup_parafile = new XanderUI.XUIButton();
+            this.btn_load_config = new XanderUI.XUIButton();
+            this.txt_config = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.picBox_Origin = new System.Windows.Forms.PictureBox();
+            this.pb_temp07 = new System.Windows.Forms.PictureBox();
+            this.pb_temp06 = new System.Windows.Forms.PictureBox();
+            this.pb_temp05 = new System.Windows.Forms.PictureBox();
+            this.pb_temp04 = new System.Windows.Forms.PictureBox();
+            this.pb_temp03 = new System.Windows.Forms.PictureBox();
+            this.pb_temp02 = new System.Windows.Forms.PictureBox();
+            this.pb_temp01 = new System.Windows.Forms.PictureBox();
+            this.ob_origin = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.lblResultStatus = new System.Windows.Forms.Label();
-            this.gswResult = new System.Windows.Forms.Button();
             this.lblResult = new System.Windows.Forms.Label();
-            this.picBox_Result = new System.Windows.Forms.PictureBox();
+            this.pb_result = new System.Windows.Forms.PictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.txt_enclose_area_unit = new System.Windows.Forms.TextBox();
+            this.txt_enclose_area = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txt_pixel_length_unit = new System.Windows.Forms.TextBox();
+            this.txt_pixel_len = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.txt_2p_measure_unit = new System.Windows.Forms.TextBox();
+            this.txt_2p_measure = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txt_cont_dia_unit = new System.Windows.Forms.TextBox();
+            this.txt_cont_dia = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtUnit_base_area = new System.Windows.Forms.TextBox();
-            this.txtUnit_hole_area = new System.Windows.Forms.TextBox();
-            this.txtUnit_hole_rad = new System.Windows.Forms.TextBox();
-            this.txtRatio = new System.Windows.Forms.TextBox();
+            this.txt_base_area_unit = new System.Windows.Forms.TextBox();
+            this.txt_area_unit = new System.Windows.Forms.TextBox();
+            this.txt_hole_rad_unit = new System.Windows.Forms.TextBox();
+            this.txt_base_ratio = new System.Windows.Forms.TextBox();
             this.textBox15 = new System.Windows.Forms.TextBox();
             this.label49 = new System.Windows.Forms.Label();
-            this.txtBase_Area = new System.Windows.Forms.TextBox();
+            this.txt_base_area = new System.Windows.Forms.TextBox();
             this.label48 = new System.Windows.Forms.Label();
-            this.txtHole_Area = new System.Windows.Forms.TextBox();
+            this.txt_area = new System.Windows.Forms.TextBox();
             this.label46 = new System.Windows.Forms.Label();
-            this.txtHole_Rad = new System.Windows.Forms.TextBox();
+            this.txt_hole_rad = new System.Windows.Forms.TextBox();
             this.label45 = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
-            this.inchBtn = new System.Windows.Forms.RadioButton();
-            this.mmBtn = new System.Windows.Forms.RadioButton();
+            this.rad_unit_inch = new System.Windows.Forms.RadioButton();
+            this.rad_unit_mm = new System.Windows.Forms.RadioButton();
             this.textBox24 = new System.Windows.Forms.TextBox();
             this.label44 = new System.Windows.Forms.Label();
-            this.txt_Log = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.button7 = new System.Windows.Forms.Button();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txt_grindcount = new System.Windows.Forms.TextBox();
+            this.btn_regrind = new System.Windows.Forms.Button();
+            this.btn_return = new System.Windows.Forms.Button();
+            this.btn_sampling = new System.Windows.Forms.Button();
+            this.btn_connect = new System.Windows.Forms.Button();
+            this.pb_rec_result01 = new System.Windows.Forms.PictureBox();
+            this.pb_rec_result02 = new System.Windows.Forms.PictureBox();
+            this.pb_rec_result04 = new System.Windows.Forms.PictureBox();
+            this.pb_rec_result03 = new System.Windows.Forms.PictureBox();
+            this.pb_rec_result06 = new System.Windows.Forms.PictureBox();
+            this.pb_rec_result05 = new System.Windows.Forms.PictureBox();
             this.panel_title.SuspendLayout();
             this.panel_PLC_Com.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackbar_fixed_threshold)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_threshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).BeginInit();
             this.panel_Camera.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxCam)).BeginInit();
@@ -215,12 +227,25 @@ namespace PropInnerImageAnalysis
             this.panel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBox_Origin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_temp07)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_temp06)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_temp05)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_temp04)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_temp03)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_temp02)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_temp01)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ob_origin)).BeginInit();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBox_Result)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_result)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.panel10.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_rec_result01)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_rec_result02)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_rec_result04)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_rec_result03)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_rec_result06)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_rec_result05)).BeginInit();
             this.SuspendLayout();
             // 
             // panel_title
@@ -321,7 +346,7 @@ namespace PropInnerImageAnalysis
             this.lblSingleGrind.BackColor = System.Drawing.Color.Red;
             this.lblSingleGrind.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lblSingleGrind.ForeColor = System.Drawing.Color.White;
-            this.lblSingleGrind.Location = new System.Drawing.Point(216, 34);
+            this.lblSingleGrind.Location = new System.Drawing.Point(4, 34);
             this.lblSingleGrind.Name = "lblSingleGrind";
             this.lblSingleGrind.Size = new System.Drawing.Size(94, 24);
             this.lblSingleGrind.TabIndex = 30;
@@ -333,7 +358,7 @@ namespace PropInnerImageAnalysis
             this.lblAuto.BackColor = System.Drawing.Color.Red;
             this.lblAuto.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lblAuto.ForeColor = System.Drawing.Color.White;
-            this.lblAuto.Location = new System.Drawing.Point(102, 34);
+            this.lblAuto.Location = new System.Drawing.Point(101, 34);
             this.lblAuto.Name = "lblAuto";
             this.lblAuto.Size = new System.Drawing.Size(111, 24);
             this.lblAuto.TabIndex = 29;
@@ -345,7 +370,7 @@ namespace PropInnerImageAnalysis
             this.lblNoGrind.BackColor = System.Drawing.Color.Red;
             this.lblNoGrind.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lblNoGrind.ForeColor = System.Drawing.Color.White;
-            this.lblNoGrind.Location = new System.Drawing.Point(4, 34);
+            this.lblNoGrind.Location = new System.Drawing.Point(215, 34);
             this.lblNoGrind.Name = "lblNoGrind";
             this.lblNoGrind.Size = new System.Drawing.Size(94, 24);
             this.lblNoGrind.TabIndex = 28;
@@ -405,37 +430,37 @@ namespace PropInnerImageAnalysis
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.trackbar_fixed_threshold);
-            this.groupBox2.Controls.Add(this.textBox_fixed_threshold);
+            this.groupBox2.Controls.Add(this.tb_threshold);
+            this.groupBox2.Controls.Add(this.txt_threshold);
             this.groupBox2.Controls.Add(this.label85);
             this.groupBox2.Controls.Add(this.pictureBox29);
-            this.groupBox2.Location = new System.Drawing.Point(2, 680);
+            this.groupBox2.Location = new System.Drawing.Point(2, 678);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(272, 118);
             this.groupBox2.TabIndex = 45;
             this.groupBox2.TabStop = false;
             // 
-            // trackbar_fixed_threshold
+            // tb_threshold
             // 
-            this.trackbar_fixed_threshold.Location = new System.Drawing.Point(5, 69);
-            this.trackbar_fixed_threshold.Maximum = 255;
-            this.trackbar_fixed_threshold.Minimum = 1;
-            this.trackbar_fixed_threshold.Name = "trackbar_fixed_threshold";
-            this.trackbar_fixed_threshold.Size = new System.Drawing.Size(261, 45);
-            this.trackbar_fixed_threshold.TabIndex = 83;
-            this.trackbar_fixed_threshold.Value = 240;
-            this.trackbar_fixed_threshold.ValueChanged += new System.EventHandler(this.trackBar_face_threshold_ValueChanged);
+            this.tb_threshold.Location = new System.Drawing.Point(5, 69);
+            this.tb_threshold.Maximum = 255;
+            this.tb_threshold.Minimum = 1;
+            this.tb_threshold.Name = "tb_threshold";
+            this.tb_threshold.Size = new System.Drawing.Size(261, 45);
+            this.tb_threshold.TabIndex = 83;
+            this.tb_threshold.Value = 240;
+            this.tb_threshold.ValueChanged += new System.EventHandler(this.trackBar_face_threshold_ValueChanged);
             // 
-            // textBox_fixed_threshold
+            // txt_threshold
             // 
-            this.textBox_fixed_threshold.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox_fixed_threshold.Location = new System.Drawing.Point(120, 20);
-            this.textBox_fixed_threshold.Name = "textBox_fixed_threshold";
-            this.textBox_fixed_threshold.Size = new System.Drawing.Size(64, 32);
-            this.textBox_fixed_threshold.TabIndex = 84;
-            this.textBox_fixed_threshold.Text = "240";
-            this.textBox_fixed_threshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox_fixed_threshold.TextChanged += new System.EventHandler(this.textBox_face_Threshold_TextChanged);
+            this.txt_threshold.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_threshold.Location = new System.Drawing.Point(120, 20);
+            this.txt_threshold.Name = "txt_threshold";
+            this.txt_threshold.Size = new System.Drawing.Size(64, 32);
+            this.txt_threshold.TabIndex = 84;
+            this.txt_threshold.Text = "240";
+            this.txt_threshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt_threshold.TextChanged += new System.EventHandler(this.textBox_face_Threshold_TextChanged);
             // 
             // label85
             // 
@@ -458,28 +483,28 @@ namespace PropInnerImageAnalysis
             this.pictureBox29.TabIndex = 6;
             this.pictureBox29.TabStop = false;
             // 
-            // button_reset
+            // btn_reset
             // 
-            this.button_reset.BackColor = System.Drawing.Color.NavajoWhite;
-            this.button_reset.FlatAppearance.BorderSize = 0;
-            this.button_reset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_reset.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button_reset.ForeColor = System.Drawing.Color.Black;
-            this.button_reset.Location = new System.Drawing.Point(63, 634);
-            this.button_reset.Name = "button_reset";
-            this.button_reset.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.button_reset.Size = new System.Drawing.Size(149, 48);
-            this.button_reset.TabIndex = 32;
-            this.button_reset.Text = "辨識重置";
-            this.button_reset.UseVisualStyleBackColor = false;
-            this.button_reset.Click += new System.EventHandler(this.button_reset_Click);
+            this.btn_reset.BackColor = System.Drawing.Color.NavajoWhite;
+            this.btn_reset.FlatAppearance.BorderSize = 0;
+            this.btn_reset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_reset.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_reset.ForeColor = System.Drawing.Color.Black;
+            this.btn_reset.Location = new System.Drawing.Point(63, 534);
+            this.btn_reset.Name = "btn_reset";
+            this.btn_reset.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.btn_reset.Size = new System.Drawing.Size(149, 48);
+            this.btn_reset.TabIndex = 32;
+            this.btn_reset.Text = "辨識重置";
+            this.btn_reset.UseVisualStyleBackColor = false;
+            this.btn_reset.Click += new System.EventHandler(this.button_reset_Click);
             // 
             // label7
             // 
             this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
             this.label7.Font = new System.Drawing.Font("標楷體", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label7.ForeColor = System.Drawing.SystemColors.Info;
-            this.label7.Location = new System.Drawing.Point(5, 4);
+            this.label7.Location = new System.Drawing.Point(5, 3);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(267, 30);
             this.label7.TabIndex = 27;
@@ -582,14 +607,24 @@ namespace PropInnerImageAnalysis
             // panel_Prop_Select
             // 
             this.panel_Prop_Select.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(80)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
-            this.panel_Prop_Select.Controls.Add(this.button7);
-            this.panel_Prop_Select.Controls.Add(this.textBox12);
+            this.panel_Prop_Select.Controls.Add(this.txt_feedcount03_default);
+            this.panel_Prop_Select.Controls.Add(this.txt_feedcount03);
+            this.panel_Prop_Select.Controls.Add(this.txt_feedcount02_default);
+            this.panel_Prop_Select.Controls.Add(this.txt_feedcount02);
+            this.panel_Prop_Select.Controls.Add(this.txt_feedcount01_default);
+            this.panel_Prop_Select.Controls.Add(this.txt_feedcount01);
+            this.panel_Prop_Select.Controls.Add(this.btn_factory_reset);
+            this.panel_Prop_Select.Controls.Add(this.txt_feedrate03_default);
+            this.panel_Prop_Select.Controls.Add(this.txt_feedrate02_default);
+            this.panel_Prop_Select.Controls.Add(this.txt_feedrate01_default);
+            this.panel_Prop_Select.Controls.Add(this.btn_feedrate03);
+            this.panel_Prop_Select.Controls.Add(this.txt_feedrate03);
             this.panel_Prop_Select.Controls.Add(this.label14);
-            this.panel_Prop_Select.Controls.Add(this.button6);
-            this.panel_Prop_Select.Controls.Add(this.textBox11);
+            this.panel_Prop_Select.Controls.Add(this.btn_feedrate02);
+            this.panel_Prop_Select.Controls.Add(this.txt_feedrate02);
             this.panel_Prop_Select.Controls.Add(this.label13);
-            this.panel_Prop_Select.Controls.Add(this.button4);
-            this.panel_Prop_Select.Controls.Add(this.textBox10);
+            this.panel_Prop_Select.Controls.Add(this.btn_feedrate01);
+            this.panel_Prop_Select.Controls.Add(this.txt_feedrate01);
             this.panel_Prop_Select.Controls.Add(this.label9);
             this.panel_Prop_Select.Controls.Add(this.cboProType);
             this.panel_Prop_Select.Controls.Add(this.label24);
@@ -598,6 +633,217 @@ namespace PropInnerImageAnalysis
             this.panel_Prop_Select.Size = new System.Drawing.Size(313, 152);
             this.panel_Prop_Select.TabIndex = 28;
             // 
+            // txt_feedcount03_default
+            // 
+            this.txt_feedcount03_default.BackColor = System.Drawing.Color.YellowGreen;
+            this.txt_feedcount03_default.Enabled = false;
+            this.txt_feedcount03_default.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_feedcount03_default.Location = new System.Drawing.Point(211, 112);
+            this.txt_feedcount03_default.Name = "txt_feedcount03_default";
+            this.txt_feedcount03_default.Size = new System.Drawing.Size(28, 26);
+            this.txt_feedcount03_default.TabIndex = 178;
+            this.txt_feedcount03_default.Text = "99";
+            // 
+            // txt_feedcount03
+            // 
+            this.txt_feedcount03.Enabled = false;
+            this.txt_feedcount03.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_feedcount03.Location = new System.Drawing.Point(242, 112);
+            this.txt_feedcount03.Name = "txt_feedcount03";
+            this.txt_feedcount03.Size = new System.Drawing.Size(27, 26);
+            this.txt_feedcount03.TabIndex = 177;
+            this.txt_feedcount03.Text = "99";
+            // 
+            // txt_feedcount02_default
+            // 
+            this.txt_feedcount02_default.BackColor = System.Drawing.Color.YellowGreen;
+            this.txt_feedcount02_default.Enabled = false;
+            this.txt_feedcount02_default.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_feedcount02_default.Location = new System.Drawing.Point(211, 77);
+            this.txt_feedcount02_default.Name = "txt_feedcount02_default";
+            this.txt_feedcount02_default.Size = new System.Drawing.Size(28, 26);
+            this.txt_feedcount02_default.TabIndex = 176;
+            this.txt_feedcount02_default.Text = "99";
+            // 
+            // txt_feedcount02
+            // 
+            this.txt_feedcount02.Enabled = false;
+            this.txt_feedcount02.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_feedcount02.Location = new System.Drawing.Point(242, 77);
+            this.txt_feedcount02.Name = "txt_feedcount02";
+            this.txt_feedcount02.Size = new System.Drawing.Size(27, 26);
+            this.txt_feedcount02.TabIndex = 175;
+            this.txt_feedcount02.Text = "99";
+            // 
+            // txt_feedcount01_default
+            // 
+            this.txt_feedcount01_default.BackColor = System.Drawing.Color.YellowGreen;
+            this.txt_feedcount01_default.Enabled = false;
+            this.txt_feedcount01_default.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_feedcount01_default.Location = new System.Drawing.Point(212, 43);
+            this.txt_feedcount01_default.Name = "txt_feedcount01_default";
+            this.txt_feedcount01_default.Size = new System.Drawing.Size(28, 26);
+            this.txt_feedcount01_default.TabIndex = 174;
+            this.txt_feedcount01_default.Text = "99";
+            // 
+            // txt_feedcount01
+            // 
+            this.txt_feedcount01.Enabled = false;
+            this.txt_feedcount01.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_feedcount01.Location = new System.Drawing.Point(243, 43);
+            this.txt_feedcount01.Name = "txt_feedcount01";
+            this.txt_feedcount01.Size = new System.Drawing.Size(27, 26);
+            this.txt_feedcount01.TabIndex = 173;
+            this.txt_feedcount01.Text = "99";
+            // 
+            // btn_factory_reset
+            // 
+            this.btn_factory_reset.BackColor = System.Drawing.Color.Yellow;
+            this.btn_factory_reset.Enabled = false;
+            this.btn_factory_reset.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_factory_reset.ForeColor = System.Drawing.Color.Black;
+            this.btn_factory_reset.Location = new System.Drawing.Point(3, 42);
+            this.btn_factory_reset.Name = "btn_factory_reset";
+            this.btn_factory_reset.Size = new System.Drawing.Size(61, 98);
+            this.btn_factory_reset.TabIndex = 172;
+            this.btn_factory_reset.Text = "出廠預設";
+            this.btn_factory_reset.UseVisualStyleBackColor = false;
+            // 
+            // txt_feedrate03_default
+            // 
+            this.txt_feedrate03_default.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.txt_feedrate03_default.Enabled = false;
+            this.txt_feedrate03_default.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_feedrate03_default.Location = new System.Drawing.Point(127, 112);
+            this.txt_feedrate03_default.Name = "txt_feedrate03_default";
+            this.txt_feedrate03_default.Size = new System.Drawing.Size(39, 26);
+            this.txt_feedrate03_default.TabIndex = 171;
+            this.txt_feedrate03_default.Text = "0.99";
+            // 
+            // txt_feedrate02_default
+            // 
+            this.txt_feedrate02_default.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.txt_feedrate02_default.Enabled = false;
+            this.txt_feedrate02_default.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_feedrate02_default.Location = new System.Drawing.Point(127, 77);
+            this.txt_feedrate02_default.Name = "txt_feedrate02_default";
+            this.txt_feedrate02_default.Size = new System.Drawing.Size(39, 26);
+            this.txt_feedrate02_default.TabIndex = 170;
+            this.txt_feedrate02_default.Text = "0.99";
+            // 
+            // txt_feedrate01_default
+            // 
+            this.txt_feedrate01_default.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.txt_feedrate01_default.Enabled = false;
+            this.txt_feedrate01_default.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_feedrate01_default.Location = new System.Drawing.Point(127, 43);
+            this.txt_feedrate01_default.Name = "txt_feedrate01_default";
+            this.txt_feedrate01_default.Size = new System.Drawing.Size(40, 26);
+            this.txt_feedrate01_default.TabIndex = 169;
+            this.txt_feedrate01_default.Text = "0.99";
+            // 
+            // btn_feedrate03
+            // 
+            this.btn_feedrate03.Enabled = false;
+            this.btn_feedrate03.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_feedrate03.ForeColor = System.Drawing.Color.Black;
+            this.btn_feedrate03.Location = new System.Drawing.Point(272, 112);
+            this.btn_feedrate03.Name = "btn_feedrate03";
+            this.btn_feedrate03.Size = new System.Drawing.Size(35, 26);
+            this.btn_feedrate03.TabIndex = 168;
+            this.btn_feedrate03.Text = "寫";
+            this.btn_feedrate03.UseVisualStyleBackColor = true;
+            // 
+            // txt_feedrate03
+            // 
+            this.txt_feedrate03.Enabled = false;
+            this.txt_feedrate03.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_feedrate03.Location = new System.Drawing.Point(169, 112);
+            this.txt_feedrate03.Name = "txt_feedrate03";
+            this.txt_feedrate03.Size = new System.Drawing.Size(39, 26);
+            this.txt_feedrate03.TabIndex = 167;
+            this.txt_feedrate03.Text = "0.99";
+            // 
+            // label14
+            // 
+            this.label14.BackColor = System.Drawing.Color.Gold;
+            this.label14.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label14.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.label14.Location = new System.Drawing.Point(70, 112);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(54, 26);
+            this.label14.TabIndex = 166;
+            this.label14.Text = "再磨";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btn_feedrate02
+            // 
+            this.btn_feedrate02.Enabled = false;
+            this.btn_feedrate02.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_feedrate02.ForeColor = System.Drawing.Color.Black;
+            this.btn_feedrate02.Location = new System.Drawing.Point(272, 77);
+            this.btn_feedrate02.Name = "btn_feedrate02";
+            this.btn_feedrate02.Size = new System.Drawing.Size(35, 26);
+            this.btn_feedrate02.TabIndex = 165;
+            this.btn_feedrate02.Text = "寫";
+            this.btn_feedrate02.UseVisualStyleBackColor = true;
+            // 
+            // txt_feedrate02
+            // 
+            this.txt_feedrate02.Enabled = false;
+            this.txt_feedrate02.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_feedrate02.Location = new System.Drawing.Point(169, 77);
+            this.txt_feedrate02.Name = "txt_feedrate02";
+            this.txt_feedrate02.Size = new System.Drawing.Size(39, 26);
+            this.txt_feedrate02.TabIndex = 164;
+            this.txt_feedrate02.Text = "0.99";
+            // 
+            // label13
+            // 
+            this.label13.BackColor = System.Drawing.Color.Gold;
+            this.label13.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label13.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.label13.Location = new System.Drawing.Point(69, 77);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(55, 26);
+            this.label13.TabIndex = 163;
+            this.label13.Text = "細磨";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btn_feedrate01
+            // 
+            this.btn_feedrate01.Enabled = false;
+            this.btn_feedrate01.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_feedrate01.ForeColor = System.Drawing.Color.Black;
+            this.btn_feedrate01.Location = new System.Drawing.Point(273, 43);
+            this.btn_feedrate01.Name = "btn_feedrate01";
+            this.btn_feedrate01.Size = new System.Drawing.Size(36, 26);
+            this.btn_feedrate01.TabIndex = 162;
+            this.btn_feedrate01.Text = "寫";
+            this.btn_feedrate01.UseVisualStyleBackColor = true;
+            // 
+            // txt_feedrate01
+            // 
+            this.txt_feedrate01.Enabled = false;
+            this.txt_feedrate01.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_feedrate01.Location = new System.Drawing.Point(170, 43);
+            this.txt_feedrate01.Name = "txt_feedrate01";
+            this.txt_feedrate01.Size = new System.Drawing.Size(39, 26);
+            this.txt_feedrate01.TabIndex = 157;
+            this.txt_feedrate01.Text = "0.99";
+            // 
+            // label9
+            // 
+            this.label9.BackColor = System.Drawing.Color.Gold;
+            this.label9.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label9.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.label9.Location = new System.Drawing.Point(70, 43);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(54, 26);
+            this.label9.TabIndex = 35;
+            this.label9.Text = "粗磨";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // cboProType
             // 
             this.cboProType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -605,6 +851,7 @@ namespace PropInnerImageAnalysis
             this.cboProType.Font = new System.Drawing.Font("標楷體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cboProType.FormattingEnabled = true;
             this.cboProType.Items.AddRange(new object[] {
+            "無",
             "B1- 30mm單基單孔",
             "B2- 105mm單基單孔",
             "B3- 7.62mm單基單孔(未光)",
@@ -616,8 +863,7 @@ namespace PropInnerImageAnalysis
             this.cboProType.Name = "cboProType";
             this.cboProType.Size = new System.Drawing.Size(245, 24);
             this.cboProType.TabIndex = 34;
-            this.cboProType.SelectedIndexChanged += new System.EventHandler(this.comboBox_prop_type_SelectedIndexChanged);
-            this.cboProType.Click += new System.EventHandler(this.comboBox_prop_type_Click);
+            this.cboProType.SelectedIndexChanged += new System.EventHandler(this.cboProType_SelectedIndexChanged);
             // 
             // label24
             // 
@@ -626,7 +872,7 @@ namespace PropInnerImageAnalysis
             this.label24.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label24.Location = new System.Drawing.Point(4, 9);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(60, 24);
+            this.label24.Size = new System.Drawing.Size(57, 24);
             this.label24.TabIndex = 27;
             this.label24.Text = "藥型";
             this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -640,7 +886,7 @@ namespace PropInnerImageAnalysis
             this.lbl_Machine_Process.Name = "lbl_Machine_Process";
             this.lbl_Machine_Process.Size = new System.Drawing.Size(301, 30);
             this.lbl_Machine_Process.TabIndex = 27;
-            this.lbl_Machine_Process.Text = "機台運行：研磨前";
+            this.lbl_Machine_Process.Text = "機台運行：未連結";
             this.lbl_Machine_Process.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblProcess0
@@ -1253,33 +1499,43 @@ namespace PropInnerImageAnalysis
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.cbo_polish_cnt);
-            this.groupBox1.Controls.Add(this.label47);
-            this.groupBox1.Controls.Add(this.textBox_sample_dir);
-            this.groupBox1.Controls.Add(this.btn_setup_sampledir);
-            this.groupBox1.Controls.Add(this.btn_save_sample);
             this.groupBox1.Controls.Add(this.btn_load_sample);
-            this.groupBox1.Location = new System.Drawing.Point(4, 538);
+            this.groupBox1.Controls.Add(this.label47);
+            this.groupBox1.Controls.Add(this.txt_sample_dir);
+            this.groupBox1.Controls.Add(this.btn_select_sampledir);
+            this.groupBox1.Location = new System.Drawing.Point(5, 603);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(493, 133);
+            this.groupBox1.Size = new System.Drawing.Size(493, 100);
             this.groupBox1.TabIndex = 44;
             this.groupBox1.TabStop = false;
             // 
-            // cbo_polish_cnt
+            // btn_load_sample
             // 
-            this.cbo_polish_cnt.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbo_polish_cnt.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.cbo_polish_cnt.FormattingEnabled = true;
-            this.cbo_polish_cnt.ItemHeight = 19;
-            this.cbo_polish_cnt.Items.AddRange(new object[] {
-            "第1次研磨",
-            "第2次研磨",
-            "第3次研磨",
-            "第4次研磨"});
-            this.cbo_polish_cnt.Location = new System.Drawing.Point(242, 97);
-            this.cbo_polish_cnt.Name = "cbo_polish_cnt";
-            this.cbo_polish_cnt.Size = new System.Drawing.Size(125, 27);
-            this.cbo_polish_cnt.TabIndex = 90;
+            this.btn_load_sample.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_load_sample.BackgroundColor = System.Drawing.Color.NavajoWhite;
+            this.btn_load_sample.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btn_load_sample.ButtonImage = null;
+            this.btn_load_sample.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
+            this.btn_load_sample.ButtonText = "載入";
+            this.btn_load_sample.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
+            this.btn_load_sample.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
+            this.btn_load_sample.CornerRadius = 2;
+            this.btn_load_sample.Enabled = false;
+            this.btn_load_sample.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_load_sample.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_load_sample.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
+            this.btn_load_sample.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(70)))), ((int)(((byte)(75)))));
+            this.btn_load_sample.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
+            this.btn_load_sample.Location = new System.Drawing.Point(423, 58);
+            this.btn_load_sample.Margin = new System.Windows.Forms.Padding(6);
+            this.btn_load_sample.Name = "btn_load_sample";
+            this.btn_load_sample.Padding = new System.Windows.Forms.Padding(3);
+            this.btn_load_sample.Size = new System.Drawing.Size(64, 33);
+            this.btn_load_sample.TabIndex = 87;
+            this.btn_load_sample.TextColor = System.Drawing.Color.Black;
+            this.btn_load_sample.Vertical_Alignment = System.Drawing.StringAlignment.Center;
             // 
             // label47
             // 
@@ -1290,465 +1546,326 @@ namespace PropInnerImageAnalysis
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(483, 38);
             this.label47.TabIndex = 27;
-            this.label47.Text = "樣本工作目錄與存取";
+            this.label47.Text = "樣本工作目錄";
             this.label47.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox_sample_dir
+            // txt_sample_dir
             // 
-            this.textBox_sample_dir.Font = new System.Drawing.Font("Arial", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox_sample_dir.Location = new System.Drawing.Point(3, 59);
-            this.textBox_sample_dir.Name = "textBox_sample_dir";
-            this.textBox_sample_dir.Size = new System.Drawing.Size(418, 32);
-            this.textBox_sample_dir.TabIndex = 28;
+            this.txt_sample_dir.Font = new System.Drawing.Font("Arial", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_sample_dir.Location = new System.Drawing.Point(4, 60);
+            this.txt_sample_dir.Name = "txt_sample_dir";
+            this.txt_sample_dir.Size = new System.Drawing.Size(340, 32);
+            this.txt_sample_dir.TabIndex = 28;
             // 
-            // btn_setup_sampledir
+            // btn_select_sampledir
             // 
-            this.btn_setup_sampledir.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btn_select_sampledir.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_setup_sampledir.BackgroundColor = System.Drawing.Color.NavajoWhite;
-            this.btn_setup_sampledir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btn_setup_sampledir.ButtonImage = null;
-            this.btn_setup_sampledir.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
-            this.btn_setup_sampledir.ButtonText = "選擇";
-            this.btn_setup_sampledir.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_setup_sampledir.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_setup_sampledir.CornerRadius = 2;
-            this.btn_setup_sampledir.Enabled = false;
-            this.btn_setup_sampledir.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btn_setup_sampledir.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.btn_setup_sampledir.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_setup_sampledir.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(70)))), ((int)(((byte)(75)))));
-            this.btn_setup_sampledir.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
-            this.btn_setup_sampledir.Location = new System.Drawing.Point(423, 59);
-            this.btn_setup_sampledir.Margin = new System.Windows.Forms.Padding(6);
-            this.btn_setup_sampledir.Name = "btn_setup_sampledir";
-            this.btn_setup_sampledir.Padding = new System.Windows.Forms.Padding(3);
-            this.btn_setup_sampledir.Size = new System.Drawing.Size(64, 32);
-            this.btn_setup_sampledir.TabIndex = 86;
-            this.btn_setup_sampledir.TextColor = System.Drawing.Color.Black;
-            this.btn_setup_sampledir.Vertical_Alignment = System.Drawing.StringAlignment.Center;
-            this.btn_setup_sampledir.Click += new System.EventHandler(this.Button_Load_Images_Click);
-            // 
-            // btn_save_sample
-            // 
-            this.btn_save_sample.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_save_sample.BackgroundColor = System.Drawing.Color.NavajoWhite;
-            this.btn_save_sample.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btn_save_sample.ButtonImage = null;
-            this.btn_save_sample.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
-            this.btn_save_sample.ButtonText = "儲存樣本";
-            this.btn_save_sample.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_save_sample.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_save_sample.CornerRadius = 2;
-            this.btn_save_sample.Enabled = false;
-            this.btn_save_sample.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btn_save_sample.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.btn_save_sample.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_save_sample.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(70)))), ((int)(((byte)(75)))));
-            this.btn_save_sample.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
-            this.btn_save_sample.Location = new System.Drawing.Point(3, 97);
-            this.btn_save_sample.Margin = new System.Windows.Forms.Padding(6);
-            this.btn_save_sample.Name = "btn_save_sample";
-            this.btn_save_sample.Padding = new System.Windows.Forms.Padding(3);
-            this.btn_save_sample.Size = new System.Drawing.Size(230, 29);
-            this.btn_save_sample.TabIndex = 87;
-            this.btn_save_sample.TextColor = System.Drawing.Color.Black;
-            this.btn_save_sample.Vertical_Alignment = System.Drawing.StringAlignment.Center;
-            // 
-            // btn_load_sample
-            // 
-            this.btn_load_sample.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_load_sample.BackgroundColor = System.Drawing.Color.Tan;
-            this.btn_load_sample.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btn_load_sample.ButtonImage = null;
-            this.btn_load_sample.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
-            this.btn_load_sample.ButtonText = "載入樣本";
-            this.btn_load_sample.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_load_sample.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_load_sample.CornerRadius = 2;
-            this.btn_load_sample.Enabled = false;
-            this.btn_load_sample.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btn_load_sample.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.btn_load_sample.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_load_sample.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(70)))), ((int)(((byte)(75)))));
-            this.btn_load_sample.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
-            this.btn_load_sample.Location = new System.Drawing.Point(373, 97);
-            this.btn_load_sample.Margin = new System.Windows.Forms.Padding(6);
-            this.btn_load_sample.Name = "btn_load_sample";
-            this.btn_load_sample.Padding = new System.Windows.Forms.Padding(3);
-            this.btn_load_sample.Size = new System.Drawing.Size(114, 27);
-            this.btn_load_sample.TabIndex = 88;
-            this.btn_load_sample.TextColor = System.Drawing.Color.Black;
-            this.btn_load_sample.Vertical_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_select_sampledir.BackgroundColor = System.Drawing.Color.NavajoWhite;
+            this.btn_select_sampledir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btn_select_sampledir.ButtonImage = null;
+            this.btn_select_sampledir.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
+            this.btn_select_sampledir.ButtonText = "選擇";
+            this.btn_select_sampledir.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
+            this.btn_select_sampledir.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
+            this.btn_select_sampledir.CornerRadius = 2;
+            this.btn_select_sampledir.Enabled = false;
+            this.btn_select_sampledir.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_select_sampledir.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_select_sampledir.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
+            this.btn_select_sampledir.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(70)))), ((int)(((byte)(75)))));
+            this.btn_select_sampledir.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
+            this.btn_select_sampledir.Location = new System.Drawing.Point(352, 59);
+            this.btn_select_sampledir.Margin = new System.Windows.Forms.Padding(6);
+            this.btn_select_sampledir.Name = "btn_select_sampledir";
+            this.btn_select_sampledir.Padding = new System.Windows.Forms.Padding(3);
+            this.btn_select_sampledir.Size = new System.Drawing.Size(64, 33);
+            this.btn_select_sampledir.TabIndex = 86;
+            this.btn_select_sampledir.TextColor = System.Drawing.Color.Black;
+            this.btn_select_sampledir.Vertical_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_select_sampledir.Click += new System.EventHandler(this.Button_Load_Images_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(80)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.lblMarkDel);
-            this.panel1.Controls.Add(this.gswDelMark);
-            this.panel1.Controls.Add(this.lblSplDel);
-            this.panel1.Controls.Add(this.gswDelSpl);
-            this.panel1.Controls.Add(this.xuiButton3);
-            this.panel1.Controls.Add(this.xuiButton2);
-            this.panel1.Controls.Add(this.btn_sample_mark);
+            this.panel1.Controls.Add(this.btn_save);
+            this.panel1.Controls.Add(this.btn_measure);
             this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Controls.Add(this.xuiButton1);
-            this.panel1.Controls.Add(this.btn_Rotate_OrgImg);
+            this.panel1.Controls.Add(this.btn_adjust);
+            this.panel1.Controls.Add(this.btn_rotate);
             this.panel1.Controls.Add(this.label_SideSample_stat);
             this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.Button_abandon);
+            this.panel1.Controls.Add(this.btn_discard);
             this.panel1.Controls.Add(this.textBox_sample_count);
-            this.panel1.Controls.Add(this.button_reset);
-            this.panel1.Controls.Add(this.button_recgon);
-            this.panel1.Controls.Add(this.button_prev);
-            this.panel1.Controls.Add(this.button_next);
-            this.panel1.Controls.Add(this.button_side_length);
-            this.panel1.Controls.Add(this.button_all_auto);
-            this.panel1.Location = new System.Drawing.Point(829, 63);
+            this.panel1.Controls.Add(this.btn_reset);
+            this.panel1.Controls.Add(this.btn_contour_rec);
+            this.panel1.Controls.Add(this.btn_prev);
+            this.panel1.Controls.Add(this.btn_next);
+            this.panel1.Controls.Add(this.btn_deter_per);
+            this.panel1.Controls.Add(this.btn_auto);
+            this.panel1.Location = new System.Drawing.Point(829, 66);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(279, 807);
+            this.panel1.Size = new System.Drawing.Size(279, 801);
             this.panel1.TabIndex = 45;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // lblMarkDel
+            // btn_save
             // 
-            this.lblMarkDel.BackColor = System.Drawing.Color.Orange;
-            this.lblMarkDel.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lblMarkDel.ForeColor = System.Drawing.Color.Black;
-            this.lblMarkDel.Location = new System.Drawing.Point(51, 541);
-            this.lblMarkDel.Name = "lblMarkDel";
-            this.lblMarkDel.Size = new System.Drawing.Size(57, 37);
-            this.lblMarkDel.TabIndex = 101;
-            this.lblMarkDel.Text = "現有";
-            this.lblMarkDel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btn_save.BackgroundColor = System.Drawing.Color.NavajoWhite;
+            this.btn_save.ButtonImage = null;
+            this.btn_save.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
+            this.btn_save.ButtonText = "儲存樣本";
+            this.btn_save.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
+            this.btn_save.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
+            this.btn_save.CornerRadius = 5;
+            this.btn_save.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_save.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_save.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
+            this.btn_save.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
+            this.btn_save.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
+            this.btn_save.Location = new System.Drawing.Point(4, 485);
+            this.btn_save.Name = "btn_save";
+            this.btn_save.Size = new System.Drawing.Size(267, 43);
+            this.btn_save.TabIndex = 98;
+            this.btn_save.TextColor = System.Drawing.Color.Black;
+            this.btn_save.Vertical_Alignment = System.Drawing.StringAlignment.Center;
             // 
-            // gswDelMark
+            // btn_measure
             // 
-            this.gswDelMark.BackColor = System.Drawing.Color.Transparent;
-            this.gswDelMark.Enabled = false;
-            this.gswDelMark.FlatAppearance.BorderSize = 0;
-            this.gswDelMark.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            this.gswDelMark.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.gswDelMark.ForeColor = System.Drawing.Color.Black;
-            this.gswDelMark.Image = global::PropInnerImageAnalysis.Properties.Resources.toggle_off;
-            this.gswDelMark.Location = new System.Drawing.Point(10, 538);
-            this.gswDelMark.Name = "gswDelMark";
-            this.gswDelMark.Size = new System.Drawing.Size(38, 42);
-            this.gswDelMark.TabIndex = 100;
-            this.gswDelMark.UseVisualStyleBackColor = false;
-            this.gswDelMark.Click += new System.EventHandler(this.gswDelMark_Click);
+            this.btn_measure.BackgroundColor = System.Drawing.Color.NavajoWhite;
+            this.btn_measure.ButtonImage = global::PropInnerImageAnalysis.Properties.Resources.Measure;
+            this.btn_measure.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
+            this.btn_measure.ButtonText = "自由量測";
+            this.btn_measure.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
+            this.btn_measure.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
+            this.btn_measure.CornerRadius = 5;
+            this.btn_measure.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_measure.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_measure.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
+            this.btn_measure.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
+            this.btn_measure.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
+            this.btn_measure.Location = new System.Drawing.Point(4, 327);
+            this.btn_measure.Name = "btn_measure";
+            this.btn_measure.Size = new System.Drawing.Size(268, 49);
+            this.btn_measure.TabIndex = 97;
+            this.btn_measure.TextColor = System.Drawing.Color.Black;
+            this.btn_measure.Vertical_Alignment = System.Drawing.StringAlignment.Center;
             // 
-            // lblSplDel
+            // btn_adjust
             // 
-            this.lblSplDel.BackColor = System.Drawing.Color.Orange;
-            this.lblSplDel.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lblSplDel.ForeColor = System.Drawing.Color.Black;
-            this.lblSplDel.Location = new System.Drawing.Point(51, 492);
-            this.lblSplDel.Name = "lblSplDel";
-            this.lblSplDel.Size = new System.Drawing.Size(57, 37);
-            this.lblSplDel.TabIndex = 99;
-            this.lblSplDel.Text = "現有";
-            this.lblSplDel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btn_adjust.BackgroundColor = System.Drawing.Color.NavajoWhite;
+            this.btn_adjust.ButtonImage = ((System.Drawing.Image)(resources.GetObject("btn_adjust.ButtonImage")));
+            this.btn_adjust.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
+            this.btn_adjust.ButtonText = "調整辨識結果";
+            this.btn_adjust.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
+            this.btn_adjust.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
+            this.btn_adjust.CornerRadius = 5;
+            this.btn_adjust.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_adjust.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_adjust.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
+            this.btn_adjust.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
+            this.btn_adjust.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
+            this.btn_adjust.Location = new System.Drawing.Point(5, 274);
+            this.btn_adjust.Name = "btn_adjust";
+            this.btn_adjust.Size = new System.Drawing.Size(267, 49);
+            this.btn_adjust.TabIndex = 94;
+            this.btn_adjust.TextColor = System.Drawing.Color.Black;
+            this.btn_adjust.Vertical_Alignment = System.Drawing.StringAlignment.Center;
             // 
-            // gswDelSpl
+            // btn_rotate
             // 
-            this.gswDelSpl.BackColor = System.Drawing.Color.Transparent;
-            this.gswDelSpl.Enabled = false;
-            this.gswDelSpl.FlatAppearance.BorderSize = 0;
-            this.gswDelSpl.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            this.gswDelSpl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.gswDelSpl.ForeColor = System.Drawing.Color.Black;
-            this.gswDelSpl.Image = global::PropInnerImageAnalysis.Properties.Resources.toggle_off;
-            this.gswDelSpl.Location = new System.Drawing.Point(10, 489);
-            this.gswDelSpl.Name = "gswDelSpl";
-            this.gswDelSpl.Size = new System.Drawing.Size(38, 42);
-            this.gswDelSpl.TabIndex = 98;
-            this.gswDelSpl.UseVisualStyleBackColor = false;
-            this.gswDelSpl.Click += new System.EventHandler(this.gswDelSpl_Click);
+            this.btn_rotate.BackgroundColor = System.Drawing.Color.NavajoWhite;
+            this.btn_rotate.ButtonImage = ((System.Drawing.Image)(resources.GetObject("btn_rotate.ButtonImage")));
+            this.btn_rotate.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
+            this.btn_rotate.ButtonText = "旋轉原始影像";
+            this.btn_rotate.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
+            this.btn_rotate.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
+            this.btn_rotate.CornerRadius = 5;
+            this.btn_rotate.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_rotate.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_rotate.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
+            this.btn_rotate.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
+            this.btn_rotate.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
+            this.btn_rotate.Location = new System.Drawing.Point(5, 381);
+            this.btn_rotate.Name = "btn_rotate";
+            this.btn_rotate.Size = new System.Drawing.Size(267, 49);
+            this.btn_rotate.TabIndex = 93;
+            this.btn_rotate.TextColor = System.Drawing.Color.Black;
+            this.btn_rotate.Vertical_Alignment = System.Drawing.StringAlignment.Center;
             // 
-            // xuiButton3
+            // btn_discard
             // 
-            this.xuiButton3.BackgroundColor = System.Drawing.Color.NavajoWhite;
-            this.xuiButton3.ButtonImage = global::PropInnerImageAnalysis.Properties.Resources.Measure;
-            this.xuiButton3.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
-            this.xuiButton3.ButtonText = "自由量測";
-            this.xuiButton3.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
-            this.xuiButton3.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
-            this.xuiButton3.CornerRadius = 5;
-            this.xuiButton3.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.xuiButton3.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.xuiButton3.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
-            this.xuiButton3.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
-            this.xuiButton3.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
-            this.xuiButton3.Location = new System.Drawing.Point(4, 382);
-            this.xuiButton3.Name = "xuiButton3";
-            this.xuiButton3.Size = new System.Drawing.Size(268, 49);
-            this.xuiButton3.TabIndex = 97;
-            this.xuiButton3.TextColor = System.Drawing.Color.Black;
-            this.xuiButton3.Vertical_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_discard.BackgroundColor = System.Drawing.Color.NavajoWhite;
+            this.btn_discard.ButtonImage = null;
+            this.btn_discard.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
+            this.btn_discard.ButtonText = "捨棄樣本";
+            this.btn_discard.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
+            this.btn_discard.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
+            this.btn_discard.CornerRadius = 5;
+            this.btn_discard.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_discard.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_discard.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
+            this.btn_discard.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
+            this.btn_discard.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
+            this.btn_discard.Location = new System.Drawing.Point(5, 436);
+            this.btn_discard.Name = "btn_discard";
+            this.btn_discard.Size = new System.Drawing.Size(267, 43);
+            this.btn_discard.TabIndex = 90;
+            this.btn_discard.TextColor = System.Drawing.Color.Black;
+            this.btn_discard.Vertical_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_discard.Click += new System.EventHandler(this.Button_abandon_Click);
             // 
-            // xuiButton2
+            // btn_contour_rec
             // 
-            this.xuiButton2.BackgroundColor = System.Drawing.Color.NavajoWhite;
-            this.xuiButton2.ButtonImage = null;
-            this.xuiButton2.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
-            this.xuiButton2.ButtonText = "捨棄標示";
-            this.xuiButton2.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
-            this.xuiButton2.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
-            this.xuiButton2.CornerRadius = 5;
-            this.xuiButton2.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.xuiButton2.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.xuiButton2.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
-            this.xuiButton2.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
-            this.xuiButton2.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
-            this.xuiButton2.Location = new System.Drawing.Point(110, 538);
-            this.xuiButton2.Name = "xuiButton2";
-            this.xuiButton2.Size = new System.Drawing.Size(158, 44);
-            this.xuiButton2.TabIndex = 96;
-            this.xuiButton2.TextColor = System.Drawing.Color.Black;
-            this.xuiButton2.Vertical_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_contour_rec.BackgroundColor = System.Drawing.Color.NavajoWhite;
+            this.btn_contour_rec.ButtonImage = ((System.Drawing.Image)(resources.GetObject("btn_contour_rec.ButtonImage")));
+            this.btn_contour_rec.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
+            this.btn_contour_rec.ButtonText = "輪廓與孔洞辨識";
+            this.btn_contour_rec.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
+            this.btn_contour_rec.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
+            this.btn_contour_rec.CornerRadius = 5;
+            this.btn_contour_rec.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_contour_rec.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_contour_rec.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
+            this.btn_contour_rec.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
+            this.btn_contour_rec.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
+            this.btn_contour_rec.Location = new System.Drawing.Point(5, 173);
+            this.btn_contour_rec.Name = "btn_contour_rec";
+            this.btn_contour_rec.Size = new System.Drawing.Size(267, 43);
+            this.btn_contour_rec.TabIndex = 33;
+            this.btn_contour_rec.TextColor = System.Drawing.Color.Black;
+            this.btn_contour_rec.Vertical_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_contour_rec.Click += new System.EventHandler(this.button_recogn_Click);
             // 
-            // btn_sample_mark
+            // btn_prev
             // 
-            this.btn_sample_mark.BackgroundColor = System.Drawing.Color.NavajoWhite;
-            this.btn_sample_mark.ButtonImage = global::PropInnerImageAnalysis.Properties.Resources.Inspect;
-            this.btn_sample_mark.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
-            this.btn_sample_mark.ButtonText = "樣本標示";
-            this.btn_sample_mark.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
-            this.btn_sample_mark.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
-            this.btn_sample_mark.CornerRadius = 5;
-            this.btn_sample_mark.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btn_sample_mark.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.btn_sample_mark.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
-            this.btn_sample_mark.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
-            this.btn_sample_mark.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
-            this.btn_sample_mark.Location = new System.Drawing.Point(4, 328);
-            this.btn_sample_mark.Name = "btn_sample_mark";
-            this.btn_sample_mark.Size = new System.Drawing.Size(268, 49);
-            this.btn_sample_mark.TabIndex = 95;
-            this.btn_sample_mark.TextColor = System.Drawing.Color.Black;
-            this.btn_sample_mark.Vertical_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_prev.BackgroundColor = System.Drawing.Color.NavajoWhite;
+            this.btn_prev.ButtonImage = ((System.Drawing.Image)(resources.GetObject("btn_prev.ButtonImage")));
+            this.btn_prev.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
+            this.btn_prev.ButtonText = "";
+            this.btn_prev.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
+            this.btn_prev.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
+            this.btn_prev.CornerRadius = 5;
+            this.btn_prev.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.btn_prev.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_prev.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
+            this.btn_prev.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
+            this.btn_prev.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
+            this.btn_prev.Location = new System.Drawing.Point(4, 534);
+            this.btn_prev.Name = "btn_prev";
+            this.btn_prev.Size = new System.Drawing.Size(53, 48);
+            this.btn_prev.TabIndex = 34;
+            this.btn_prev.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
+            this.btn_prev.Vertical_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_prev.Click += new System.EventHandler(this.button_prev_Click);
             // 
-            // xuiButton1
+            // btn_next
             // 
-            this.xuiButton1.BackgroundColor = System.Drawing.Color.NavajoWhite;
-            this.xuiButton1.ButtonImage = ((System.Drawing.Image)(resources.GetObject("xuiButton1.ButtonImage")));
-            this.xuiButton1.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
-            this.xuiButton1.ButtonText = "調整辨識結果";
-            this.xuiButton1.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
-            this.xuiButton1.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
-            this.xuiButton1.CornerRadius = 5;
-            this.xuiButton1.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.xuiButton1.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.xuiButton1.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
-            this.xuiButton1.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
-            this.xuiButton1.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
-            this.xuiButton1.Location = new System.Drawing.Point(5, 274);
-            this.xuiButton1.Name = "xuiButton1";
-            this.xuiButton1.Size = new System.Drawing.Size(267, 49);
-            this.xuiButton1.TabIndex = 94;
-            this.xuiButton1.TextColor = System.Drawing.Color.Black;
-            this.xuiButton1.Vertical_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_next.BackgroundColor = System.Drawing.Color.NavajoWhite;
+            this.btn_next.ButtonImage = ((System.Drawing.Image)(resources.GetObject("btn_next.ButtonImage")));
+            this.btn_next.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
+            this.btn_next.ButtonText = "";
+            this.btn_next.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
+            this.btn_next.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
+            this.btn_next.CornerRadius = 5;
+            this.btn_next.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.btn_next.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_next.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
+            this.btn_next.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
+            this.btn_next.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
+            this.btn_next.Location = new System.Drawing.Point(218, 534);
+            this.btn_next.Name = "btn_next";
+            this.btn_next.Size = new System.Drawing.Size(53, 48);
+            this.btn_next.TabIndex = 36;
+            this.btn_next.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
+            this.btn_next.Vertical_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_next.Click += new System.EventHandler(this.button_next_Click);
             // 
-            // btn_Rotate_OrgImg
+            // btn_deter_per
             // 
-            this.btn_Rotate_OrgImg.BackgroundColor = System.Drawing.Color.NavajoWhite;
-            this.btn_Rotate_OrgImg.ButtonImage = ((System.Drawing.Image)(resources.GetObject("btn_Rotate_OrgImg.ButtonImage")));
-            this.btn_Rotate_OrgImg.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
-            this.btn_Rotate_OrgImg.ButtonText = "旋轉原始影像";
-            this.btn_Rotate_OrgImg.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
-            this.btn_Rotate_OrgImg.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
-            this.btn_Rotate_OrgImg.CornerRadius = 5;
-            this.btn_Rotate_OrgImg.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btn_Rotate_OrgImg.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.btn_Rotate_OrgImg.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
-            this.btn_Rotate_OrgImg.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
-            this.btn_Rotate_OrgImg.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
-            this.btn_Rotate_OrgImg.Location = new System.Drawing.Point(5, 436);
-            this.btn_Rotate_OrgImg.Name = "btn_Rotate_OrgImg";
-            this.btn_Rotate_OrgImg.Size = new System.Drawing.Size(267, 49);
-            this.btn_Rotate_OrgImg.TabIndex = 93;
-            this.btn_Rotate_OrgImg.TextColor = System.Drawing.Color.Black;
-            this.btn_Rotate_OrgImg.Vertical_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_deter_per.BackgroundColor = System.Drawing.Color.NavajoWhite;
+            this.btn_deter_per.ButtonImage = ((System.Drawing.Image)(resources.GetObject("btn_deter_per.ButtonImage")));
+            this.btn_deter_per.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
+            this.btn_deter_per.ButtonText = "包面比例辨識";
+            this.btn_deter_per.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
+            this.btn_deter_per.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
+            this.btn_deter_per.CornerRadius = 5;
+            this.btn_deter_per.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_deter_per.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_deter_per.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
+            this.btn_deter_per.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
+            this.btn_deter_per.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
+            this.btn_deter_per.Location = new System.Drawing.Point(5, 221);
+            this.btn_deter_per.Name = "btn_deter_per";
+            this.btn_deter_per.Size = new System.Drawing.Size(267, 48);
+            this.btn_deter_per.TabIndex = 37;
+            this.btn_deter_per.TextColor = System.Drawing.Color.Black;
+            this.btn_deter_per.Vertical_Alignment = System.Drawing.StringAlignment.Center;
             // 
-            // Button_abandon
+            // btn_auto
             // 
-            this.Button_abandon.BackgroundColor = System.Drawing.Color.NavajoWhite;
-            this.Button_abandon.ButtonImage = null;
-            this.Button_abandon.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
-            this.Button_abandon.ButtonText = "捨棄樣本";
-            this.Button_abandon.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
-            this.Button_abandon.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
-            this.Button_abandon.CornerRadius = 5;
-            this.Button_abandon.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Button_abandon.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.Button_abandon.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
-            this.Button_abandon.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
-            this.Button_abandon.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
-            this.Button_abandon.Location = new System.Drawing.Point(110, 489);
-            this.Button_abandon.Name = "Button_abandon";
-            this.Button_abandon.Size = new System.Drawing.Size(158, 43);
-            this.Button_abandon.TabIndex = 90;
-            this.Button_abandon.TextColor = System.Drawing.Color.Black;
-            this.Button_abandon.Vertical_Alignment = System.Drawing.StringAlignment.Center;
-            this.Button_abandon.Click += new System.EventHandler(this.Button_abandon_Click);
-            // 
-            // button_recgon
-            // 
-            this.button_recgon.BackgroundColor = System.Drawing.Color.NavajoWhite;
-            this.button_recgon.ButtonImage = ((System.Drawing.Image)(resources.GetObject("button_recgon.ButtonImage")));
-            this.button_recgon.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
-            this.button_recgon.ButtonText = "輪廓與孔洞辨識";
-            this.button_recgon.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
-            this.button_recgon.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
-            this.button_recgon.CornerRadius = 5;
-            this.button_recgon.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button_recgon.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.button_recgon.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
-            this.button_recgon.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
-            this.button_recgon.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
-            this.button_recgon.Location = new System.Drawing.Point(5, 173);
-            this.button_recgon.Name = "button_recgon";
-            this.button_recgon.Size = new System.Drawing.Size(267, 43);
-            this.button_recgon.TabIndex = 33;
-            this.button_recgon.TextColor = System.Drawing.Color.Black;
-            this.button_recgon.Vertical_Alignment = System.Drawing.StringAlignment.Center;
-            this.button_recgon.Click += new System.EventHandler(this.button_recogn_Click);
-            // 
-            // button_prev
-            // 
-            this.button_prev.BackgroundColor = System.Drawing.Color.NavajoWhite;
-            this.button_prev.ButtonImage = ((System.Drawing.Image)(resources.GetObject("button_prev.ButtonImage")));
-            this.button_prev.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
-            this.button_prev.ButtonText = "";
-            this.button_prev.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
-            this.button_prev.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
-            this.button_prev.CornerRadius = 5;
-            this.button_prev.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.button_prev.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.button_prev.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
-            this.button_prev.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
-            this.button_prev.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
-            this.button_prev.Location = new System.Drawing.Point(6, 634);
-            this.button_prev.Name = "button_prev";
-            this.button_prev.Size = new System.Drawing.Size(53, 48);
-            this.button_prev.TabIndex = 34;
-            this.button_prev.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.button_prev.Vertical_Alignment = System.Drawing.StringAlignment.Center;
-            this.button_prev.Click += new System.EventHandler(this.button_prev_Click);
-            // 
-            // button_next
-            // 
-            this.button_next.BackgroundColor = System.Drawing.Color.NavajoWhite;
-            this.button_next.ButtonImage = ((System.Drawing.Image)(resources.GetObject("button_next.ButtonImage")));
-            this.button_next.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
-            this.button_next.ButtonText = "";
-            this.button_next.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
-            this.button_next.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
-            this.button_next.CornerRadius = 5;
-            this.button_next.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.button_next.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.button_next.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
-            this.button_next.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
-            this.button_next.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
-            this.button_next.Location = new System.Drawing.Point(217, 634);
-            this.button_next.Name = "button_next";
-            this.button_next.Size = new System.Drawing.Size(53, 48);
-            this.button_next.TabIndex = 36;
-            this.button_next.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.button_next.Vertical_Alignment = System.Drawing.StringAlignment.Center;
-            this.button_next.Click += new System.EventHandler(this.button_next_Click);
-            // 
-            // button_side_length
-            // 
-            this.button_side_length.BackgroundColor = System.Drawing.Color.NavajoWhite;
-            this.button_side_length.ButtonImage = ((System.Drawing.Image)(resources.GetObject("button_side_length.ButtonImage")));
-            this.button_side_length.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
-            this.button_side_length.ButtonText = "包面比例辨識";
-            this.button_side_length.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
-            this.button_side_length.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
-            this.button_side_length.CornerRadius = 5;
-            this.button_side_length.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button_side_length.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.button_side_length.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
-            this.button_side_length.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
-            this.button_side_length.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
-            this.button_side_length.Location = new System.Drawing.Point(5, 221);
-            this.button_side_length.Name = "button_side_length";
-            this.button_side_length.Size = new System.Drawing.Size(267, 48);
-            this.button_side_length.TabIndex = 37;
-            this.button_side_length.TextColor = System.Drawing.Color.Black;
-            this.button_side_length.Vertical_Alignment = System.Drawing.StringAlignment.Center;
-            // 
-            // button_all_auto
-            // 
-            this.button_all_auto.BackgroundColor = System.Drawing.Color.NavajoWhite;
-            this.button_all_auto.ButtonImage = ((System.Drawing.Image)(resources.GetObject("button_all_auto.ButtonImage")));
-            this.button_all_auto.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
-            this.button_all_auto.ButtonText = "全自動辨識";
-            this.button_all_auto.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
-            this.button_all_auto.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
-            this.button_all_auto.CornerRadius = 5;
-            this.button_all_auto.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button_all_auto.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.button_all_auto.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
-            this.button_all_auto.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
-            this.button_all_auto.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
-            this.button_all_auto.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.button_all_auto.Location = new System.Drawing.Point(5, 124);
-            this.button_all_auto.Name = "button_all_auto";
-            this.button_all_auto.Size = new System.Drawing.Size(267, 44);
-            this.button_all_auto.TabIndex = 38;
-            this.button_all_auto.TextColor = System.Drawing.Color.Black;
-            this.button_all_auto.Vertical_Alignment = System.Drawing.StringAlignment.Center;
-            this.button_all_auto.Click += new System.EventHandler(this.button_all_auto_Click);
+            this.btn_auto.BackgroundColor = System.Drawing.Color.NavajoWhite;
+            this.btn_auto.ButtonImage = ((System.Drawing.Image)(resources.GetObject("btn_auto.ButtonImage")));
+            this.btn_auto.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
+            this.btn_auto.ButtonText = "全自動辨識";
+            this.btn_auto.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
+            this.btn_auto.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(130)))), ((int)(((byte)(140)))));
+            this.btn_auto.CornerRadius = 5;
+            this.btn_auto.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_auto.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_auto.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
+            this.btn_auto.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
+            this.btn_auto.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
+            this.btn_auto.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.btn_auto.Location = new System.Drawing.Point(5, 124);
+            this.btn_auto.Name = "btn_auto";
+            this.btn_auto.Size = new System.Drawing.Size(267, 44);
+            this.btn_auto.TabIndex = 38;
+            this.btn_auto.TextColor = System.Drawing.Color.Black;
+            this.btn_auto.Vertical_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_auto.Click += new System.EventHandler(this.button_all_auto_Click);
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.btn_load_parafile);
+            this.groupBox4.Controls.Add(this.btn_save_config);
             this.groupBox4.Controls.Add(this.label20);
-            this.groupBox4.Controls.Add(this.btn_save_parafile);
-            this.groupBox4.Controls.Add(this.textBox_parafile);
-            this.groupBox4.Controls.Add(this.btn_setup_parafile);
-            this.groupBox4.Location = new System.Drawing.Point(2, 676);
+            this.groupBox4.Controls.Add(this.btn_load_config);
+            this.groupBox4.Controls.Add(this.txt_config);
+            this.groupBox4.Location = new System.Drawing.Point(3, 707);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(496, 127);
+            this.groupBox4.Size = new System.Drawing.Size(496, 94);
             this.groupBox4.TabIndex = 89;
             this.groupBox4.TabStop = false;
             // 
-            // btn_load_parafile
+            // btn_save_config
             // 
-            this.btn_load_parafile.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btn_save_config.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_load_parafile.BackgroundColor = System.Drawing.Color.BurlyWood;
-            this.btn_load_parafile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btn_load_parafile.ButtonImage = null;
-            this.btn_load_parafile.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
-            this.btn_load_parafile.ButtonText = "載入參數";
-            this.btn_load_parafile.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_load_parafile.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_load_parafile.CornerRadius = 2;
-            this.btn_load_parafile.Enabled = false;
-            this.btn_load_parafile.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btn_load_parafile.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.btn_load_parafile.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_load_parafile.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(70)))), ((int)(((byte)(75)))));
-            this.btn_load_parafile.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
-            this.btn_load_parafile.Location = new System.Drawing.Point(286, 83);
-            this.btn_load_parafile.Margin = new System.Windows.Forms.Padding(6);
-            this.btn_load_parafile.Name = "btn_load_parafile";
-            this.btn_load_parafile.Padding = new System.Windows.Forms.Padding(3);
-            this.btn_load_parafile.Size = new System.Drawing.Size(206, 41);
-            this.btn_load_parafile.TabIndex = 88;
-            this.btn_load_parafile.TextColor = System.Drawing.Color.Black;
-            this.btn_load_parafile.Vertical_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_save_config.BackgroundColor = System.Drawing.Color.Peru;
+            this.btn_save_config.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btn_save_config.ButtonImage = null;
+            this.btn_save_config.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
+            this.btn_save_config.ButtonText = "儲存";
+            this.btn_save_config.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
+            this.btn_save_config.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
+            this.btn_save_config.CornerRadius = 2;
+            this.btn_save_config.Enabled = false;
+            this.btn_save_config.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_save_config.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_save_config.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
+            this.btn_save_config.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(70)))), ((int)(((byte)(75)))));
+            this.btn_save_config.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
+            this.btn_save_config.Location = new System.Drawing.Point(423, 50);
+            this.btn_save_config.Margin = new System.Windows.Forms.Padding(6);
+            this.btn_save_config.Name = "btn_save_config";
+            this.btn_save_config.Padding = new System.Windows.Forms.Padding(3);
+            this.btn_save_config.Size = new System.Drawing.Size(67, 35);
+            this.btn_save_config.TabIndex = 87;
+            this.btn_save_config.TextColor = System.Drawing.Color.Black;
+            this.btn_save_config.Vertical_Alignment = System.Drawing.StringAlignment.Center;
             // 
             // label20
             // 
@@ -1759,72 +1876,47 @@ namespace PropInnerImageAnalysis
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(486, 29);
             this.label20.TabIndex = 27;
-            this.label20.Text = "參數檔案與存取";
+            this.label20.Text = "系統參數檔案";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btn_save_parafile
+            // btn_load_config
             // 
-            this.btn_save_parafile.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btn_load_config.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_save_parafile.BackgroundColor = System.Drawing.Color.Peru;
-            this.btn_save_parafile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btn_save_parafile.ButtonImage = null;
-            this.btn_save_parafile.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
-            this.btn_save_parafile.ButtonText = "儲存參數";
-            this.btn_save_parafile.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_save_parafile.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_save_parafile.CornerRadius = 2;
-            this.btn_save_parafile.Enabled = false;
-            this.btn_save_parafile.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btn_save_parafile.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.btn_save_parafile.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_save_parafile.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(70)))), ((int)(((byte)(75)))));
-            this.btn_save_parafile.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
-            this.btn_save_parafile.Location = new System.Drawing.Point(4, 83);
-            this.btn_save_parafile.Margin = new System.Windows.Forms.Padding(6);
-            this.btn_save_parafile.Name = "btn_save_parafile";
-            this.btn_save_parafile.Padding = new System.Windows.Forms.Padding(3);
-            this.btn_save_parafile.Size = new System.Drawing.Size(281, 41);
-            this.btn_save_parafile.TabIndex = 87;
-            this.btn_save_parafile.TextColor = System.Drawing.Color.Black;
-            this.btn_save_parafile.Vertical_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_load_config.BackgroundColor = System.Drawing.Color.Peru;
+            this.btn_load_config.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btn_load_config.ButtonImage = null;
+            this.btn_load_config.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
+            this.btn_load_config.ButtonText = "載入";
+            this.btn_load_config.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
+            this.btn_load_config.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
+            this.btn_load_config.CornerRadius = 2;
+            this.btn_load_config.Enabled = false;
+            this.btn_load_config.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_load_config.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_load_config.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
+            this.btn_load_config.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(70)))), ((int)(((byte)(75)))));
+            this.btn_load_config.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
+            this.btn_load_config.Location = new System.Drawing.Point(351, 50);
+            this.btn_load_config.Margin = new System.Windows.Forms.Padding(6);
+            this.btn_load_config.Name = "btn_load_config";
+            this.btn_load_config.Padding = new System.Windows.Forms.Padding(3);
+            this.btn_load_config.Size = new System.Drawing.Size(67, 35);
+            this.btn_load_config.TabIndex = 86;
+            this.btn_load_config.TextColor = System.Drawing.Color.Black;
+            this.btn_load_config.Vertical_Alignment = System.Drawing.StringAlignment.Center;
+            this.btn_load_config.Click += new System.EventHandler(this.btn_load_config_Click);
             // 
-            // textBox_parafile
+            // txt_config
             // 
-            this.textBox_parafile.Font = new System.Drawing.Font("Arial", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox_parafile.Location = new System.Drawing.Point(3, 47);
-            this.textBox_parafile.Name = "textBox_parafile";
-            this.textBox_parafile.Size = new System.Drawing.Size(420, 32);
-            this.textBox_parafile.TabIndex = 28;
-            // 
-            // btn_setup_parafile
-            // 
-            this.btn_setup_parafile.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_setup_parafile.BackgroundColor = System.Drawing.Color.Peru;
-            this.btn_setup_parafile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btn_setup_parafile.ButtonImage = null;
-            this.btn_setup_parafile.ButtonStyle = XanderUI.XUIButton.Style.MaterialRounded;
-            this.btn_setup_parafile.ButtonText = "選擇";
-            this.btn_setup_parafile.ClickBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_setup_parafile.ClickTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_setup_parafile.CornerRadius = 2;
-            this.btn_setup_parafile.Enabled = false;
-            this.btn_setup_parafile.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btn_setup_parafile.Horizontal_Alignment = System.Drawing.StringAlignment.Center;
-            this.btn_setup_parafile.HoverBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(200)))), ((int)(((byte)(185)))));
-            this.btn_setup_parafile.HoverTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(70)))), ((int)(((byte)(75)))));
-            this.btn_setup_parafile.ImagePosition = XanderUI.XUIButton.imgPosition.Left;
-            this.btn_setup_parafile.Location = new System.Drawing.Point(425, 47);
-            this.btn_setup_parafile.Margin = new System.Windows.Forms.Padding(6);
-            this.btn_setup_parafile.Name = "btn_setup_parafile";
-            this.btn_setup_parafile.Padding = new System.Windows.Forms.Padding(3);
-            this.btn_setup_parafile.Size = new System.Drawing.Size(67, 33);
-            this.btn_setup_parafile.TabIndex = 86;
-            this.btn_setup_parafile.TextColor = System.Drawing.Color.Black;
-            this.btn_setup_parafile.Vertical_Alignment = System.Drawing.StringAlignment.Center;
+            this.txt_config.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.txt_config.Enabled = false;
+            this.txt_config.Font = new System.Drawing.Font("Arial", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_config.Location = new System.Drawing.Point(5, 51);
+            this.txt_config.Name = "txt_config";
+            this.txt_config.Size = new System.Drawing.Size(339, 32);
+            this.txt_config.TabIndex = 28;
             // 
             // label2
             // 
@@ -1835,13 +1927,20 @@ namespace PropInnerImageAnalysis
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(494, 30);
             this.label2.TabIndex = 40;
-            this.label2.Text = "原始影像取樣";
+            this.label2.Text = "原始取樣影像";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.pb_temp07);
+            this.panel3.Controls.Add(this.pb_temp06);
+            this.panel3.Controls.Add(this.pb_temp05);
+            this.panel3.Controls.Add(this.pb_temp04);
+            this.panel3.Controls.Add(this.pb_temp03);
+            this.panel3.Controls.Add(this.pb_temp02);
+            this.panel3.Controls.Add(this.pb_temp01);
             this.panel3.Controls.Add(this.label2);
-            this.panel3.Controls.Add(this.picBox_Origin);
+            this.panel3.Controls.Add(this.ob_origin);
             this.panel3.Controls.Add(this.groupBox4);
             this.panel3.Controls.Add(this.groupBox1);
             this.panel3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -1850,54 +1949,103 @@ namespace PropInnerImageAnalysis
             this.panel3.Size = new System.Drawing.Size(501, 808);
             this.panel3.TabIndex = 46;
             // 
-            // picBox_Origin
+            // pb_temp07
             // 
-            this.picBox_Origin.ErrorImage = null;
-            this.picBox_Origin.InitialImage = null;
-            this.picBox_Origin.Location = new System.Drawing.Point(3, 37);
-            this.picBox_Origin.Name = "picBox_Origin";
-            this.picBox_Origin.Size = new System.Drawing.Size(500, 500);
-            this.picBox_Origin.TabIndex = 34;
-            this.picBox_Origin.TabStop = false;
+            this.pb_temp07.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pb_temp07.ErrorImage = null;
+            this.pb_temp07.InitialImage = null;
+            this.pb_temp07.Location = new System.Drawing.Point(432, 543);
+            this.pb_temp07.Name = "pb_temp07";
+            this.pb_temp07.Size = new System.Drawing.Size(60, 60);
+            this.pb_temp07.TabIndex = 96;
+            this.pb_temp07.TabStop = false;
+            // 
+            // pb_temp06
+            // 
+            this.pb_temp06.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pb_temp06.ErrorImage = null;
+            this.pb_temp06.InitialImage = null;
+            this.pb_temp06.Location = new System.Drawing.Point(361, 543);
+            this.pb_temp06.Name = "pb_temp06";
+            this.pb_temp06.Size = new System.Drawing.Size(60, 60);
+            this.pb_temp06.TabIndex = 95;
+            this.pb_temp06.TabStop = false;
+            // 
+            // pb_temp05
+            // 
+            this.pb_temp05.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pb_temp05.ErrorImage = null;
+            this.pb_temp05.InitialImage = null;
+            this.pb_temp05.Location = new System.Drawing.Point(290, 543);
+            this.pb_temp05.Name = "pb_temp05";
+            this.pb_temp05.Size = new System.Drawing.Size(60, 60);
+            this.pb_temp05.TabIndex = 94;
+            this.pb_temp05.TabStop = false;
+            // 
+            // pb_temp04
+            // 
+            this.pb_temp04.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pb_temp04.ErrorImage = null;
+            this.pb_temp04.InitialImage = null;
+            this.pb_temp04.Location = new System.Drawing.Point(219, 543);
+            this.pb_temp04.Name = "pb_temp04";
+            this.pb_temp04.Size = new System.Drawing.Size(60, 60);
+            this.pb_temp04.TabIndex = 93;
+            this.pb_temp04.TabStop = false;
+            // 
+            // pb_temp03
+            // 
+            this.pb_temp03.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pb_temp03.ErrorImage = null;
+            this.pb_temp03.InitialImage = null;
+            this.pb_temp03.Location = new System.Drawing.Point(148, 543);
+            this.pb_temp03.Name = "pb_temp03";
+            this.pb_temp03.Size = new System.Drawing.Size(60, 60);
+            this.pb_temp03.TabIndex = 92;
+            this.pb_temp03.TabStop = false;
+            // 
+            // pb_temp02
+            // 
+            this.pb_temp02.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pb_temp02.ErrorImage = null;
+            this.pb_temp02.InitialImage = null;
+            this.pb_temp02.Location = new System.Drawing.Point(77, 543);
+            this.pb_temp02.Name = "pb_temp02";
+            this.pb_temp02.Size = new System.Drawing.Size(60, 60);
+            this.pb_temp02.TabIndex = 91;
+            this.pb_temp02.TabStop = false;
+            // 
+            // pb_temp01
+            // 
+            this.pb_temp01.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pb_temp01.ErrorImage = null;
+            this.pb_temp01.InitialImage = null;
+            this.pb_temp01.Location = new System.Drawing.Point(6, 543);
+            this.pb_temp01.Name = "pb_temp01";
+            this.pb_temp01.Size = new System.Drawing.Size(60, 60);
+            this.pb_temp01.TabIndex = 90;
+            this.pb_temp01.TabStop = false;
+            // 
+            // ob_origin
+            // 
+            this.ob_origin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ob_origin.ErrorImage = null;
+            this.ob_origin.InitialImage = null;
+            this.ob_origin.Location = new System.Drawing.Point(0, 37);
+            this.ob_origin.Name = "ob_origin";
+            this.ob_origin.Size = new System.Drawing.Size(500, 500);
+            this.ob_origin.TabIndex = 34;
+            this.ob_origin.TabStop = false;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.lblResultStatus);
-            this.panel2.Controls.Add(this.gswResult);
             this.panel2.Controls.Add(this.lblResult);
-            this.panel2.Controls.Add(this.picBox_Result);
+            this.panel2.Controls.Add(this.pb_result);
             this.panel2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.panel2.Location = new System.Drawing.Point(1110, 64);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(810, 840);
+            this.panel2.Size = new System.Drawing.Size(810, 834);
             this.panel2.TabIndex = 47;
-            // 
-            // lblResultStatus
-            // 
-            this.lblResultStatus.AutoSize = true;
-            this.lblResultStatus.BackColor = System.Drawing.Color.Red;
-            this.lblResultStatus.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResultStatus.ForeColor = System.Drawing.Color.White;
-            this.lblResultStatus.Location = new System.Drawing.Point(765, 9);
-            this.lblResultStatus.Name = "lblResultStatus";
-            this.lblResultStatus.Size = new System.Drawing.Size(39, 19);
-            this.lblResultStatus.TabIndex = 48;
-            this.lblResultStatus.Text = "OFF";
-            this.lblResultStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // gswResult
-            // 
-            this.gswResult.BackColor = System.Drawing.Color.Transparent;
-            this.gswResult.FlatAppearance.BorderSize = 0;
-            this.gswResult.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            this.gswResult.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.gswResult.ForeColor = System.Drawing.Color.Black;
-            this.gswResult.Image = global::PropInnerImageAnalysis.Properties.Resources.toggle_off;
-            this.gswResult.Location = new System.Drawing.Point(712, 3);
-            this.gswResult.Name = "gswResult";
-            this.gswResult.Size = new System.Drawing.Size(51, 28);
-            this.gswResult.TabIndex = 47;
-            this.gswResult.UseVisualStyleBackColor = false;
             // 
             // lblResult
             // 
@@ -1906,76 +2054,77 @@ namespace PropInnerImageAnalysis
             this.lblResult.ForeColor = System.Drawing.SystemColors.Desktop;
             this.lblResult.Location = new System.Drawing.Point(3, 2);
             this.lblResult.Name = "lblResult";
-            this.lblResult.Size = new System.Drawing.Size(703, 30);
+            this.lblResult.Size = new System.Drawing.Size(800, 30);
             this.lblResult.TabIndex = 40;
             this.lblResult.Text = "影像辨識結果";
             this.lblResult.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // picBox_Result
+            // pb_result
             // 
-            this.picBox_Result.ErrorImage = null;
-            this.picBox_Result.InitialImage = null;
-            this.picBox_Result.Location = new System.Drawing.Point(3, 35);
-            this.picBox_Result.Name = "picBox_Result";
-            this.picBox_Result.Size = new System.Drawing.Size(800, 800);
-            this.picBox_Result.TabIndex = 34;
-            this.picBox_Result.TabStop = false;
+            this.pb_result.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pb_result.ErrorImage = null;
+            this.pb_result.InitialImage = null;
+            this.pb_result.Location = new System.Drawing.Point(3, 34);
+            this.pb_result.Name = "pb_result";
+            this.pb_result.Size = new System.Drawing.Size(800, 800);
+            this.pb_result.TabIndex = 34;
+            this.pb_result.TabStop = false;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.textBox7);
-            this.groupBox3.Controls.Add(this.textBox8);
+            this.groupBox3.Controls.Add(this.txt_enclose_area_unit);
+            this.groupBox3.Controls.Add(this.txt_enclose_area);
             this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Controls.Add(this.textBox6);
-            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this.txt_pixel_length_unit);
+            this.groupBox3.Controls.Add(this.txt_pixel_len);
             this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.textBox5);
-            this.groupBox3.Controls.Add(this.textBox4);
+            this.groupBox3.Controls.Add(this.txt_2p_measure_unit);
+            this.groupBox3.Controls.Add(this.txt_2p_measure);
             this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Controls.Add(this.textBox2);
-            this.groupBox3.Controls.Add(this.textBox3);
+            this.groupBox3.Controls.Add(this.txt_cont_dia_unit);
+            this.groupBox3.Controls.Add(this.txt_cont_dia);
             this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.txtUnit_base_area);
-            this.groupBox3.Controls.Add(this.txtUnit_hole_area);
-            this.groupBox3.Controls.Add(this.txtUnit_hole_rad);
-            this.groupBox3.Controls.Add(this.txtRatio);
+            this.groupBox3.Controls.Add(this.txt_base_area_unit);
+            this.groupBox3.Controls.Add(this.txt_area_unit);
+            this.groupBox3.Controls.Add(this.txt_hole_rad_unit);
+            this.groupBox3.Controls.Add(this.txt_base_ratio);
             this.groupBox3.Controls.Add(this.textBox15);
             this.groupBox3.Controls.Add(this.label49);
-            this.groupBox3.Controls.Add(this.txtBase_Area);
+            this.groupBox3.Controls.Add(this.txt_base_area);
             this.groupBox3.Controls.Add(this.label48);
-            this.groupBox3.Controls.Add(this.txtHole_Area);
+            this.groupBox3.Controls.Add(this.txt_area);
             this.groupBox3.Controls.Add(this.label46);
-            this.groupBox3.Controls.Add(this.txtHole_Rad);
+            this.groupBox3.Controls.Add(this.txt_hole_rad);
             this.groupBox3.Controls.Add(this.label45);
             this.groupBox3.Controls.Add(this.panel10);
             this.groupBox3.Controls.Add(this.label44);
-            this.groupBox3.Location = new System.Drawing.Point(326, 876);
+            this.groupBox3.Location = new System.Drawing.Point(326, 864);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(781, 183);
+            this.groupBox3.Size = new System.Drawing.Size(781, 190);
             this.groupBox3.TabIndex = 45;
             this.groupBox3.TabStop = false;
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
-            // textBox7
+            // txt_enclose_area_unit
             // 
-            this.textBox7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
-            this.textBox7.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox7.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox7.ForeColor = System.Drawing.SystemColors.Window;
-            this.textBox7.Location = new System.Drawing.Point(448, 137);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(37, 23);
-            this.textBox7.TabIndex = 64;
-            this.textBox7.Text = "mm²";
+            this.txt_enclose_area_unit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.txt_enclose_area_unit.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_enclose_area_unit.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt_enclose_area_unit.ForeColor = System.Drawing.SystemColors.Window;
+            this.txt_enclose_area_unit.Location = new System.Drawing.Point(448, 137);
+            this.txt_enclose_area_unit.Name = "txt_enclose_area_unit";
+            this.txt_enclose_area_unit.ReadOnly = true;
+            this.txt_enclose_area_unit.Size = new System.Drawing.Size(37, 23);
+            this.txt_enclose_area_unit.TabIndex = 64;
+            this.txt_enclose_area_unit.Text = "mm²";
             // 
-            // textBox8
+            // txt_enclose_area
             // 
-            this.textBox8.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox8.Location = new System.Drawing.Point(358, 133);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(88, 30);
-            this.textBox8.TabIndex = 63;
+            this.txt_enclose_area.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt_enclose_area.Location = new System.Drawing.Point(358, 133);
+            this.txt_enclose_area.Name = "txt_enclose_area";
+            this.txt_enclose_area.Size = new System.Drawing.Size(88, 30);
+            this.txt_enclose_area.TabIndex = 63;
             // 
             // label6
             // 
@@ -1988,26 +2137,26 @@ namespace PropInnerImageAnalysis
             this.label6.TabIndex = 62;
             this.label6.Text = "封閉面積：";
             // 
-            // textBox6
+            // txt_pixel_length_unit
             // 
-            this.textBox6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
-            this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox6.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox6.ForeColor = System.Drawing.SystemColors.Window;
-            this.textBox6.Location = new System.Drawing.Point(740, 54);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(38, 26);
-            this.textBox6.TabIndex = 61;
-            this.textBox6.Text = "mm";
+            this.txt_pixel_length_unit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.txt_pixel_length_unit.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_pixel_length_unit.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt_pixel_length_unit.ForeColor = System.Drawing.SystemColors.Window;
+            this.txt_pixel_length_unit.Location = new System.Drawing.Point(740, 54);
+            this.txt_pixel_length_unit.Name = "txt_pixel_length_unit";
+            this.txt_pixel_length_unit.ReadOnly = true;
+            this.txt_pixel_length_unit.Size = new System.Drawing.Size(38, 26);
+            this.txt_pixel_length_unit.TabIndex = 61;
+            this.txt_pixel_length_unit.Text = "mm";
             // 
-            // textBox1
+            // txt_pixel_len
             // 
-            this.textBox1.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox1.Location = new System.Drawing.Point(661, 52);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(77, 30);
-            this.textBox1.TabIndex = 60;
+            this.txt_pixel_len.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt_pixel_len.Location = new System.Drawing.Point(661, 52);
+            this.txt_pixel_len.Name = "txt_pixel_len";
+            this.txt_pixel_len.Size = new System.Drawing.Size(77, 30);
+            this.txt_pixel_len.TabIndex = 60;
             // 
             // label4
             // 
@@ -2020,26 +2169,26 @@ namespace PropInnerImageAnalysis
             this.label4.TabIndex = 59;
             this.label4.Text = "像素長度：";
             // 
-            // textBox5
+            // txt_2p_measure_unit
             // 
-            this.textBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
-            this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox5.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox5.ForeColor = System.Drawing.SystemColors.Window;
-            this.textBox5.Location = new System.Drawing.Point(199, 135);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(38, 26);
-            this.textBox5.TabIndex = 58;
-            this.textBox5.Text = "mm";
+            this.txt_2p_measure_unit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.txt_2p_measure_unit.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_2p_measure_unit.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt_2p_measure_unit.ForeColor = System.Drawing.SystemColors.Window;
+            this.txt_2p_measure_unit.Location = new System.Drawing.Point(199, 135);
+            this.txt_2p_measure_unit.Name = "txt_2p_measure_unit";
+            this.txt_2p_measure_unit.ReadOnly = true;
+            this.txt_2p_measure_unit.Size = new System.Drawing.Size(38, 26);
+            this.txt_2p_measure_unit.TabIndex = 58;
+            this.txt_2p_measure_unit.Text = "mm";
             // 
-            // textBox4
+            // txt_2p_measure
             // 
-            this.textBox4.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox4.Location = new System.Drawing.Point(106, 133);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(90, 30);
-            this.textBox4.TabIndex = 56;
+            this.txt_2p_measure.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt_2p_measure.Location = new System.Drawing.Point(106, 133);
+            this.txt_2p_measure.Name = "txt_2p_measure";
+            this.txt_2p_measure.Size = new System.Drawing.Size(90, 30);
+            this.txt_2p_measure.TabIndex = 56;
             // 
             // label1
             // 
@@ -2052,26 +2201,26 @@ namespace PropInnerImageAnalysis
             this.label1.TabIndex = 55;
             this.label1.Text = "兩點量測：";
             // 
-            // textBox2
+            // txt_cont_dia_unit
             // 
-            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox2.ForeColor = System.Drawing.SystemColors.Window;
-            this.textBox2.Location = new System.Drawing.Point(450, 54);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(38, 26);
-            this.textBox2.TabIndex = 54;
-            this.textBox2.Text = "mm";
+            this.txt_cont_dia_unit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.txt_cont_dia_unit.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_cont_dia_unit.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt_cont_dia_unit.ForeColor = System.Drawing.SystemColors.Window;
+            this.txt_cont_dia_unit.Location = new System.Drawing.Point(450, 54);
+            this.txt_cont_dia_unit.Name = "txt_cont_dia_unit";
+            this.txt_cont_dia_unit.ReadOnly = true;
+            this.txt_cont_dia_unit.Size = new System.Drawing.Size(38, 26);
+            this.txt_cont_dia_unit.TabIndex = 54;
+            this.txt_cont_dia_unit.Text = "mm";
             // 
-            // textBox3
+            // txt_cont_dia
             // 
-            this.textBox3.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox3.Location = new System.Drawing.Point(358, 52);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(90, 30);
-            this.textBox3.TabIndex = 53;
+            this.txt_cont_dia.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt_cont_dia.Location = new System.Drawing.Point(358, 52);
+            this.txt_cont_dia.Name = "txt_cont_dia";
+            this.txt_cont_dia.Size = new System.Drawing.Size(90, 30);
+            this.txt_cont_dia.TabIndex = 53;
             // 
             // label5
             // 
@@ -2084,52 +2233,52 @@ namespace PropInnerImageAnalysis
             this.label5.TabIndex = 52;
             this.label5.Text = "輪廓直徑：";
             // 
-            // txtUnit_base_area
+            // txt_base_area_unit
             // 
-            this.txtUnit_base_area.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
-            this.txtUnit_base_area.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtUnit_base_area.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtUnit_base_area.ForeColor = System.Drawing.SystemColors.Window;
-            this.txtUnit_base_area.Location = new System.Drawing.Point(449, 95);
-            this.txtUnit_base_area.Name = "txtUnit_base_area";
-            this.txtUnit_base_area.ReadOnly = true;
-            this.txtUnit_base_area.Size = new System.Drawing.Size(37, 23);
-            this.txtUnit_base_area.TabIndex = 51;
-            this.txtUnit_base_area.Text = "mm²";
+            this.txt_base_area_unit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.txt_base_area_unit.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_base_area_unit.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt_base_area_unit.ForeColor = System.Drawing.SystemColors.Window;
+            this.txt_base_area_unit.Location = new System.Drawing.Point(449, 95);
+            this.txt_base_area_unit.Name = "txt_base_area_unit";
+            this.txt_base_area_unit.ReadOnly = true;
+            this.txt_base_area_unit.Size = new System.Drawing.Size(37, 23);
+            this.txt_base_area_unit.TabIndex = 51;
+            this.txt_base_area_unit.Text = "mm²";
             // 
-            // txtUnit_hole_area
+            // txt_area_unit
             // 
-            this.txtUnit_hole_area.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
-            this.txtUnit_hole_area.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtUnit_hole_area.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtUnit_hole_area.ForeColor = System.Drawing.SystemColors.Window;
-            this.txtUnit_hole_area.Location = new System.Drawing.Point(200, 93);
-            this.txtUnit_hole_area.Name = "txtUnit_hole_area";
-            this.txtUnit_hole_area.ReadOnly = true;
-            this.txtUnit_hole_area.Size = new System.Drawing.Size(50, 26);
-            this.txtUnit_hole_area.TabIndex = 50;
-            this.txtUnit_hole_area.Text = "mm²";
+            this.txt_area_unit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.txt_area_unit.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_area_unit.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt_area_unit.ForeColor = System.Drawing.SystemColors.Window;
+            this.txt_area_unit.Location = new System.Drawing.Point(200, 93);
+            this.txt_area_unit.Name = "txt_area_unit";
+            this.txt_area_unit.ReadOnly = true;
+            this.txt_area_unit.Size = new System.Drawing.Size(50, 26);
+            this.txt_area_unit.TabIndex = 50;
+            this.txt_area_unit.Text = "mm²";
             // 
-            // txtUnit_hole_rad
+            // txt_hole_rad_unit
             // 
-            this.txtUnit_hole_rad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
-            this.txtUnit_hole_rad.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtUnit_hole_rad.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtUnit_hole_rad.ForeColor = System.Drawing.SystemColors.Window;
-            this.txtUnit_hole_rad.Location = new System.Drawing.Point(201, 54);
-            this.txtUnit_hole_rad.Name = "txtUnit_hole_rad";
-            this.txtUnit_hole_rad.ReadOnly = true;
-            this.txtUnit_hole_rad.Size = new System.Drawing.Size(38, 26);
-            this.txtUnit_hole_rad.TabIndex = 49;
-            this.txtUnit_hole_rad.Text = "mm";
+            this.txt_hole_rad_unit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.txt_hole_rad_unit.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_hole_rad_unit.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt_hole_rad_unit.ForeColor = System.Drawing.SystemColors.Window;
+            this.txt_hole_rad_unit.Location = new System.Drawing.Point(201, 54);
+            this.txt_hole_rad_unit.Name = "txt_hole_rad_unit";
+            this.txt_hole_rad_unit.ReadOnly = true;
+            this.txt_hole_rad_unit.Size = new System.Drawing.Size(38, 26);
+            this.txt_hole_rad_unit.TabIndex = 49;
+            this.txt_hole_rad_unit.Text = "mm";
             // 
-            // txtRatio
+            // txt_base_ratio
             // 
-            this.txtRatio.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtRatio.Location = new System.Drawing.Point(661, 91);
-            this.txtRatio.Name = "txtRatio";
-            this.txtRatio.Size = new System.Drawing.Size(77, 30);
-            this.txtRatio.TabIndex = 48;
+            this.txt_base_ratio.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt_base_ratio.Location = new System.Drawing.Point(661, 91);
+            this.txt_base_ratio.Name = "txt_base_ratio";
+            this.txt_base_ratio.Size = new System.Drawing.Size(77, 30);
+            this.txt_base_ratio.TabIndex = 48;
             // 
             // textBox15
             // 
@@ -2155,13 +2304,13 @@ namespace PropInnerImageAnalysis
             this.label49.TabIndex = 46;
             this.label49.Text = "基藥比率：";
             // 
-            // txtBase_Area
+            // txt_base_area
             // 
-            this.txtBase_Area.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtBase_Area.Location = new System.Drawing.Point(358, 91);
-            this.txtBase_Area.Name = "txtBase_Area";
-            this.txtBase_Area.Size = new System.Drawing.Size(88, 30);
-            this.txtBase_Area.TabIndex = 45;
+            this.txt_base_area.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt_base_area.Location = new System.Drawing.Point(358, 91);
+            this.txt_base_area.Name = "txt_base_area";
+            this.txt_base_area.Size = new System.Drawing.Size(88, 30);
+            this.txt_base_area.TabIndex = 45;
             // 
             // label48
             // 
@@ -2174,13 +2323,13 @@ namespace PropInnerImageAnalysis
             this.label48.TabIndex = 44;
             this.label48.Text = "基藥面積：";
             // 
-            // txtHole_Area
+            // txt_area
             // 
-            this.txtHole_Area.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtHole_Area.Location = new System.Drawing.Point(107, 91);
-            this.txtHole_Area.Name = "txtHole_Area";
-            this.txtHole_Area.Size = new System.Drawing.Size(90, 30);
-            this.txtHole_Area.TabIndex = 43;
+            this.txt_area.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt_area.Location = new System.Drawing.Point(107, 91);
+            this.txt_area.Name = "txt_area";
+            this.txt_area.Size = new System.Drawing.Size(90, 30);
+            this.txt_area.TabIndex = 43;
             // 
             // label46
             // 
@@ -2193,13 +2342,13 @@ namespace PropInnerImageAnalysis
             this.label46.TabIndex = 42;
             this.label46.Text = "藥粒面積：";
             // 
-            // txtHole_Rad
+            // txt_hole_rad
             // 
-            this.txtHole_Rad.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtHole_Rad.Location = new System.Drawing.Point(108, 52);
-            this.txtHole_Rad.Name = "txtHole_Rad";
-            this.txtHole_Rad.Size = new System.Drawing.Size(90, 30);
-            this.txtHole_Rad.TabIndex = 41;
+            this.txt_hole_rad.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt_hole_rad.Location = new System.Drawing.Point(108, 52);
+            this.txt_hole_rad.Name = "txt_hole_rad";
+            this.txt_hole_rad.Size = new System.Drawing.Size(90, 30);
+            this.txt_hole_rad.TabIndex = 41;
             // 
             // label45
             // 
@@ -2214,35 +2363,35 @@ namespace PropInnerImageAnalysis
             // 
             // panel10
             // 
-            this.panel10.Controls.Add(this.inchBtn);
-            this.panel10.Controls.Add(this.mmBtn);
+            this.panel10.Controls.Add(this.rad_unit_inch);
+            this.panel10.Controls.Add(this.rad_unit_mm);
             this.panel10.Controls.Add(this.textBox24);
             this.panel10.Location = new System.Drawing.Point(517, 126);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(261, 37);
             this.panel10.TabIndex = 39;
             // 
-            // inchBtn
+            // rad_unit_inch
             // 
-            this.inchBtn.AutoSize = true;
-            this.inchBtn.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.inchBtn.Location = new System.Drawing.Point(184, 9);
-            this.inchBtn.Name = "inchBtn";
-            this.inchBtn.Size = new System.Drawing.Size(72, 25);
-            this.inchBtn.TabIndex = 24;
-            this.inchBtn.Text = "英制";
-            this.inchBtn.UseVisualStyleBackColor = true;
+            this.rad_unit_inch.AutoSize = true;
+            this.rad_unit_inch.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.rad_unit_inch.Location = new System.Drawing.Point(184, 9);
+            this.rad_unit_inch.Name = "rad_unit_inch";
+            this.rad_unit_inch.Size = new System.Drawing.Size(72, 25);
+            this.rad_unit_inch.TabIndex = 24;
+            this.rad_unit_inch.Text = "英制";
+            this.rad_unit_inch.UseVisualStyleBackColor = true;
             // 
-            // mmBtn
+            // rad_unit_mm
             // 
-            this.mmBtn.AutoSize = true;
-            this.mmBtn.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.mmBtn.Location = new System.Drawing.Point(107, 9);
-            this.mmBtn.Name = "mmBtn";
-            this.mmBtn.Size = new System.Drawing.Size(72, 25);
-            this.mmBtn.TabIndex = 24;
-            this.mmBtn.Text = "公制";
-            this.mmBtn.UseVisualStyleBackColor = true;
+            this.rad_unit_mm.AutoSize = true;
+            this.rad_unit_mm.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.rad_unit_mm.Location = new System.Drawing.Point(107, 9);
+            this.rad_unit_mm.Name = "rad_unit_mm";
+            this.rad_unit_mm.Size = new System.Drawing.Size(72, 25);
+            this.rad_unit_mm.TabIndex = 24;
+            this.rad_unit_mm.Text = "公制";
+            this.rad_unit_mm.UseVisualStyleBackColor = true;
             // 
             // textBox24
             // 
@@ -2270,15 +2419,6 @@ namespace PropInnerImageAnalysis
             this.label44.Text = "量測結果";
             this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txt_Log
-            // 
-            this.txt_Log.Font = new System.Drawing.Font("Arial", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_Log.Location = new System.Drawing.Point(1110, 910);
-            this.txt_Log.Multiline = true;
-            this.txt_Log.Name = "txt_Log";
-            this.txt_Log.Size = new System.Drawing.Size(804, 149);
-            this.txt_Log.TabIndex = 48;
-            // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(80)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
@@ -2286,110 +2426,15 @@ namespace PropInnerImageAnalysis
             this.panel4.Controls.Add(this.label11);
             this.panel4.Controls.Add(this.label10);
             this.panel4.Controls.Add(this.label8);
-            this.panel4.Controls.Add(this.textBox9);
-            this.panel4.Controls.Add(this.button1);
-            this.panel4.Controls.Add(this.button2);
-            this.panel4.Controls.Add(this.button3);
-            this.panel4.Controls.Add(this.button5);
+            this.panel4.Controls.Add(this.txt_grindcount);
+            this.panel4.Controls.Add(this.btn_regrind);
+            this.panel4.Controls.Add(this.btn_return);
+            this.panel4.Controls.Add(this.btn_sampling);
+            this.panel4.Controls.Add(this.btn_connect);
             this.panel4.Location = new System.Drawing.Point(1, 673);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(313, 82);
             this.panel4.TabIndex = 49;
-            // 
-            // textBox9
-            // 
-            this.textBox9.Font = new System.Drawing.Font("Arial", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox9.Location = new System.Drawing.Point(284, 45);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(20, 29);
-            this.textBox9.TabIndex = 49;
-            this.textBox9.Text = "0";
-            // 
-            // button1
-            // 
-            this.button1.Enabled = false;
-            this.button1.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(182, 42);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(127, 34);
-            this.button1.TabIndex = 48;
-            this.button1.Text = "再次研磨";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Enabled = false;
-            this.button2.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button2.ForeColor = System.Drawing.Color.Black;
-            this.button2.Location = new System.Drawing.Point(182, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(127, 34);
-            this.button2.TabIndex = 47;
-            this.button2.Text = "回歸取料";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Enabled = false;
-            this.button3.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button3.ForeColor = System.Drawing.Color.Black;
-            this.button3.Location = new System.Drawing.Point(86, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(69, 75);
-            this.button3.TabIndex = 45;
-            this.button3.Text = "取樣";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Enabled = false;
-            this.button5.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button5.ForeColor = System.Drawing.Color.Black;
-            this.button5.Location = new System.Drawing.Point(3, 3);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(61, 75);
-            this.button5.TabIndex = 42;
-            this.button5.Text = "連結";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // label8
-            // 
-            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
-            this.label8.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(66, 9);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(18, 22);
-            this.label8.TabIndex = 153;
-            this.label8.Text = "→";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label10
-            // 
-            this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
-            this.label10.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.White;
-            this.label10.Location = new System.Drawing.Point(66, 48);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(18, 22);
-            this.label10.TabIndex = 154;
-            this.label10.Text = "→";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label11
-            // 
-            this.label11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
-            this.label11.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(159, 8);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(18, 22);
-            this.label11.TabIndex = 155;
-            this.label11.Text = "→";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label12
             // 
@@ -2403,104 +2448,175 @@ namespace PropInnerImageAnalysis
             this.label12.Text = "→";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label9
+            // label11
             // 
-            this.label9.BackColor = System.Drawing.Color.Gold;
-            this.label9.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label9.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.label9.Location = new System.Drawing.Point(4, 43);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(128, 26);
-            this.label9.TabIndex = 35;
-            this.label9.Text = "粗磨進給mm";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.label11.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(159, 8);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(18, 22);
+            this.label11.TabIndex = 155;
+            this.label11.Text = "→";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox10
+            // label10
             // 
-            this.textBox10.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox10.Location = new System.Drawing.Point(138, 43);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(105, 26);
-            this.textBox10.TabIndex = 157;
-            this.textBox10.Text = "0.01";
+            this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.label10.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(66, 48);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(18, 22);
+            this.label10.TabIndex = 154;
+            this.label10.Text = "→";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button4
+            // label8
             // 
-            this.button4.Enabled = false;
-            this.button4.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button4.ForeColor = System.Drawing.Color.Black;
-            this.button4.Location = new System.Drawing.Point(250, 43);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(61, 26);
-            this.button4.TabIndex = 162;
-            this.button4.Text = "寫入";
-            this.button4.UseVisualStyleBackColor = true;
+            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.label8.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(66, 9);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(18, 22);
+            this.label8.TabIndex = 153;
+            this.label8.Text = "→";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button6
+            // txt_grindcount
             // 
-            this.button6.Enabled = false;
-            this.button6.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button6.ForeColor = System.Drawing.Color.Black;
-            this.button6.Location = new System.Drawing.Point(249, 77);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(61, 26);
-            this.button6.TabIndex = 165;
-            this.button6.Text = "寫入";
-            this.button6.UseVisualStyleBackColor = true;
+            this.txt_grindcount.Enabled = false;
+            this.txt_grindcount.Font = new System.Drawing.Font("Arial", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_grindcount.Location = new System.Drawing.Point(285, 44);
+            this.txt_grindcount.Name = "txt_grindcount";
+            this.txt_grindcount.Size = new System.Drawing.Size(20, 29);
+            this.txt_grindcount.TabIndex = 49;
+            this.txt_grindcount.Text = "0";
             // 
-            // textBox11
+            // btn_regrind
             // 
-            this.textBox11.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox11.Location = new System.Drawing.Point(137, 77);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(105, 26);
-            this.textBox11.TabIndex = 164;
-            this.textBox11.Text = "0.01";
+            this.btn_regrind.BackColor = System.Drawing.Color.PaleGreen;
+            this.btn_regrind.Enabled = false;
+            this.btn_regrind.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_regrind.ForeColor = System.Drawing.Color.Black;
+            this.btn_regrind.Location = new System.Drawing.Point(182, 42);
+            this.btn_regrind.Name = "btn_regrind";
+            this.btn_regrind.Size = new System.Drawing.Size(127, 34);
+            this.btn_regrind.TabIndex = 48;
+            this.btn_regrind.Text = "再次研磨";
+            this.btn_regrind.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_regrind.UseVisualStyleBackColor = false;
+            this.btn_regrind.Click += new System.EventHandler(this.btn_regrind_Click);
             // 
-            // label13
+            // btn_return
             // 
-            this.label13.BackColor = System.Drawing.Color.Gold;
-            this.label13.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label13.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.label13.Location = new System.Drawing.Point(3, 77);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(128, 26);
-            this.label13.TabIndex = 163;
-            this.label13.Text = "細磨進給mm";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btn_return.BackColor = System.Drawing.Color.PaleGreen;
+            this.btn_return.Enabled = false;
+            this.btn_return.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_return.ForeColor = System.Drawing.Color.Black;
+            this.btn_return.Location = new System.Drawing.Point(182, 3);
+            this.btn_return.Name = "btn_return";
+            this.btn_return.Size = new System.Drawing.Size(127, 34);
+            this.btn_return.TabIndex = 47;
+            this.btn_return.Text = "回歸取料";
+            this.btn_return.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_return.UseVisualStyleBackColor = false;
+            this.btn_return.Click += new System.EventHandler(this.btn_return_Click);
             // 
-            // button7
+            // btn_sampling
             // 
-            this.button7.Enabled = false;
-            this.button7.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button7.ForeColor = System.Drawing.Color.Black;
-            this.button7.Location = new System.Drawing.Point(249, 114);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(61, 26);
-            this.button7.TabIndex = 168;
-            this.button7.Text = "寫入";
-            this.button7.UseVisualStyleBackColor = true;
+            this.btn_sampling.BackColor = System.Drawing.Color.PaleGreen;
+            this.btn_sampling.Enabled = false;
+            this.btn_sampling.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_sampling.ForeColor = System.Drawing.Color.Black;
+            this.btn_sampling.Location = new System.Drawing.Point(86, 3);
+            this.btn_sampling.Name = "btn_sampling";
+            this.btn_sampling.Size = new System.Drawing.Size(69, 75);
+            this.btn_sampling.TabIndex = 45;
+            this.btn_sampling.Text = "取樣";
+            this.btn_sampling.UseVisualStyleBackColor = false;
+            this.btn_sampling.Click += new System.EventHandler(this.btn_sampling_Click);
             // 
-            // textBox12
+            // btn_connect
             // 
-            this.textBox12.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox12.Location = new System.Drawing.Point(137, 114);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(105, 26);
-            this.textBox12.TabIndex = 167;
-            this.textBox12.Text = "0.01";
+            this.btn_connect.BackColor = System.Drawing.Color.PaleGreen;
+            this.btn_connect.Enabled = false;
+            this.btn_connect.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_connect.ForeColor = System.Drawing.Color.Black;
+            this.btn_connect.Location = new System.Drawing.Point(3, 3);
+            this.btn_connect.Name = "btn_connect";
+            this.btn_connect.Size = new System.Drawing.Size(61, 75);
+            this.btn_connect.TabIndex = 42;
+            this.btn_connect.Text = "連結";
+            this.btn_connect.UseVisualStyleBackColor = false;
+            this.btn_connect.Click += new System.EventHandler(this.btn_connect_Click);
             // 
-            // label14
+            // pb_rec_result01
             // 
-            this.label14.BackColor = System.Drawing.Color.Gold;
-            this.label14.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label14.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.label14.Location = new System.Drawing.Point(3, 114);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(128, 26);
-            this.label14.TabIndex = 166;
-            this.label14.Text = "再磨進給mm";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.pb_rec_result01.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pb_rec_result01.ErrorImage = null;
+            this.pb_rec_result01.InitialImage = null;
+            this.pb_rec_result01.Location = new System.Drawing.Point(1112, 911);
+            this.pb_rec_result01.Name = "pb_rec_result01";
+            this.pb_rec_result01.Size = new System.Drawing.Size(120, 120);
+            this.pb_rec_result01.TabIndex = 96;
+            this.pb_rec_result01.TabStop = false;
+            // 
+            // pb_rec_result02
+            // 
+            this.pb_rec_result02.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pb_rec_result02.ErrorImage = null;
+            this.pb_rec_result02.InitialImage = null;
+            this.pb_rec_result02.Location = new System.Drawing.Point(1248, 911);
+            this.pb_rec_result02.Name = "pb_rec_result02";
+            this.pb_rec_result02.Size = new System.Drawing.Size(120, 120);
+            this.pb_rec_result02.TabIndex = 97;
+            this.pb_rec_result02.TabStop = false;
+            // 
+            // pb_rec_result04
+            // 
+            this.pb_rec_result04.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pb_rec_result04.ErrorImage = null;
+            this.pb_rec_result04.InitialImage = null;
+            this.pb_rec_result04.Location = new System.Drawing.Point(1520, 911);
+            this.pb_rec_result04.Name = "pb_rec_result04";
+            this.pb_rec_result04.Size = new System.Drawing.Size(120, 120);
+            this.pb_rec_result04.TabIndex = 99;
+            this.pb_rec_result04.TabStop = false;
+            // 
+            // pb_rec_result03
+            // 
+            this.pb_rec_result03.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pb_rec_result03.ErrorImage = null;
+            this.pb_rec_result03.InitialImage = null;
+            this.pb_rec_result03.Location = new System.Drawing.Point(1384, 911);
+            this.pb_rec_result03.Name = "pb_rec_result03";
+            this.pb_rec_result03.Size = new System.Drawing.Size(120, 120);
+            this.pb_rec_result03.TabIndex = 98;
+            this.pb_rec_result03.TabStop = false;
+            // 
+            // pb_rec_result06
+            // 
+            this.pb_rec_result06.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pb_rec_result06.ErrorImage = null;
+            this.pb_rec_result06.InitialImage = null;
+            this.pb_rec_result06.Location = new System.Drawing.Point(1792, 911);
+            this.pb_rec_result06.Name = "pb_rec_result06";
+            this.pb_rec_result06.Size = new System.Drawing.Size(120, 120);
+            this.pb_rec_result06.TabIndex = 101;
+            this.pb_rec_result06.TabStop = false;
+            // 
+            // pb_rec_result05
+            // 
+            this.pb_rec_result05.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pb_rec_result05.ErrorImage = null;
+            this.pb_rec_result05.InitialImage = null;
+            this.pb_rec_result05.Location = new System.Drawing.Point(1656, 911);
+            this.pb_rec_result05.Name = "pb_rec_result05";
+            this.pb_rec_result05.Size = new System.Drawing.Size(120, 120);
+            this.pb_rec_result05.TabIndex = 100;
+            this.pb_rec_result05.TabStop = false;
             // 
             // Mainfrm
             // 
@@ -2509,10 +2625,15 @@ namespace PropInnerImageAnalysis
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1919, 1061);
+            this.Controls.Add(this.pb_rec_result06);
+            this.Controls.Add(this.pb_rec_result05);
+            this.Controls.Add(this.pb_rec_result04);
+            this.Controls.Add(this.pb_rec_result03);
+            this.Controls.Add(this.pb_rec_result02);
+            this.Controls.Add(this.pb_rec_result01);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.txt_Log);
             this.Controls.Add(this.panel_operation_status);
             this.Controls.Add(this.panel_Prop_Select);
             this.Controls.Add(this.panel_Camera);
@@ -2536,7 +2657,7 @@ namespace PropInnerImageAnalysis
             this.panel_PLC_Com.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackbar_fixed_threshold)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_threshold)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).EndInit();
             this.panel_Camera.ResumeLayout(false);
             this.panel_Camera.PerformLayout();
@@ -2551,18 +2672,29 @@ namespace PropInnerImageAnalysis
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picBox_Origin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_temp07)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_temp06)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_temp05)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_temp04)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_temp03)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_temp02)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_temp01)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ob_origin)).EndInit();
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBox_Result)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_result)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_rec_result01)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_rec_result02)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_rec_result04)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_rec_result03)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_rec_result06)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_rec_result05)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -2588,7 +2720,7 @@ namespace PropInnerImageAnalysis
         private System.Windows.Forms.TextBox textBox_sample_count;
         private System.Windows.Forms.RadioButton Btn;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button_reset;
+        private System.Windows.Forms.Button btn_reset;
         private Label lblComPortStatus;
         private Button gswComport;
         private Panel panel_Camera;
@@ -2597,77 +2729,69 @@ namespace PropInnerImageAnalysis
         private Panel panel_Prop_Select;
         private Label label24;
         private FolderBrowserDialog folderBrowserDialog_working_dir;
-        private XanderUI.XUIButton button_recgon;
-        private XanderUI.XUIButton button_next;
-        private XanderUI.XUIButton button_prev;
-        private XanderUI.XUIButton button_side_length;
-        private XanderUI.XUIButton button_all_auto;
+        private XanderUI.XUIButton btn_contour_rec;
+        private XanderUI.XUIButton btn_next;
+        private XanderUI.XUIButton btn_prev;
+        private XanderUI.XUIButton btn_deter_per;
+        private XanderUI.XUIButton btn_auto;
         private ComboBox cboProType;
         private PictureBox picBoxCam;
         private Label lblSingleGrind;
         private Label lblAuto;
         private Label lblNoGrind;
         private GroupBox groupBox2;
-        private TextBox textBox_fixed_threshold;
-        private TrackBar trackbar_fixed_threshold;
+        private TextBox txt_threshold;
+        private TrackBar tb_threshold;
         private Label label85;
         private PictureBox pictureBox29;
-        private XanderUI.XUIButton btn_setup_sampledir;
+        private XanderUI.XUIButton btn_select_sampledir;
         private Label lbl_Machine_Process;
         private Label lblProcess0;
         private Label lblProcess3;
         private Label lblProcess1;
         private Panel panel_operation_status;
-        private XanderUI.XUIButton Button_abandon;
+        private XanderUI.XUIButton btn_discard;
         private Label label_SideSample_stat;
         private FolderBrowserDialog folderBrowserDialog_load;
         private TextBox textBox_Cam;
         private Button gswCam;
-        private XanderUI.XUIButton btn_Rotate_OrgImg;
+        private XanderUI.XUIButton btn_rotate;
         private GroupBox groupBox1;
-        private TextBox textBox_sample_dir;
+        private TextBox txt_sample_dir;
         private Label label47;
         private Label lblProcess2;
         private Panel panel1;
         private Label label2;
         private Panel panel3;
-        private PictureBox picBox_Origin;
+        private PictureBox ob_origin;
         private Panel panel2;
-        private Label lblResult;
-        private PictureBox picBox_Result;
+        private PictureBox pb_result;
         private Label lbl01;
-        private XanderUI.XUIButton xuiButton1;
+        private XanderUI.XUIButton btn_adjust;
         private GroupBox groupBox3;
-        private TextBox txtUnit_base_area;
-        private TextBox txtUnit_hole_area;
-        private TextBox txtUnit_hole_rad;
-        private TextBox txtRatio;
+        private TextBox txt_base_area_unit;
+        private TextBox txt_area_unit;
+        private TextBox txt_hole_rad_unit;
+        private TextBox txt_base_ratio;
         private TextBox textBox15;
         private Label label49;
-        private TextBox txtBase_Area;
+        private TextBox txt_base_area;
         private Label label48;
-        private TextBox txtHole_Area;
+        private TextBox txt_area;
         private Label label46;
-        private TextBox txtHole_Rad;
+        private TextBox txt_hole_rad;
         private Label label45;
         private Panel panel10;
-        private RadioButton inchBtn;
-        private RadioButton mmBtn;
+        private RadioButton rad_unit_inch;
+        private RadioButton rad_unit_mm;
         private TextBox textBox24;
         private Label label44;
         private Label label3;
         private Label lblCamStatus;
-        private XanderUI.XUIButton btn_load_sample;
-        private XanderUI.XUIButton btn_save_sample;
         private GroupBox groupBox4;
-        private XanderUI.XUIButton btn_load_parafile;
-        private XanderUI.XUIButton btn_save_parafile;
         private Label label20;
-        private XanderUI.XUIButton btn_setup_parafile;
-        private TextBox textBox_parafile;
-        private Label lblResultStatus;
-        private Button gswResult;
-        private XanderUI.XUIButton btn_sample_mark;
+        private XanderUI.XUIButton btn_load_config;
+        private TextBox txt_config;
         private Label lbl31;
         private Label lbl30;
         private Label lbl19;
@@ -2709,45 +2833,65 @@ namespace PropInnerImageAnalysis
         private Label label31;
         private Label label27;
         private Label label21;
-        private TextBox txt_Log;
-        private TextBox textBox2;
-        private TextBox textBox3;
+        private TextBox txt_cont_dia_unit;
+        private TextBox txt_cont_dia;
         private Label label5;
-        private ComboBox cbo_polish_cnt;
-        private XanderUI.XUIButton xuiButton2;
-        private XanderUI.XUIButton xuiButton3;
-        private TextBox textBox7;
-        private TextBox textBox8;
+        private XanderUI.XUIButton btn_measure;
+        private TextBox txt_enclose_area_unit;
+        private TextBox txt_enclose_area;
         private Label label6;
-        private TextBox textBox6;
-        private TextBox textBox1;
+        private TextBox txt_pixel_length_unit;
+        private TextBox txt_pixel_len;
         private Label label4;
-        private TextBox textBox5;
-        private TextBox textBox4;
+        private TextBox txt_2p_measure_unit;
+        private TextBox txt_2p_measure;
         private Label label1;
-        private Label lblMarkDel;
-        private Button gswDelMark;
-        private Label lblSplDel;
-        private Button gswDelSpl;
-        private Button button7;
-        private TextBox textBox12;
+        private Button btn_feedrate03;
+        private TextBox txt_feedrate03;
         private Label label14;
-        private Button button6;
-        private TextBox textBox11;
+        private Button btn_feedrate02;
+        private TextBox txt_feedrate02;
         private Label label13;
-        private Button button4;
-        private TextBox textBox10;
+        private Button btn_feedrate01;
+        private TextBox txt_feedrate01;
         private Label label9;
         private Panel panel4;
         private Label label12;
         private Label label11;
         private Label label10;
         private Label label8;
-        private TextBox textBox9;
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button5;
+        private TextBox txt_grindcount;
+        private Button btn_regrind;
+        private Button btn_return;
+        private Button btn_sampling;
+        private Button btn_connect;
+        private XanderUI.XUIButton btn_load_sample;
+        private XanderUI.XUIButton btn_save;
+        private XanderUI.XUIButton btn_save_config;
+        private PictureBox pb_temp04;
+        private PictureBox pb_temp03;
+        private PictureBox pb_temp02;
+        private PictureBox pb_temp01;
+        private Label lblResult;
+        private PictureBox pb_rec_result01;
+        private PictureBox pb_rec_result02;
+        private PictureBox pb_rec_result04;
+        private PictureBox pb_rec_result03;
+        private PictureBox pb_rec_result06;
+        private PictureBox pb_rec_result05;
+        private TextBox txt_feedrate03_default;
+        private TextBox txt_feedrate02_default;
+        private TextBox txt_feedrate01_default;
+        private PictureBox pb_temp07;
+        private PictureBox pb_temp06;
+        private PictureBox pb_temp05;
+        private Button btn_factory_reset;
+        private TextBox txt_feedcount03_default;
+        private TextBox txt_feedcount03;
+        private TextBox txt_feedcount02_default;
+        private TextBox txt_feedcount02;
+        private TextBox txt_feedcount01_default;
+        private TextBox txt_feedcount01;
     }
 }
 

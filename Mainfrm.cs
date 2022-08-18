@@ -44,11 +44,11 @@ namespace PropInnerImageAnalysis
 
         private TextBox[] unitText;   // 單位顯示欄位
 
-        public SysConfig myconfig;   // 系統參數物件
+        public SysConfig myConfig;   // 系統參數物件
         public PropJSON myProp;      // 辨識結果之JSON物件
 
-        private List<PropImages.SingleHoleGrain> SHG = new List<PropImages.SingleHoleGrain>();
-        private List<PropImages.Powder> PWD = new List<PropImages.Powder>();
+        private List<PropImages.SingleHoleGrain> listSHG = new List<PropImages.SingleHoleGrain>();
+        private List<PropImages.Powder> listPWD = new List<PropImages.Powder>();
 
         private Rectangle SampleROI;
 
@@ -74,9 +74,9 @@ namespace PropInnerImageAnalysis
 
         public int takePicDelay=100;
 
-        private SerialPort comport = new SerialPort(); //宣告一SerialPort物件為comport
+        private SerialPort ComPort = new SerialPort(); //宣告一SerialPort物件為comport
 
-        public bool comportOpened = false; // COM Port 連結狀態
+        public bool isComPortOpened = false; // COM Port 連結狀態
 
         public bool PropTypeSelected = false;
 
@@ -96,6 +96,14 @@ namespace PropInnerImageAnalysis
 
         public bool isCoated = false;
 
+        public bool isConnectPressed = false;   //連結按鈕按下
+        public bool isSamplingPressed = false;  //取樣按鈕按下
+        public bool isReturnPressed = false;    //回歸取料按鈕按下
+        public bool isReGrindPressed = false;   //再研磨按鈕按下
+        public int reGrindCount = 0;            //再研磨次數
+
+        public bool isPropTypeSelected = false; //發射藥型選擇;
+
         /*************************************************************************************************************/
         /*************************************************************************************************************/
         /*-----------------------------------MODBUS通訊部分變數設定--------------------------------------------------*/
@@ -109,21 +117,27 @@ namespace PropInnerImageAnalysis
         ushort startChoice = 998;   //讀取寫入選擇類型 D接點
         int writeAddress = 251;     //寫入照相位置   M接點
         ushort readAction = 198;    //讀取動作位置   M接點
-        ushort whiteStart = 100;    //開始自動作業   M接點
+        ushort PLCStart = 100;    //開始自動作業   M接點
         int startcount = 0;       //拍照位置counter
         bool capReady = false;    //拍照完成旗標
         bool startFlag = false;    //拍照完成旗標
         bool polishReady = false;   //研磨完成旗標
 
-        bool[] readPosition_coid;   //讀取粹盤暫存器陣列
-        bool[] readAction_coid;     //讀取研磨作業陣列
+        bool[] readPosition_coil;   //讀取粹盤暫存器陣列
+        bool[] readAction_coil;     //讀取研磨作業陣列
+        ushort[] reGrindCoil = new ushort[6] {288,289,290,291,292,293 };
 
         ushort X32 = 13362;             // 機台切換開關 X32 X33
                                         //               1   0   單辨識
-                                        //               0   1   單切削
+                                        //               0   1   單研磨
                                         //               0   0   自動
 
         bool[] ReadXButtons = new bool[2];    // 讀取 X32 及 X33
+        Dictionary<string, feedRate> prevFeedrate = new Dictionary<string, feedRate>();
+        Dictionary<string, feedRate> factoryFeedrate = new Dictionary<string, feedRate>();
+        Dictionary<string, feedContact> factoryFeedcontact = new Dictionary<string, feedContact>();
+
+
 
         /*************************************************************************************************************/
         /*************************************************************************************************************/
@@ -140,10 +154,8 @@ namespace PropInnerImageAnalysis
 
             mainCam = new BaslerCamera();    //新增攝影機
 
-
             ledProcess = new Label[4]    //機台運行狀態用 label array 取料站-粗磨站-細磨站-辨識站
             {lblProcess0,lblProcess1,lblProcess2,lblProcess3 };
-
 
             ledOperMode = new Label[4]
             {
@@ -160,20 +172,63 @@ namespace PropInnerImageAnalysis
                 lbl25,lbl26,lbl27,lbl28,lbl29,lbl30,
                 lbl31,lbl32,lbl33,lbl34,lbl35,lbl36
             };
+            
         }
+        public void loadFeedRate(string propType)
+        {
+            feedRate frTmp=prevFeedrate[propType];
+            feedContact fcTmp=factoryFeedcontact[propType];
+
+            ushort[] result;
+            result = master.ReadHoldingRegisters(slaveID, (ushort) fcTmp.feedrcontact01, 1);
+            txt_feedrate01_default.Text = ((double)result[0] / 100).ToString();
+
+            result = master.ReadHoldingRegisters(slaveID, (ushort)fcTmp.feedrcontact02, 1);
+            txt_feedrate02_default.Text = ((double)result[0] / 100).ToString();
+
+            result = master.ReadHoldingRegisters(slaveID, (ushort)fcTmp.feedrcontact03, 1);
+            txt_feedrate03_default.Text = ((double)result[0] / 100).ToString();
+
+            result = master.ReadHoldingRegisters(slaveID, (ushort)fcTmp.feedccontact01, 1);
+            txt_feedcount01_default.Text = ((int)result[0]).ToString();
+
+            result = master.ReadHoldingRegisters(slaveID, (ushort)fcTmp.feedccontact02, 1);
+            txt_feedcount02_default.Text = ((int)result[0]).ToString();
+
+            result = master.ReadHoldingRegisters(slaveID, (ushort)fcTmp.feedccontact03, 1);
+            txt_feedcount03_default.Text = ((int)result[0]).ToString();
+
+            txt_feedrate01.Text = ((double)frTmp.feedrate01 / 100).ToString();
+            txt_feedrate02.Text = ((double)frTmp.feedrate02 / 100).ToString();
+            txt_feedrate03.Text = ((double)frTmp.feedrate03 / 100).ToString();
+
+            txt_feedcount01.Text = frTmp.feedcount01.ToString();
+            txt_feedcount02.Text = frTmp.feedcount02.ToString();
+            txt_feedcount03.Text = frTmp.feedcount03.ToString();
+        }
+
+
         private void toggleUnit(int type)
         {
             if (type == 0)
             {
-                txtUnit_hole_rad.Text = "mm";
-                txtUnit_hole_area.Text = "mm²";
-                txtUnit_base_area.Text = "mm²";
+                txt_hole_rad_unit.Text = "mm";
+                txt_cont_dia_unit.Text = "mm";
+                txt_pixel_length_unit.Text = "mm";
+                txt_2p_measure_unit.Text = "mm";
+                txt_enclose_area_unit.Text = "mm²";
+                txt_area_unit.Text = "mm²";
+                txt_base_area_unit.Text = "mm²";
             }
             else
             {
-                txtUnit_hole_rad.Text = "inch";
-                txtUnit_hole_area.Text = "inch²";
-                txtUnit_base_area.Text = "inch²";
+                txt_hole_rad_unit.Text = "inch";
+                txt_cont_dia_unit.Text = "inch";
+                txt_pixel_length_unit.Text = "inch";
+                txt_2p_measure_unit.Text = "inch";
+                txt_enclose_area_unit.Text = "inch²";
+                txt_area_unit.Text = "inch²";
+                txt_base_area_unit.Text = "inch²";
             }
         }
         private void updateSampleCnt()
@@ -185,20 +240,32 @@ namespace PropInnerImageAnalysis
         {
             StreamReader r = new StreamReader(JsonFName);
             string jStr = r.ReadToEnd();
-            myconfig= JsonConvert.DeserializeObject<SysConfig>(jStr);
+            myConfig= JsonConvert.DeserializeObject<SysConfig>(jStr);
             r.Close();
-            pixLength = myconfig.pixLength;
-            trackbar_fixed_threshold.Value = myconfig.fixedThres;
-            textBox_fixed_threshold.Text = myconfig.fixedThres.ToString();
+            pixLength = myConfig.pixLength;
+            tb_threshold.Value = myConfig.fixedThres;
+            txt_threshold.Text = myConfig.fixedThres.ToString();
 
-            textBox_Cam.Text = myconfig.cam;
+            textBox_Cam.Text = myConfig.cam;
 
-            defUnit = myconfig.defUnit;
+            defUnit = myConfig.defUnit;
             if (defUnit == "mm")
-                mmBtn.Checked = true;
+                rad_unit_mm.Checked = true;
             else
-                inchBtn.Checked = true;
-            SampleROI = new Rectangle(myconfig.mROI.X, myconfig.mROI.Y, myconfig.mROI.width, myconfig.mROI.height);
+                rad_unit_inch.Checked = true;
+            SampleROI = new Rectangle(myConfig.mROI.X, myConfig.mROI.Y, myConfig.mROI.width, myConfig.mROI.height);
+            foreach(feedRate fr in myConfig.PrevFRates)
+            {
+                prevFeedrate.Add(fr.typeCode, fr);
+            }
+            foreach (feedRate fr in myConfig.FactFRates)
+            {
+                factoryFeedrate.Add(fr.typeCode, fr);
+            }
+            foreach (feedContact fc in myConfig.FactContacts)
+            {
+                factoryFeedcontact.Add(fc.typeCode, fc);
+            }
         }
         private void loadSamples(int currentSample)
         {
@@ -280,13 +347,13 @@ namespace PropInnerImageAnalysis
             bool enInit = true;
             if (!mainCam.isOpened)
                 enInit = false;
-            if (!comportOpened)
+            if (!isComPortOpened)
                 enInit = false;
-            if (!PropTypeSelected)
+            if (!isPropTypeSelected)
                 enInit = false;
 
             if (enInit)
-                btnStart.Enabled = true;
+                btn_connect.Enabled = true;
 
         }
         private void openCam(BaslerCamera cam, string camID, string conFN)
@@ -356,7 +423,7 @@ namespace PropInnerImageAnalysis
             {
                 Bitmap old = picBoxCam.Image as Bitmap;
                 picBoxCam.Image = temp1;
-                picBox_Origin.Image = temp2;
+                ob_origin.Image = temp2;
                 if (old != null)
                     old.Dispose();
             }));
@@ -385,11 +452,35 @@ namespace PropInnerImageAnalysis
             Timer_system.Enabled = true;
 
             PropType = "";
+
             loadConfig("./config/sysconfig.json");
-            textBox_sample_dir.Text = myconfig.workiDir;
-
+            txt_config.Text = "./config/sysconfig.json";
+            txt_sample_dir.Text = myConfig.workiDir;
+            ResetUI();
         }
+        public void ResetUI()
+        {
+            cboProType.SelectedIndex = -1;
+            cboProType.Text = "";
 
+            txt_feedrate01.Text = "0.00";
+            txt_feedrate02.Text = "0.00";
+            txt_feedrate03.Text = "0.00";
+
+            txt_feedrate01_default.Text = "0.00";
+            txt_feedrate02_default.Text = "0.00";
+            txt_feedrate03_default.Text = "0.00";
+
+            txt_feedcount01.Text = "00";
+            txt_feedcount02.Text = "00";
+            txt_feedcount03.Text = "00";
+
+            txt_feedcount01_default.Text = "00";
+            txt_feedcount02_default.Text = "00";
+            txt_feedcount03_default.Text = "00";
+
+            txt_grindcount.Text = "0";
+        }
         private void changeUnit(string dUnit)
         {
             float ratio;
@@ -429,18 +520,6 @@ namespace PropInnerImageAnalysis
         }
 
 
-        private void button_initial_Click(object sender, EventArgs e)
-        {
-            if (lblConnect.Text == "ON")
-            {
-                ToggleLed(lblConnect, false);
-                btnStart.Enabled = false;
-            }
-            else
-            {
-                ToggleLed(lblConnect, true);
-            }
-        }
         private void initVars()
         {
             /* CycleCount = 0;
@@ -453,36 +532,8 @@ namespace PropInnerImageAnalysis
              updateInitUI();
              ApplyROIFaceDetection = false;*/
         }
-        private void button_start_Click(object sender, EventArgs e)
-        {
-             if (lblConnect.Text == "ON")
-             {
-                ToggleLed(lblConnect, false);
-                btnStart.Enabled = false;
-                //btnOffline.Enabled = true;
-                btnSampling.Enabled = false;
-                startFlag = false;
-                polishReady = false;
-                initVars();
-             }
-             else
-             {
-                ToggleLed(lblConnect, true);
-                startFlag = true;
-                //btnSampling.Enabled = true;
-                master.WriteSingleCoil(slaveID, ushort.Parse(100.ToString()), true);
-                dispMachineProcess(0);
-                startcount = 0;
-            }
-        }
 
-        private void comboBox_prop_type_Click(object sender, EventArgs e)
-        {
-            if ((cboProType.Text != "") && (comportOpened))
-                gswPropType.Enabled = true;
-        }
-
-        private void gswPropType_Click(object sender, EventArgs e)
+        /*private void gswPropType_Click(object sender, EventArgs e)
         {
               if (lblProTypeStatus.Text=="ON")
               {
@@ -528,7 +579,7 @@ namespace PropInnerImageAnalysis
               }
 
               updateInitUI();
-        }
+        }*/
 
         private void button_Save_Click(object sender, EventArgs e)
         {
@@ -715,6 +766,50 @@ namespace PropInnerImageAnalysis
         private void Timer_system_Tick(object sender, EventArgs e)
         {
             label_time.Text = DateTime.Now.ToString("yyyy / MM / dd  HH:mm:ss");
+            if(!isConnectPressed)
+            {
+                if((btn_connect.BackColor==Color.PaleGreen) && (btn_connect.Enabled))
+                {
+                    btn_connect.BackColor = Color.Silver;
+                }
+                else
+                {
+                    btn_connect.BackColor = Color.PaleGreen;
+                }
+            }
+            if (!isSamplingPressed)
+            {
+                if ((btn_sampling.BackColor == Color.PaleGreen) && (btn_sampling.Enabled))
+                {
+                    btn_sampling.BackColor = Color.Silver;
+                }
+                else
+                {
+                    btn_sampling.BackColor = Color.PaleGreen;
+                }
+            }
+            if ((!isReturnPressed) && (btn_return.Enabled))
+            {
+                if (btn_return.BackColor == Color.PaleGreen)
+                {
+                    btn_return.BackColor = Color.Silver;
+                }
+                else
+                {
+                    btn_return.BackColor = Color.PaleGreen;
+                }
+            }
+            if ((!isReGrindPressed) && (btn_regrind.Enabled))
+            {
+                if (btn_regrind.BackColor == Color.PaleGreen)
+                {
+                    btn_regrind.BackColor = Color.Silver;
+                }
+                else
+                {
+                    btn_regrind.BackColor = Color.PaleGreen;
+                }
+            }
         }
         private void button_face_unit_adj_Click(object sender, EventArgs e)
         {
@@ -884,14 +979,14 @@ namespace PropInnerImageAnalysis
         {
             if (folderBrowserDialog_working_dir.ShowDialog() == DialogResult.OK)
             {
-                textBox_sample_dir.Text = folderBrowserDialog_working_dir.SelectedPath;
-                myconfig.workiDir = textBox_sample_dir.Text;
+                txt_sample_dir.Text = folderBrowserDialog_working_dir.SelectedPath;
+                myConfig.workiDir = txt_sample_dir.Text;
             }
         }
 
-        public void comport_init()
+        public void ComPort_init()
         {
-            comportOpened = false;
+            isComPortOpened = false;
             cboComPort.Items.Clear();
             string[] ports = SerialPort.GetPortNames();
             ManagementObjectSearcher searcher = new ManagementObjectSearcher("Select * From Win32_SerialPort");
@@ -909,51 +1004,30 @@ namespace PropInnerImageAnalysis
 
         private void button_comport_sw_Click(object sender, EventArgs e)
         {
-          if (comportOpened)
-          {
-
-              //Activate_Flag = false;
-              //Activate_clk_Flag = true;
-              //richTextBox_logs.Text += DateTime.Now.ToString("HH:mm:ss") + "-機台連接斷開，取消取樣作業\n";
-
-              comportOpened = false;
-              ToggleSWwithLed(gswComport, lblComPortStatus , comportOpened);
-              cboComPort.Enabled = true;
-              if (PropTypeSelected)
-              {
-                  PropTypeSelected = false;
- 
-                  //master.WriteSingleRegister(slaveID, PropellantChoice, 0); 
-              }
-
-              comport.Close();
-              cboComPort.Text = "";
-              for(int i=0;i<2;i++)
-              {
-                  ledOperMode[operMode].BackColor = Color.Red;
-              }
-
-              cboProType.Enabled = false;
-              ToggleSWwithLed(gswPropType, lblProTypeStatus, false);
-              gswPropType.Enabled = false;
-
-              lblConnect.Text = "OFF";
-              lblConnect.BackColor = Color.Red;
-              btnStart.Enabled = false;
-
-              initVars();
-          }
-          else
-          {
-              if (cboComPort.Text != "")
-              {
+            if (isComPortOpened)
+            {
+                isComPortOpened = false;
+                ToggleSWwithLed(gswComport, lblComPortStatus, isComPortOpened);
+                cboComPort.Enabled = true;
+                if (PropTypeSelected) PropTypeSelected = false;
+                ComPort.Close();
+                cboComPort.Text = "";
+                for (int i = 0; i < 2; i++) ledOperMode[operMode].BackColor = Color.Red;
+                cboProType.Enabled = false;
+                btn_connect.Enabled = false;
+                initVars();
+            }
+            else
+            {
+                if (cboComPort.Text != "")
+                {
                   String com = cboComPort.Text;
                   try
                   {
-                      comport = new SerialPort(ComName(com), 9600, Parity.None, 8, StopBits.One);
-                      comport.ReadTimeout = 1000;
-                      comport.Open();
-                      master = ModbusSerialMaster.CreateRtu(comport); //設置Modbus RTU連結
+                      ComPort = new SerialPort(ComName(com), 9600, Parity.None, 8, StopBits.One);
+                      ComPort.ReadTimeout = 1000;
+                      ComPort.Open();
+                      master = ModbusSerialMaster.CreateRtu(ComPort); //設置Modbus RTU連結
                       ReadXButtons = master.ReadInputs(slaveID, X32, 2);
                       if (!ReadXButtons[0])
                       {
@@ -972,8 +1046,8 @@ namespace PropInnerImageAnalysis
                       }
                       ledOperMode[operMode].BackColor = Color.Green;
                       BeginWork(); //啟用非同步流程
-                      comportOpened = true;
-                      ToggleSWwithLed(gswComport, lblComPortStatus, comportOpened);
+                      isComPortOpened = true;
+                      ToggleSWwithLed(gswComport, lblComPortStatus, isComPortOpened);
                       cboComPort.Enabled = false;
                       cboProType.Enabled = true;
 
@@ -981,12 +1055,12 @@ namespace PropInnerImageAnalysis
                   }
                   catch (ArgumentException ex)
                   {
-                      comport.Close();
+                      ComPort.Close();
                       //ComClose_Component(true);
                   }
                   catch (UnauthorizedAccessException ex)
                   {
-                      comport.Close();
+                      ComPort.Close();
                       //ComClose_Component(true);
                   }
               }
@@ -995,7 +1069,7 @@ namespace PropInnerImageAnalysis
 
         private void comboBox_comport_Click(object sender, EventArgs e)
         {
-            comportOpened = false;
+            isComPortOpened = false;
             cboComPort.Items.Clear();
             string[] ports = SerialPort.GetPortNames();
             ManagementObjectSearcher searcher = new ManagementObjectSearcher("Select * From Win32_SerialPort");
@@ -1015,12 +1089,12 @@ namespace PropInnerImageAnalysis
                 {
                     if (port == coms)
                     {
-                        comportOpened = true;
+                        isComPortOpened = true;
                         continue;
                     }
                 }
-                if (!comportOpened) cboComPort.Items.Add(port);
-                else comportOpened = false;
+                if (!isComPortOpened) cboComPort.Items.Add(port);
+                else isComPortOpened = false;
             }
         }
 
@@ -1050,10 +1124,68 @@ namespace PropInnerImageAnalysis
 
         }
 
-        private void comboBox_prop_type_SelectedIndexChanged(object sender, EventArgs e)
+        private void cboProType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboProType.Text != "")
-                gswPropType.Enabled = true;
+            if (cboProType.Text == "") return;
+            if (cboProType.Text != "無")
+            {
+                btn_factory_reset.Enabled = true;
+
+                txt_feedrate01.Enabled = true;
+                txt_feedrate02.Enabled = true;
+                txt_feedrate03.Enabled = true;
+
+                txt_feedcount01.Enabled = true;
+                txt_feedcount02.Enabled = true;
+                txt_feedcount03.Enabled = true;
+
+                btn_feedrate01.Enabled = true;
+                btn_feedrate02.Enabled = true;
+                btn_feedrate03.Enabled = true;
+
+                isPropTypeSelected = true;
+                updateInitUI();
+
+                switch (cboProType.SelectedIndex)
+                {
+                    case 1:
+                        master.WriteSingleRegister(slaveID, startChoice, 1);
+                        PropType = "B1";
+                        break;
+                    case 2:
+                        master.WriteSingleRegister(slaveID, startChoice, 2);
+                        PropType = "B2";
+                        break;
+                    case 3:
+                        master.WriteSingleRegister(slaveID, startChoice, 3);
+                        PropType = "B3";
+                        break;
+                    case 4:
+                        master.WriteSingleRegister(slaveID, startChoice, 4);
+                        PropType = "B4";
+                        break;
+                    case 5:
+                        master.WriteSingleRegister(slaveID, startChoice, 5);
+                        PropType = "B5";
+                        break;
+                    case 6:
+                        master.WriteSingleRegister(slaveID, startChoice, 6);
+                        PropType = "C1";
+                        break;
+                    case 7:
+                        master.WriteSingleRegister(slaveID, startChoice, 7);
+                        PropType = "C2";
+                        break;
+                }
+                loadFeedRate(PropType);
+            }
+            else
+            {
+                isPropTypeSelected = false;
+                PropType = "";
+                master.WriteSingleRegister(slaveID, startChoice, 0);
+            }
+
         }
 
         private void Button_abandon_Click(object sender, EventArgs e)
@@ -1388,23 +1520,28 @@ namespace PropInnerImageAnalysis
         /*----------------------------------------------Modbus通訊end-----------------------------------------------*/
         private async Task<string> DoWork()      //非同步執行(機台狀態讀取副程式)
         {
-
-            //await Task.Delay(500);
-            //ushort[] holding_register = master.ReadHoldingRegisters(slaveID, startAddress, 10); // Read holding FC03
-            //bool[] read_startCoid = master.ReadCoils(slaveID, readstartcoid, 10);  // Read coil FC01
             if (startFlag == true)
             {
                 await Task.Delay(200);
-                readPosition_coid = master.ReadCoils(slaveID, readPosition, 36); //讀取拍照位置暫存器
+                readPosition_coil = master.ReadCoils(slaveID, readPosition, 36); //讀取拍照位置暫存器
             }
 
             await Task.Delay(200);
-            readAction_coid = master.ReadCoils(slaveID, readAction, 2);        //處理站號暫存器讀取
+            if((operMode==0) || (operMode==1))
+            {
+                readAction_coil = master.ReadCoils(slaveID, readAction, 2);        //處理站號暫存器讀取
 
-            if (readAction_coid[0] == true) dispMachineProcess(1);
-            if (readAction_coid[1] == true) dispMachineProcess(2);
-                //textBox1.Text = read_coid[0].ToString();
-                //textBox11.Text = Convert.ToString(holding_register[0]); // 16bit
+                if (readAction_coil[0] == true) dispMachineProcess(1);
+                if (readAction_coil[1] == true)
+                {
+                    dispMachineProcess(2);
+                    btn_sampling.Enabled = true;
+                }                
+            }
+            if(operMode==3) btn_sampling.Enabled = true;
+
+            //textBox1.Text = read_coid[0].ToString();
+            //textBox11.Text = Convert.ToString(holding_register[0]); // 16bit
 
             if (polishReady == true)   //循環依序讀取 照相位置M接點條件式
             {
@@ -1412,7 +1549,7 @@ namespace PropInnerImageAnalysis
 
                 //while (MessageBox.Show((readPosition_coid[startcount] ? startcount.ToString() + "到位" : "未到位"), "問題", MessageBoxButtons.YesNo) != DialogResult.Yes) ;
 
-                if (readPosition_coid[startcount] == true)
+                if (readPosition_coil[startcount] == true)
                 {
                     if (startcount > 0) master.WriteSingleCoil(slaveID, ushort.Parse((startcount - 1 + writeAddress).ToString()), false);  //寫入取消上一個拍照確認的M接點
                     //while (MessageBox.Show((readPosition_coid[startcount] ? startcount.ToString() + "到位" : "未到位"), "問題", MessageBoxButtons.YesNo) != DialogResult.Yes) ;
@@ -1443,7 +1580,7 @@ namespace PropInnerImageAnalysis
             if (capReady == true)     //拍照完成  切割影像
             {
                 polishReady = false;
-                btnSampling.Enabled = false;
+                btn_sampling.Enabled = false;
                 /* startFlag = false;
                 polishReady = false;
                 Stop();
@@ -1488,6 +1625,15 @@ namespace PropInnerImageAnalysis
         
         private void dispMachineProcess(int cnt)
         {
+            if(cnt==-1)
+            {
+                lbl_Machine_Process.Text = "機台運行：未連結";
+                clearledLabel();
+                return;
+
+            }
+            
+            
             switch (cnt)
             {
                 case 0:
@@ -1506,9 +1652,9 @@ namespace PropInnerImageAnalysis
             for(int i=0;i<4;i++)
             {
                 if(i==cnt)
-                    ledProcess[cnt].BackColor = Color.Green;
+                    ledProcess[i].BackColor = Color.Green;
                 else
-                    ledProcess[cnt].BackColor = Color.SteelBlue;
+                    ledProcess[i].BackColor = Color.SteelBlue;
             }
         }
 
@@ -1516,7 +1662,7 @@ namespace PropInnerImageAnalysis
         {
             if (lblCamStatus.Text=="OFF")
             {
-                openCam(mainCam, textBox_Cam.Text, "./config/" + myconfig.camConfig);
+                openCam(mainCam, textBox_Cam.Text, "./config/" + myConfig.camConfig);
                 if(mainCam.isOpened)
                 {
                     ToggleSWwithLed(gswCam, lblCamStatus, true);               
@@ -1536,11 +1682,6 @@ namespace PropInnerImageAnalysis
 
         }
 
-        private void btnSampling_Click(object sender, EventArgs e)
-        {
-            polishReady = true;
-            ToggleLed(lblSampling, true);
-        }
 
         private void groupBox3_Enter(object sender, EventArgs e)
         {
@@ -1552,40 +1693,66 @@ namespace PropInnerImageAnalysis
 
         }
 
-        private void gswDelSpl_Click(object sender, EventArgs e)
+        private void btn_load_config_Click(object sender, EventArgs e)
         {
-            if(lblSplDel.Text=="現有")
+
+        }
+
+        private void btn_connect_Click(object sender, EventArgs e)
+        {
+            if(!isConnectPressed)
             {
-                lblSplDel.Text = "所有";
-                lblSplDel.BackColor = Color.LightBlue;
-                DelAllSamples = true;
-                gswDelSpl.Image = Properties.Resources.toggle_on;
+                isConnectPressed = true;
+                btn_connect.BackColor = Color.PaleGreen;
+                startFlag = true;
+                //btnSampling.Enabled = true;
+                master.WriteSingleCoil(slaveID, PLCStart, true);
+                dispMachineProcess(0);
+                startcount = 0;
             }
             else
             {
-                lblSplDel.Text = "現有";
-                lblSplDel.BackColor = Color.Orange;
-                DelAllSamples = false;
-                gswDelSpl.Image = Properties.Resources.toggle_off;
+                isConnectPressed = false;
+                btn_connect.BackColor = Color.Silver;
+                startFlag = false;
+                //btnSampling.Enabled = true;
+                master.WriteSingleCoil(slaveID, PLCStart, false);
+                dispMachineProcess(-1);
             }
         }
 
-        private void gswDelMark_Click(object sender, EventArgs e)
+        private void btn_sampling_Click(object sender, EventArgs e)
         {
-            if (lblMarkDel.Text == "現有")
+            if(!polishReady)
             {
-                lblMarkDel.Text = "所有";
-                lblMarkDel.BackColor = Color.LightBlue;
-                DelAllMarks = true;
-                gswDelMark.Image = Properties.Resources.toggle_on;
+                polishReady = true;
+                btn_connect.BackColor = Color.PaleGreen;
             }
-            else
+        }
+
+        private void btn_return_Click(object sender, EventArgs e)
+        {
+            if(!isReturnPressed)
             {
-                lblMarkDel.Text = "現有";
-                lblMarkDel.BackColor = Color.Orange;
-                DelAllMarks = false;
-                gswDelMark.Image = Properties.Resources.toggle_off;
+                master.WriteSingleCoil(slaveID, ushort.Parse((286).ToString()), true);
+                isReturnPressed = true;
+                for(int i=0;i<6; i++)
+                {
+                    master.WriteSingleCoil(slaveID, reGrindCoil[i], false);
+                }
             }
+        }
+
+        private void btn_regrind_Click(object sender, EventArgs e)
+        {
+            if (txt_grindcount.Text == "6")
+            {
+                MessageBox.Show("已達再研磨次數上限!");
+                return;
+            }
+            int cnt = Int32.Parse(txt_grindcount.Text) + 1;
+            master.WriteSingleCoil(slaveID, reGrindCoil[cnt-1], true);
+            txt_grindcount.Text = cnt.ToString();
         }
     }
 }
