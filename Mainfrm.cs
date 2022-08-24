@@ -17,7 +17,7 @@ using NPOI.SS.UserModel;
 using NPOI.SS.Util;
 using System.Diagnostics;
 using System.Management;
-
+using PropImages;
 
 
 
@@ -49,6 +49,8 @@ namespace PropInnerImageAnalysis
 
         private List<PropImages.SingleHoleGrain> listSHG = new List<PropImages.SingleHoleGrain>();
         private List<PropImages.Powder> listPWD = new List<PropImages.Powder>();
+
+        private List<PropGrinds> listPropGrinds = new List<PropGrinds>();
 
         private Rectangle SampleROI;
 
@@ -96,13 +98,22 @@ namespace PropInnerImageAnalysis
 
         public bool isCoated = false;
 
-        public bool isConnectPressed = false;   //連結按鈕按下
+        public bool isPLCStartPressed = false;   //開始按鈕按下
         public bool isSamplingPressed = false;  //取樣按鈕按下
         public bool isReturnPressed = false;    //回歸取料按鈕按下
         public bool isReGrindPressed = false;   //再研磨按鈕按下
         public int reGrindCount = 0;            //再研磨次數
 
         public bool isPropTypeSelected = false; //發射藥型選擇;
+
+        public Bitmap currBMP;
+
+        public string PropClassify = string.Empty; // 藥型種類
+                                                   // OHGC: 包面型單孔
+                                                   // OHGN: 單孔
+                                                   // PWDC: 包面型球藥
+                                                   // PWDN: 球藥
+                                                   // SHGN: 七孔藥柱
 
         /*************************************************************************************************************/
         /*************************************************************************************************************/
@@ -353,7 +364,7 @@ namespace PropInnerImageAnalysis
                 enInit = false;
 
             if (enInit)
-                btn_connect.Enabled = true;
+                btn_plc_start.Enabled = true;
 
         }
         private void openCam(BaslerCamera cam, string camID, string conFN)
@@ -406,24 +417,40 @@ namespace PropInnerImageAnalysis
         private void Camera_CameraImageEvent(Bitmap bmp)
         {
             if (isOffline) return;
-
-            if (ApplyROIFaceDetection)
-            {
-                ApplyROIFaceDetection = false;
-                SampleROI = ImageUtil.FindROI(bmp, 1200, 1200);
-            }
+            currBMP = bmp;
             Bitmap temp = bmp.Clone(SampleROI, bmp.PixelFormat);
             if (mainCamShoot)
             {
                 mainCamShoot = false;
+                SingleHoleGrain stmp;
+                Powder ptmp;
+                PropGrinds pgrind;
+                switch(PropClassify)
+                {
+                    case "OHGC":
+                        stmp = new SingleHoleGrain(PropType, temp, true);
+                        pgrind = new PropGrinds(stmp,true);
+                        listPropGrinds.Add(pgrind);
+                        break;
+                    case "OHGN":
+                        stmp = new SingleHoleGrain(PropType, temp, false);
+                        pgrind = new PropGrinds(stmp, false);
+                        listPropGrinds.Add(pgrind);
+                        break;
+                    case "PWDC":
+                        ptmp =new Powder(PropType, temp);
+                        pgrind = new PropGrinds(ptmp);
+                        listPropGrinds.Add(pgrind);
+                        break;
+                }
+                ob_origin.Image = ImageUtil.ResizeBitmap(temp, 500, 500);
             }
             Bitmap temp1 = ImageUtil.ResizeBitmap(temp, 300, 300);
-            Bitmap temp2 = ImageUtil.ResizeBitmap(temp, 600, 600);
             picBoxCam.Invoke(new MethodInvoker(delegate
             {
                 Bitmap old = picBoxCam.Image as Bitmap;
                 picBoxCam.Image = temp1;
-                ob_origin.Image = temp2;
+                //ob_origin.Image = temp2;
                 if (old != null)
                     old.Dispose();
             }));
@@ -450,6 +477,9 @@ namespace PropInnerImageAnalysis
         {
             Timer_system.Interval = 100;
             Timer_system.Enabled = true;
+
+            Blink_timer.Interval = 200;
+            Blink_timer.Enabled = true;
 
             PropType = "";
 
@@ -766,50 +796,6 @@ namespace PropInnerImageAnalysis
         private void Timer_system_Tick(object sender, EventArgs e)
         {
             label_time.Text = DateTime.Now.ToString("yyyy / MM / dd  HH:mm:ss");
-            if(!isConnectPressed)
-            {
-                if((btn_connect.BackColor==Color.PaleGreen) && (btn_connect.Enabled))
-                {
-                    btn_connect.BackColor = Color.Silver;
-                }
-                else
-                {
-                    btn_connect.BackColor = Color.PaleGreen;
-                }
-            }
-            if (!isSamplingPressed)
-            {
-                if ((btn_sampling.BackColor == Color.PaleGreen) && (btn_sampling.Enabled))
-                {
-                    btn_sampling.BackColor = Color.Silver;
-                }
-                else
-                {
-                    btn_sampling.BackColor = Color.PaleGreen;
-                }
-            }
-            if ((!isReturnPressed) && (btn_return.Enabled))
-            {
-                if (btn_return.BackColor == Color.PaleGreen)
-                {
-                    btn_return.BackColor = Color.Silver;
-                }
-                else
-                {
-                    btn_return.BackColor = Color.PaleGreen;
-                }
-            }
-            if ((!isReGrindPressed) && (btn_regrind.Enabled))
-            {
-                if (btn_regrind.BackColor == Color.PaleGreen)
-                {
-                    btn_regrind.BackColor = Color.Silver;
-                }
-                else
-                {
-                    btn_regrind.BackColor = Color.PaleGreen;
-                }
-            }
         }
         private void button_face_unit_adj_Click(object sender, EventArgs e)
         {
@@ -1014,7 +1000,7 @@ namespace PropInnerImageAnalysis
                 cboComPort.Text = "";
                 for (int i = 0; i < 2; i++) ledOperMode[operMode].BackColor = Color.Red;
                 cboProType.Enabled = false;
-                btn_connect.Enabled = false;
+                btn_plc_start.Enabled = false;
                 initVars();
             }
             else
@@ -1115,13 +1101,43 @@ namespace PropInnerImageAnalysis
 
         private void button_prev_Click(object sender, EventArgs e)
         {
-
-
+            if(listPropGrinds.Count>0)
+            {
+                if (CurrentSample > 0)
+                {
+                    CurrentSample--;
+                    dispCurrentSample(CurrentSample);
+                }
+            }
         }
 
         private void button_next_Click(object sender, EventArgs e)
         {
+            if (listPropGrinds.Count > 0)
+            {
+                if (CurrentSample < listPropGrinds.Count-1)
+                {
+                    CurrentSample++;
+                    dispCurrentSample(CurrentSample);
+                }
+            }
+        }
 
+        private void dispCurrentSample(int Curr)
+        {
+            PropGrinds tmpG = listPropGrinds[Curr];
+            if(PropClassify=="PWDC")
+            {
+                List<Powder> lstPD = tmpG.getPWDCList();
+                ob_origin.Image = ImageUtil.ResizeBitmap(lstPD[0].SrcImg, 500, 500); 
+            }
+            else
+            {
+                List<SingleHoleGrain> lstshg = tmpG.getOHGCList();
+                ob_origin.Image = ImageUtil.ResizeBitmap(lstshg[0].SrcImg, 500, 500);
+            }
+
+            textBox_sample_count.Text = (CurrentSample + 1).ToString() + "/" + listPropGrinds.Count.ToString();
         }
 
         private void cboProType_SelectedIndexChanged(object sender, EventArgs e)
@@ -1139,9 +1155,9 @@ namespace PropInnerImageAnalysis
                 txt_feedcount02.Enabled = true;
                 txt_feedcount03.Enabled = true;
 
-                btn_feedrate01.Enabled = true;
-                btn_feedrate02.Enabled = true;
-                btn_feedrate03.Enabled = true;
+                btn_feed01.Enabled = true;
+                btn_feed02.Enabled = true;
+                btn_feed03.Enabled = true;
 
                 isPropTypeSelected = true;
                 updateInitUI();
@@ -1151,30 +1167,37 @@ namespace PropInnerImageAnalysis
                     case 1:
                         master.WriteSingleRegister(slaveID, startChoice, 1);
                         PropType = "B1";
+                        PropClassify = "OHGC";
                         break;
                     case 2:
                         master.WriteSingleRegister(slaveID, startChoice, 2);
                         PropType = "B2";
+                        PropClassify = "OHGC";
                         break;
                     case 3:
                         master.WriteSingleRegister(slaveID, startChoice, 3);
                         PropType = "B3";
+                        PropClassify = "OHGC";
                         break;
                     case 4:
                         master.WriteSingleRegister(slaveID, startChoice, 4);
                         PropType = "B4";
+                        PropClassify = "OHGC";
                         break;
                     case 5:
                         master.WriteSingleRegister(slaveID, startChoice, 5);
                         PropType = "B5";
+                        PropClassify = "OHGC";
                         break;
                     case 6:
                         master.WriteSingleRegister(slaveID, startChoice, 6);
-                        PropType = "C1";
+                        PropType = "C1"; 
+                        PropClassify = "PWDC";
                         break;
                     case 7:
                         master.WriteSingleRegister(slaveID, startChoice, 7);
                         PropType = "C2";
+                        PropClassify = "PWDC";
                         break;
                 }
                 loadFeedRate(PropType);
@@ -1183,6 +1206,7 @@ namespace PropInnerImageAnalysis
             {
                 isPropTypeSelected = false;
                 PropType = "";
+                PropClassify = "";
                 master.WriteSingleRegister(slaveID, startChoice, 0);
             }
 
@@ -1527,23 +1551,19 @@ namespace PropInnerImageAnalysis
             }
 
             await Task.Delay(200);
-            if((operMode==0) || (operMode==1))
+            if(((operMode==0) || (operMode==1)) && (!polishReady))
             {
                 readAction_coil = master.ReadCoils(slaveID, readAction, 2);        //處理站號暫存器讀取
 
                 if (readAction_coil[0] == true) dispMachineProcess(1);
-                if (readAction_coil[1] == true)
-                {
-                    dispMachineProcess(2);
-                    btn_sampling.Enabled = true;
-                }                
+                if (readAction_coil[1] == true) dispMachineProcess(2);
+                polishReady = true;
             }
-            if(operMode==3) btn_sampling.Enabled = true;
+            if((operMode==1) || (operMode==3)) btn_sampling.Enabled = true;
 
-            //textBox1.Text = read_coid[0].ToString();
-            //textBox11.Text = Convert.ToString(holding_register[0]); // 16bit
+            if ((operMode == 0) && (polishReady)) btn_return.Enabled = true;
 
-            if (polishReady == true)   //循環依序讀取 照相位置M接點條件式
+            if (isSamplingPressed)   //循環依序讀取 照相位置M接點條件式
             {
                 dispMachineProcess(3);
 
@@ -1573,14 +1593,18 @@ namespace PropInnerImageAnalysis
                         master.WriteSingleCoil(slaveID, ushort.Parse((startcount + writeAddress).ToString()), false);  //寫入上一個拍照確認的取消M接點
                         startcount = 0;     //count歸零
                         capReady = true;
-                        master.WriteSingleCoil(slaveID, ushort.Parse((286).ToString()), true);//寫入確認M接點
+                        btn_return.Enabled = true;
+                        isSamplingPressed = false;
                     }
                 }
             }
             if (capReady == true)     //拍照完成  切割影像
             {
+                mainCamShoot = true;
+                await Task.Delay(takePicDelay);
                 polishReady = false;
                 btn_sampling.Enabled = false;
+                if (operMode == 1) btn_regrind.Enabled = true;
                 /* startFlag = false;
                 polishReady = false;
                 Stop();
@@ -1667,11 +1691,15 @@ namespace PropInnerImageAnalysis
                 {
                     ToggleSWwithLed(gswCam, lblCamStatus, true);               
                     mainCam.CameraImageEvent += Camera_CameraImageEvent;
+                    btn_cROI.Enabled = true;
+                    btn_nROI.Enabled = true;
                 }
             }
             else
             {
                 ToggleSWwithLed(gswCam, lblCamStatus, false);
+                btn_cROI.Enabled = false;
+                btn_nROI.Enabled = false;
                 mainCam.DestroyCamera();
             }
 
@@ -1698,12 +1726,12 @@ namespace PropInnerImageAnalysis
 
         }
 
-        private void btn_connect_Click(object sender, EventArgs e)
+        private void btn_plc_start_Click(object sender, EventArgs e)
         {
-            if(!isConnectPressed)
+            if(!isPLCStartPressed)
             {
-                isConnectPressed = true;
-                btn_connect.BackColor = Color.PaleGreen;
+                isPLCStartPressed = true;
+                btn_plc_start.BackColor = Color.PaleGreen;
                 startFlag = true;
                 //btnSampling.Enabled = true;
                 master.WriteSingleCoil(slaveID, PLCStart, true);
@@ -1712,8 +1740,8 @@ namespace PropInnerImageAnalysis
             }
             else
             {
-                isConnectPressed = false;
-                btn_connect.BackColor = Color.Silver;
+                isPLCStartPressed = false;
+                btn_plc_start.BackColor = Color.Silver;
                 startFlag = false;
                 //btnSampling.Enabled = true;
                 master.WriteSingleCoil(slaveID, PLCStart, false);
@@ -1723,24 +1751,37 @@ namespace PropInnerImageAnalysis
 
         private void btn_sampling_Click(object sender, EventArgs e)
         {
-            if(!polishReady)
+            if(!isSamplingPressed)
             {
-                polishReady = true;
-                btn_connect.BackColor = Color.PaleGreen;
+                isSamplingPressed = true;
+                btn_plc_start.BackColor = Color.PaleGreen;
             }
         }
 
         private void btn_return_Click(object sender, EventArgs e)
         {
-            if(!isReturnPressed)
+            ledSamplePath[35].BackColor = Color.Red;
+            master.WriteSingleCoil(slaveID, (ushort)286, true);
+            isReturnPressed = true;
+            for(int i=0;i<6; i++)
             {
-                master.WriteSingleCoil(slaveID, ushort.Parse((286).ToString()), true);
-                isReturnPressed = true;
-                for(int i=0;i<6; i++)
-                {
-                    master.WriteSingleCoil(slaveID, reGrindCoil[i], false);
-                }
+                master.WriteSingleCoil(slaveID, reGrindCoil[i], false);
             }
+            isPLCStartPressed = false;
+            btn_plc_start.BackColor = Color.Silver;
+            startFlag = false;
+            //btnSampling.Enabled = true;
+            master.WriteSingleCoil(slaveID, PLCStart, false);
+
+            dispMachineProcess(-1);
+            btn_return.Enabled = false;
+            if(listPropGrinds.Count>0)
+            {
+                CurrentSample = 0;
+                dispCurrentSample(CurrentSample);
+            }
+
+
         }
 
         private void btn_regrind_Click(object sender, EventArgs e)
@@ -1754,6 +1795,34 @@ namespace PropInnerImageAnalysis
             master.WriteSingleCoil(slaveID, reGrindCoil[cnt-1], true);
             txt_grindcount.Text = cnt.ToString();
         }
+
+        private void Blink_timer_Tick(object sender, EventArgs e)
+        {
+            if (!isPLCStartPressed)
+            {
+                if ((btn_plc_start.BackColor == Color.PaleGreen) && (btn_plc_start.Enabled))
+                {
+                    btn_plc_start.BackColor = Color.Silver;
+                }
+                else
+                {
+                    btn_plc_start.BackColor = Color.PaleGreen;
+                }
+            }
+        }
+
+        private void btn_cROI_Click(object sender, EventArgs e)
+        {
+            SampleROI = new Rectangle(myConfig.mROI.X, myConfig.mROI.Y, myConfig.mROI.width, myConfig.mROI.height);
+            ApplyROIFaceDetection = false;
+        }
+
+        private void btn_nROI_Click(object sender, EventArgs e)
+        {
+            SampleROI = ImageUtil.FindROI(currBMP, 1800, 1800);
+            ApplyROIFaceDetection = true;
+        }
     }
+
 }
     

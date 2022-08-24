@@ -20,6 +20,28 @@ namespace PropInnerImageAnalysis
             }
             return result;
         }
+        public static Bitmap ResizeBitmap(Image<Bgr,byte>img, int width, int height)
+        {
+            Bitmap bmp = img.ToBitmap();
+            Bitmap result = new Bitmap(width, height);
+            using (Graphics g = Graphics.FromImage(result))
+            {
+                g.DrawImage(bmp, 0, 0, width, height);
+            }
+            return result;
+        }
+        public static Bitmap ResizeBitmap(Image<Gray, byte> img, int width, int height)
+        {
+            Bitmap bmp = img.ToBitmap();
+            Bitmap result = new Bitmap(width, height);
+            using (Graphics g = Graphics.FromImage(result))
+            {
+                g.DrawImage(bmp, 0, 0, width, height);
+            }
+            return result;
+        }
+
+
         public static Rectangle FindROI(Image<Bgr, byte> src, int width, int height)
         {
             VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
@@ -54,7 +76,7 @@ namespace PropInnerImageAnalysis
                 else
                 {
                     if ((centX - (width / 2)) < 0)
-                        centX = 20;
+                        centX = 200;
                     else
                         centX = centX - (width / 2);
                 }
@@ -64,7 +86,7 @@ namespace PropInnerImageAnalysis
                 else
                 {
                     if ((centY - (height / 2)) < 0)
-                        centY = 20;
+                        centY = 200;
                     else
                         centY = centY - (height / 2);
                 }
@@ -78,6 +100,7 @@ namespace PropInnerImageAnalysis
 
         public static Rectangle FindROI(Bitmap bmp, int width, int height)
         {
+            
             Image<Bgr, byte> src = bmp.ToImage<Bgr, byte>();
             return FindROI(src, width, height);
         }

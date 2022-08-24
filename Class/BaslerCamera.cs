@@ -30,16 +30,29 @@ namespace PropInnerImageAnalysis
         public void CameraInit(ICameraInfo cameraInfo,string configFN)
         {
             camera = new Camera(cameraInfo);
-            camera.Open();
-            camera.Parameters.Load(configFN, ParameterPath.CameraDevice);
+
             camera.CameraOpened += Configuration.AcquireContinuous;
+            camera.Open();
+
+            camera.Parameters[PLStream.MaxNumBuffer].SetValue(15);
+            camera.Parameters.Load(configFN, ParameterPath.CameraDevice);
+
+            camera.CameraOpened += Camera_OnOpened;
+            camera.CameraClosed += Camera_OnClosed;
             camera.ConnectionLost += Camera_ConnectionLost;
             camera.StreamGrabber.GrabStarted += StreamGrabber_GrabStarted;
             camera.StreamGrabber.ImageGrabbed += StreamGrabber_ImageGrabbed;
             camera.StreamGrabber.GrabStopped += StreamGrabber_GrabStopped;
 
-            //AutoAdjustment();
+            //camera.Open();
+            //camera.Parameters.Load(configFN, ParameterPath.CameraDevice);
 
+
+
+        }
+        public void CamOpen()
+        {
+            camera.Open();
         }
 
         public void Configure()
@@ -62,6 +75,20 @@ namespace PropInnerImageAnalysis
             // Because one device is gone, the list needs to be updated.
             // UpdateDeviceList();
         }
+
+        private void Camera_OnOpened(Object sender, EventArgs e)
+        {
+            //DestroyCamera();
+            // Because one device is gone, the list needs to be updated.
+            // UpdateDeviceList();
+        }
+        private void Camera_OnClosed(Object sender, EventArgs e)
+        {
+            //DestroyCamera();
+            // Because one device is gone, the list needs to be updated.
+            // UpdateDeviceList();
+        }
+
         // Occurs when the connection to a camera device is opened.
         private void StreamGrabber_GrabStarted(Object sender, EventArgs e)
         {
@@ -71,17 +98,29 @@ namespace PropInnerImageAnalysis
         }
         private void StreamGrabber_ImageGrabbed(object sender, ImageGrabbedEventArgs e)
         {
-            IGrabResult grabResult = e.GrabResult;
-            if (grabResult.IsValid)
+            try
             {
-                if (!stopWatch.IsRunning || stopWatch.ElapsedMilliseconds > 33)
+                IGrabResult grabResult = e.GrabResult;
+                if (grabResult.IsValid)
                 {
-                    stopWatch.Restart();
-                    if ((GrabOver) && (CameraImageEvent!=null))
-                        CameraImageEvent(GrabResult2Bmp(grabResult));
+                    if (!stopWatch.IsRunning || stopWatch.ElapsedMilliseconds > 33)
+                    {
+                        stopWatch.Restart();
+                        if ((GrabOver) && (CameraImageEvent!=null))
+                            CameraImageEvent(GrabResult2Bmp(grabResult));
+                        GC.Collect();
+                    }
                 }
-
             }
+            catch (Exception exp)
+            {
+                //ShowException(exp);
+            }
+            finally
+            {
+                e.DisposeGrabResultIfClone();
+            }
+
         }
         public void DestroyCamera()
         {
@@ -125,7 +164,9 @@ namespace PropInnerImageAnalysis
             if (camera != null)
             {
                 camera.Parameters[PLCamera.AcquisitionMode].SetValue(PLCamera.AcquisitionMode.Continuous);
+
                 camera.StreamGrabber.Start(GrabStrategy.OneByOne, GrabLoop.ProvidedByStreamGrabber);
+                //camera.StreamGrabber.Start();
             }
         }
 
