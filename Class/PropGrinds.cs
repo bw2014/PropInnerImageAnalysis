@@ -24,6 +24,17 @@ namespace PropInnerImageAnalysis
         {
             _PWDC.Add(powder);
         }
+        public void AddSample(Powder powder)
+        {
+            _PWDC.Add(powder);
+        }
+        public void AddSample(SingleHoleGrain shg, bool isCoated)
+        {
+            if (isCoated)
+                _OHGC.Add(shg);
+            else
+                _OHGN.Add(shg);
+        }
         public void ClearList(string type)
         {
             if (type == "OHGC") _OHGC.Clear();

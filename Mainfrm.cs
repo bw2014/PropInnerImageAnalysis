@@ -37,6 +37,7 @@ namespace PropInnerImageAnalysis
         private PictureBox RgnImgs; // 辨識後影像
         private Label[] ledOperMode; // 顯示運作模式
         private Label[] ledSamplePath; // 取樣路徑燈號
+        private PictureBox[] pb_temp;  //再研磨樣本縮圖
 
         private bool DelAllSamples = false; // 刪除所有樣本
         private bool DelAllMarks = false;   // 刪除所有標示
@@ -46,9 +47,6 @@ namespace PropInnerImageAnalysis
 
         public SysConfig myConfig;   // 系統參數物件
         public PropJSON myProp;      // 辨識結果之JSON物件
-
-        private List<PropImages.SingleHoleGrain> listSHG = new List<PropImages.SingleHoleGrain>();
-        private List<PropImages.Powder> listPWD = new List<PropImages.Powder>();
 
         private List<PropGrinds> listPropGrinds = new List<PropGrinds>();
 
@@ -102,7 +100,7 @@ namespace PropInnerImageAnalysis
         public bool isSamplingPressed = false;  //取樣按鈕按下
         public bool isReturnPressed = false;    //回歸取料按鈕按下
         public bool isReGrindPressed = false;   //再研磨按鈕按下
-        public int reGrindCount = 0;            //再研磨次數
+        public int GrindCount = 0;            //研磨次數
 
         public bool isPropTypeSelected = false; //發射藥型選擇;
 
@@ -138,15 +136,20 @@ namespace PropInnerImageAnalysis
         bool[] readAction_coil;     //讀取研磨作業陣列
         ushort[] reGrindCoil = new ushort[6] {288,289,290,291,292,293 };
 
-        ushort X32 = 13362;             // 機台切換開關 X32 X33
-                                        //               1   0   單辨識
-                                        //               0   1   單研磨
-                                        //               0   0   自動
-
-        bool[] ReadXButtons = new bool[2];    // 讀取 X32 及 X33
+        ushort opModeAddr = 182;        // 182 單研磨
+                                        // 183 單辨識
+                                        // 184 全自動
+        bool[] ReadXButtons = new bool[3];    // 讀取 M182,M183,M184
         Dictionary<string, feedRate> prevFeedrate = new Dictionary<string, feedRate>();
         Dictionary<string, feedRate> factoryFeedrate = new Dictionary<string, feedRate>();
         Dictionary<string, feedContact> factoryFeedcontact = new Dictionary<string, feedContact>();
+
+        private bool[] plcStatus = new bool[4]; // PLC 狀態
+                                                // 1: 取料連結
+                                                // 2: 研磨結束(取樣開始)
+                                                // 3: 取樣結束
+
+        private bool readM117 = false;
 
 
 
@@ -157,6 +160,8 @@ namespace PropInnerImageAnalysis
         string dataTime = DateTime.Now.ToString("yyyyMMdd");
 
         private int CurrentSample;  // 目前樣本
+
+        private int CurrGrind; //研磨樣本
         //------------------------------------------------------------------------------------
 
         public Mainfrm()
@@ -170,7 +175,7 @@ namespace PropInnerImageAnalysis
 
             ledOperMode = new Label[4]
             {
-                lblSingleGrind,lblAuto,null,lblNoGrind
+                lblNoGrind,lblAuto,null,lblSingleGrind
             };
             CurrentSample = -1;
 
@@ -182,6 +187,11 @@ namespace PropInnerImageAnalysis
                 lbl19,lbl20,lbl21,lbl22,lbl23,lbl24,
                 lbl25,lbl26,lbl27,lbl28,lbl29,lbl30,
                 lbl31,lbl32,lbl33,lbl34,lbl35,lbl36
+            };
+
+            pb_temp = new PictureBox[7]
+            {
+                pb_temp01,pb_temp02,pb_temp03,pb_temp04,pb_temp05,pb_temp06,pb_temp07
             };
             
         }
@@ -216,6 +226,101 @@ namespace PropInnerImageAnalysis
             txt_feedcount01.Text = frTmp.feedcount01.ToString();
             txt_feedcount02.Text = frTmp.feedcount02.ToString();
             txt_feedcount03.Text = frTmp.feedcount03.ToString();
+        }
+
+        public void loadFactoryFeed(string propType)
+        {
+            feedRate faTmp = factoryFeedrate[propType];
+            feedContact fcTmp = factoryFeedcontact[propType];
+
+            ushort[] result;
+            ushort[] data= { 0 };
+
+            data[0] = (ushort)faTmp.feedrate01;
+            master.WriteMultipleRegisters(slaveID, (ushort)fcTmp.feedrcontact01, data);
+            result = master.ReadHoldingRegisters(slaveID, (ushort)fcTmp.feedrcontact01, 1);
+            txt_feedrate01_default.Text = ((double)result[0] / 100).ToString();
+            txt_feedrate01.Text= ((double)data[0] / 100).ToString();
+
+            data[0] = (ushort)faTmp.feedrate02;
+            master.WriteMultipleRegisters(slaveID, (ushort)fcTmp.feedrcontact02, data);
+            result = master.ReadHoldingRegisters(slaveID, (ushort)fcTmp.feedrcontact02, 1);
+            txt_feedrate02_default.Text = ((double)result[0] / 100).ToString();
+            txt_feedrate02.Text = ((double)data[0] / 100).ToString();
+
+            data[0] = (ushort)faTmp.feedrate03;
+            master.WriteMultipleRegisters(slaveID, (ushort)fcTmp.feedrcontact03, data);
+            result = master.ReadHoldingRegisters(slaveID, (ushort)fcTmp.feedrcontact03, 1);
+            txt_feedrate03_default.Text = ((double)result[0] / 100).ToString();
+            txt_feedrate03.Text = ((double)data[0] / 100).ToString();
+
+            data[0] = (ushort)faTmp.feedcount01;
+            master.WriteMultipleRegisters(slaveID, (ushort)fcTmp.feedccontact01, data);
+            result = master.ReadHoldingRegisters(slaveID, (ushort)fcTmp.feedccontact01, 1);
+            txt_feedcount01_default.Text = ((int)result[0]).ToString();
+            txt_feedcount01.Text= ((int)data[0]).ToString();
+
+            data[0] = (ushort)faTmp.feedcount02;
+            master.WriteMultipleRegisters(slaveID, (ushort)fcTmp.feedccontact02, data);
+            result = master.ReadHoldingRegisters(slaveID, (ushort)fcTmp.feedccontact02, 1);
+            txt_feedcount02_default.Text = ((int)result[0]).ToString();
+            txt_feedcount02.Text = ((int)data[0]).ToString();
+
+            data[0] = (ushort)faTmp.feedcount03;
+            master.WriteMultipleRegisters(slaveID, (ushort)fcTmp.feedccontact03, data);
+            result = master.ReadHoldingRegisters(slaveID, (ushort)fcTmp.feedccontact03, 1);
+            txt_feedcount03_default.Text = ((int)result[0]).ToString();
+            txt_feedcount03.Text = ((int)data[0]).ToString();
+        }
+
+        public void setFeed(string propType, int idx)
+        {
+            feedRate frTmp = prevFeedrate[propType];
+            feedContact fcTmp = factoryFeedcontact[propType];
+            ushort[] result;
+            ushort[] data = { 0 };
+            switch(idx)
+            {
+                case 1:
+                    frTmp.feedrate01 = (int) (Convert.ToDouble(txt_feedrate01.Text) * 100);
+                    data[0] = (ushort)frTmp.feedrate01;
+                    master.WriteMultipleRegisters(slaveID, (ushort)fcTmp.feedrcontact01, data);
+                    result = master.ReadHoldingRegisters(slaveID, (ushort)fcTmp.feedrcontact01, 1);
+                    txt_feedrate01_default.Text = ((double)result[0] / 100).ToString();
+
+                    frTmp.feedcount01 = Int32.Parse(txt_feedcount01.Text);
+                    data[0] = (ushort)frTmp.feedcount01;
+                    master.WriteMultipleRegisters(slaveID, (ushort)fcTmp.feedccontact01, data);
+                    result = master.ReadHoldingRegisters(slaveID, (ushort)fcTmp.feedccontact01, 1);
+                    txt_feedcount01_default.Text = ((int)result[0]).ToString();
+                    break;
+                case 2:
+                    frTmp.feedrate02 = (int)(Convert.ToDouble(txt_feedrate02.Text) * 100);
+                    data[0] = (ushort)frTmp.feedrate02;
+                    master.WriteMultipleRegisters(slaveID, (ushort)fcTmp.feedrcontact02, data);
+                    result = master.ReadHoldingRegisters(slaveID, (ushort)fcTmp.feedrcontact02, 1);
+                    txt_feedrate02_default.Text = ((double)result[0] / 100).ToString();
+
+                    frTmp.feedcount02 = Int32.Parse(txt_feedcount02.Text);
+                    data[0] = (ushort)frTmp.feedcount02;
+                    master.WriteMultipleRegisters(slaveID, (ushort)fcTmp.feedccontact02, data);
+                    result = master.ReadHoldingRegisters(slaveID, (ushort)fcTmp.feedccontact02, 1);
+                    txt_feedcount02_default.Text = ((int)result[0]).ToString();
+                    break;
+                case 3:
+                    frTmp.feedrate03 = (int)(Convert.ToDouble(txt_feedrate03.Text) * 100);
+                    data[0] = (ushort)frTmp.feedrate03;
+                    master.WriteMultipleRegisters(slaveID, (ushort)fcTmp.feedrcontact03, data);
+                    result = master.ReadHoldingRegisters(slaveID, (ushort)fcTmp.feedrcontact03, 1);
+                    txt_feedrate03_default.Text = ((double)result[0] / 100).ToString();
+
+                    frTmp.feedcount03 = Int32.Parse(txt_feedcount03.Text);
+                    data[0] = (ushort)frTmp.feedcount03;
+                    master.WriteMultipleRegisters(slaveID, (ushort)fcTmp.feedccontact03, data);
+                    result = master.ReadHoldingRegisters(slaveID, (ushort)fcTmp.feedccontact03, 1);
+                    txt_feedcount03_default.Text = ((int)result[0]).ToString();
+                    break;
+            }
         }
 
 
@@ -278,81 +383,6 @@ namespace PropInnerImageAnalysis
                 factoryFeedcontact.Add(fc.typeCode, fc);
             }
         }
-        private void loadSamples(int currentSample)
-        {
-            /*Bitmap tempBmp;
-            if (currentSample>=0)
-            {
-                for (int i=0;i < operMode+1; i++)
-                {
-                    tempBmp = ResizeBitmap(PropSamples[currentSample].SrcImage[i].ToBitmap(), 400, 400);
-                    PBFaceImgs[i,0].Image = tempBmp;
-                    if (PropSamples[currentSample].FacePropStatus[i] == 0)
-                    {
-                        tempBmp = ResizeBitmap(PropSamples[currentSample].ThresImage[i].ToBitmap(), 400, 400);
-                    }
-                    else
-                    {
-                        PropSamples[currentSample].MarkFaceImage(i, 2, 0);
-                        tempBmp = ResizeBitmap(PropSamples[currentSample].TempFaceImage.ToBitmap(), 400, 400);
-                    }
-                    PBFaceImgs[i,1].Image = tempBmp;
-                    for(int j=0;j<4;j++)
-                    {
-                        tempBmp= ResizeBitmap(PropSamples[currentSample].SideSrcImage[i, j].ToBitmap(), 200, 200);
-                        PBSideImgs[i, j, 0].Image = tempBmp;
-                        if (PropSamples[currentSample].SidePropStatus[i] == 0)
-                        {
-                            tempBmp = ResizeBitmap(PropSamples[currentSample].SideThresImage[i, j].ToBitmap(), 200, 200);
-                        }
-                        else
-                        {
-                            PropSamples[currentSample].MarkSideImage(i, j, 0);
-                            tempBmp = ResizeBitmap(PropSamples[currentSample].TempSideImage[j].ToBitmap(), 200, 200);
-                        }
-                        PBSideImgs[i, j, 1].Image = tempBmp;
-                    }
-                }
-                textBox_sample_count.Text = (CurrentSample + 1).ToString() + "/" + PropSamples.Count.ToString();
-            }*/
-        }
-        private void loadOneSamples(int currentSample, int currentPage)
-        {
-            /*if (currentSample == -1) return;
-            Bitmap tempBmp;
-            tempBmp = ResizeBitmap(PropSamples[currentSample].SrcImage[currentPage].ToBitmap(), 400, 400);
-            tabControl_Original_Images.SelectedIndex = currentPage;
-            PBFaceImgs[currentPage, 0].Image = tempBmp;
-            if (PropSamples[currentSample].FacePropStatus[currentPage]==0)
-            {
-                tempBmp = ResizeBitmap(PropSamples[currentSample].ThresImage[currentPage].ToBitmap(), 400, 400);
-            }
-            else
-            {
-                PropSamples[currentSample].MarkFaceImage(currentPage, 2, 1);
-                tempBmp = ResizeBitmap(PropSamples[currentSample].TempFaceImage.ToBitmap(), 400, 400);
-            }
-
-            PBFaceImgs[currentPage, 1].Image = tempBmp;
-            for (int j = 0; j < 4; j++)
-            {
-                tempBmp = ResizeBitmap(PropSamples[currentSample].SideSrcImage[currentPage, j].ToBitmap(), 200, 200);
-                PBSideImgs[currentPage, j, 0].Image = tempBmp;
-                if(PropSamples[currentSample].SidePropStatus[currentPage]==0)
-                {
-                    tempBmp = ResizeBitmap(PropSamples[currentSample].SideThresImage[currentPage, j].ToBitmap(), 200, 200);
-                }
-                else
-                {
-                    PropSamples[currentSample].MarkSideImage(currentPage, j, 1);
-                    tempBmp = ResizeBitmap(PropSamples[currentSample].TempSideImage[j].ToBitmap(), 200, 200);
-                }
-
-                PBSideImgs[currentPage, j, 1].Image = tempBmp;
-            }
-            textBox_sample_count.Text = (CurrentSample+1).ToString() + "/" + PropSamples.Count.ToString();*/
-        }
-
         private void updateInitUI()
         {
             bool enInit = true;
@@ -364,9 +394,71 @@ namespace PropInnerImageAnalysis
                 enInit = false;
 
             if (enInit)
-                btn_plc_start.Enabled = true;
+            {
+                btn_plc_start.Enabled = true;                
+            }
+            btn_sampling.Enabled = false;
+            btn_sampling.BackColor = Color.Silver;
 
+            btn_return.Enabled = false;
+            btn_return.BackColor = Color.Silver;
+
+            btn_regrind.Enabled = false;
+            btn_regrind.BackColor = Color.Silver;
+            txt_grindcount.Text = "0";
+            //ToggleGrindFeed(false, false);
         }
+        private void ToggleGrindFeed(bool isEnable,bool isDataLock)
+        {
+            if (!isDataLock)
+            {
+                txt_feedrate01.Text = "0.00";
+                txt_feedrate02.Text = "0.00";
+                txt_feedrate03.Text = "0.00";
+
+                txt_feedrate01_default.Text = "0.00";
+                txt_feedrate02_default.Text = "0.00";
+                txt_feedrate03_default.Text = "0.00";
+
+                txt_feedcount01.Text = "00";
+                txt_feedcount02.Text = "00";
+                txt_feedcount03.Text = "00";
+
+                txt_feedcount01_default.Text = "00";
+                txt_feedcount02_default.Text = "00";
+                txt_feedcount03_default.Text = "00";
+            }
+
+            if (isEnable)
+            {
+                btn_factory_reset.Enabled = true;
+                txt_feedrate01.Enabled = true;
+                txt_feedrate02.Enabled = true;
+                txt_feedrate03.Enabled = true;
+                txt_feedcount01.Enabled = true;
+                txt_feedcount02.Enabled = true;
+                txt_feedcount03.Enabled = true;
+                btn_feed01.Enabled = true;
+                btn_feed02.Enabled = true;
+                btn_feed03.Enabled = true;
+            }
+            else
+            {
+                btn_factory_reset.Enabled = false;
+                txt_feedrate01.Enabled = false;
+                txt_feedrate02.Enabled = false;
+                txt_feedrate03.Enabled = false;
+                txt_feedcount01.Enabled = false;
+                txt_feedcount02.Enabled = false;
+                txt_feedcount03.Enabled = false;
+                btn_feed01.Enabled = false;
+                btn_feed02.Enabled = false;
+                btn_feed03.Enabled = false;
+            }
+        }
+
+
+
         private void openCam(BaslerCamera cam, string camID, string conFN)
         {
             try
@@ -402,7 +494,6 @@ namespace PropInnerImageAnalysis
             }
         }
 
-
         private ICameraInfo findCameraInfo(string cname)
         {
             foreach (ICameraInfo cameraInfo in allCameras)
@@ -417,6 +508,7 @@ namespace PropInnerImageAnalysis
         private void Camera_CameraImageEvent(Bitmap bmp)
         {
             if (isOffline) return;
+            
             currBMP = bmp;
             Bitmap temp = bmp.Clone(SampleROI, bmp.PixelFormat);
             if (mainCamShoot)
@@ -429,18 +521,43 @@ namespace PropInnerImageAnalysis
                 {
                     case "OHGC":
                         stmp = new SingleHoleGrain(PropType, temp, true);
-                        pgrind = new PropGrinds(stmp,true);
-                        listPropGrinds.Add(pgrind);
+                        if(GrindCount==0)
+                        {
+                            pgrind = new PropGrinds(stmp, true);
+                            listPropGrinds.Add(pgrind);
+                        }
+                        else
+                        {
+                            pgrind = listPropGrinds[CurrentSample];
+                            pgrind.AddSample(stmp, true);
+                        }
+
                         break;
                     case "OHGN":
                         stmp = new SingleHoleGrain(PropType, temp, false);
-                        pgrind = new PropGrinds(stmp, false);
-                        listPropGrinds.Add(pgrind);
+                        if(GrindCount ==0)
+                        {
+                            pgrind = new PropGrinds(stmp, true);
+                            listPropGrinds.Add(pgrind);
+                        }
+                        else
+                        {
+                            pgrind = listPropGrinds[CurrentSample];
+                            pgrind.AddSample(stmp, false);
+                        }
                         break;
                     case "PWDC":
                         ptmp =new Powder(PropType, temp);
-                        pgrind = new PropGrinds(ptmp);
-                        listPropGrinds.Add(pgrind);
+                        if(GrindCount==0)
+                        {
+                            pgrind = new PropGrinds(ptmp);
+                            listPropGrinds.Add(pgrind);
+                        }
+                        else
+                        {
+                            pgrind = listPropGrinds[CurrentSample];
+                            pgrind.AddSample(ptmp);
+                        }
                         break;
                 }
                 ob_origin.Image = ImageUtil.ResizeBitmap(temp, 500, 500);
@@ -493,21 +610,7 @@ namespace PropInnerImageAnalysis
             cboProType.SelectedIndex = -1;
             cboProType.Text = "";
 
-            txt_feedrate01.Text = "0.00";
-            txt_feedrate02.Text = "0.00";
-            txt_feedrate03.Text = "0.00";
-
-            txt_feedrate01_default.Text = "0.00";
-            txt_feedrate02_default.Text = "0.00";
-            txt_feedrate03_default.Text = "0.00";
-
-            txt_feedcount01.Text = "00";
-            txt_feedcount02.Text = "00";
-            txt_feedcount03.Text = "00";
-
-            txt_feedcount01_default.Text = "00";
-            txt_feedcount02_default.Text = "00";
-            txt_feedcount03_default.Text = "00";
+            ToggleGrindFeed(false,false);
 
             txt_grindcount.Text = "0";
         }
@@ -548,7 +651,45 @@ namespace PropInnerImageAnalysis
                 swLed.BackColor = Color.Red;
             }
         }
-
+        private void centerPanel(bool en)
+        {
+            if(en)
+            {
+                btn_auto.Enabled = true;
+                btn_contour.Enabled = true;
+                btn_deter_per.Enabled = true;
+                btn_adjust.Enabled = true;
+                btn_measure.Enabled = true;
+                btn_rotate.Enabled = true;
+                btn_discard.Enabled = true;
+                btn_save.Enabled = true;
+                btn_reset.Enabled = true;
+                btn_next.Enabled = true;
+                btn_prev.Enabled = true;
+                btn_working_dir.Enabled = true;
+                btn_offline_load.Enabled = true;
+                btn_load_config.Enabled = true;
+                btn_save_config.Enabled = true;
+            }
+            else
+            {
+                btn_auto.Enabled = false;
+                btn_contour.Enabled = false;
+                btn_deter_per.Enabled = false;
+                btn_adjust.Enabled = false;
+                btn_measure.Enabled = false;
+                btn_rotate.Enabled = false;
+                btn_discard.Enabled = false;
+                btn_save.Enabled = false;
+                btn_reset.Enabled = false;
+                btn_next.Enabled = false;
+                btn_prev.Enabled = false;
+                btn_working_dir.Enabled = false;
+                btn_offline_load.Enabled = false;
+                btn_load_config.Enabled = false;
+                btn_save_config.Enabled = false;
+            }
+        }
 
         private void initVars()
         {
@@ -563,53 +704,6 @@ namespace PropInnerImageAnalysis
              ApplyROIFaceDetection = false;*/
         }
 
-        /*private void gswPropType_Click(object sender, EventArgs e)
-        {
-              if (lblProTypeStatus.Text=="ON")
-              {
-                PropTypeSelected = false;
-                ToggleSWwithLed(gswPropType, lblProTypeStatus, false);             
-                master.WriteSingleRegister(slaveID, startChoice, 0);
-              }
-              else
-              {
-                PropTypeSelected = true;
-                ToggleSWwithLed(gswPropType, lblProTypeStatus, true);
-                switch (cboProType.SelectedIndex)
-                  {
-                    case 0:
-                        master.WriteSingleRegister(slaveID, startChoice, 1); 
-                        PropType = "B1";
-                        break;
-                    case 1:
-                        master.WriteSingleRegister(slaveID, startChoice, 2); 
-                        PropType = "B2";
-                        break;
-                    case 2:
-                        master.WriteSingleRegister(slaveID, startChoice, 3); 
-                        PropType = "B3";
-                        break;
-                    case 3:
-                        master.WriteSingleRegister(slaveID, startChoice, 4);
-                        PropType = "B4";
-                        break;
-                    case 4:
-                        master.WriteSingleRegister(slaveID, startChoice, 5);
-                        PropType = "B5";
-                        break;
-                    case 5:
-                        master.WriteSingleRegister(slaveID, startChoice, 6);
-                        PropType = "C1";
-                        break;
-                    case 6:
-                        master.WriteSingleRegister(slaveID, startChoice, 7);
-                        PropType = "C2";
-                        break;
-                }
-              }
-
-              updateInitUI();
-        }*/
 
         private void button_Save_Click(object sender, EventArgs e)
         {
@@ -624,174 +718,52 @@ namespace PropInnerImageAnalysis
                      saveSamples(operMode);*/
         }
     
-        private async void SoftBlink(Control ctrl, Color c1, Color c2, short CycleTime_ms, bool BkClr)
-        {
-            var sw = new Stopwatch(); sw.Start();
-            short halfCycle = (short)Math.Round(CycleTime_ms * 0.5);
-            while (true)
-            {
-                await Task.Delay(1);
-                var n = sw.ElapsedMilliseconds % CycleTime_ms;
-                var per = (double)Math.Abs(n - halfCycle) / halfCycle;
-                var red = (short)Math.Round((c2.R - c1.R) * per) + c1.R;
-                var grn = (short)Math.Round((c2.G - c1.G) * per) + c1.G;
-                var blw = (short)Math.Round((c2.B - c1.B) * per) + c1.B;
-                var clr = Color.FromArgb(red, grn, blw);
-                if (BkClr) ctrl.BackColor = clr; else ctrl.ForeColor = clr;
-            }
-        }
         private void saveSamples(int opermode)
         {
-            /*string fileDir;
+            string fileDir;
             string sfile1;
-            string sfile2;
             String nowStr = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            PropJSON tmpJSON = new PropJSON();
-            tmpJSON.PropType = PropType;
-            tmpJSON.Opermode = operMode;
-            tmpJSON.Timestamp = nowStr;
-            tmpJSON.defUnit = defUnit;
-            tmpJSON.FaceUnit = (float)faceUnit;
-            tmpJSON.SideUnit = (float)sideUnit;
-            tmpJSON.PImages = new List<PImage>();
-            PImage tmpPImage;
-            SimpleC simC;
-            List<SimpleC> lSimC;
-            List<float> lens;
-            List<string> lSideImg;
-            List<float> lSmallDi;
-            List<float> lWi;
-            List<float> lWo;
-            List<int> HLItems;
-            List<List<int>> ListHLItems;
 
             string opStr="";
-
-            switch (operMode)
+            if (operMode == 0)
             {
-                case 0:
-                    opStr = "\\nocut\\";
-                    break;
-                case 1:
-                    opStr = "\\onecut\\";
-                    break;
-                case 3:
-                    opStr = "\\fullcut\\";
-                    break;
+                opStr = "\\nogrind\\";
+            }
+            else
+            {
+                opStr = "\\fullgrind\\";
             }
 
-            fileDir = textBox_working_dir.Text + opStr + PropType + "\\" + nowStr;
+            fileDir = txt_sample_dir.Text + opStr + "\\" + PropType+"_"+nowStr;
             if (!Directory.Exists(fileDir))
             {
                 Directory.CreateDirectory(fileDir);
             }
-            for (int i = 0; i < PropSamples.Count; i++)
+            foreach(PropGrinds pgrind in listPropGrinds)
             {
-                if (PropSamples[i].chkValid())
+                sfile1 = fileDir + "\\" + PropType + "_" + nowStr+"_"+(listPropGrinds.IndexOf(pgrind)+1).ToString() ;
+                switch (PropClassify)
                 {
-                    tmpPImage = new PImage();
-                    tmpPImage.BigC = new List<SimpleC>();
-                    tmpPImage.SmallC = new List<List<SimpleC>>();
-                    tmpPImage.SmallDiamter = new List<List<float>>();
-                    tmpPImage.Wi = new List<List<float>>();
-                    tmpPImage.Wo = new List<List<float>>();
-                    tmpPImage.SrcImage = new List<string>();
-
-                    tmpPImage.Length = new List<List<float>>();
-                    tmpPImage.SideSrcImage = new List<List<string>>();
-                    tmpPImage.HLineY = new List<List<List<int>>>();
-
-                    tmpPImage.BigDiameter = new List<float>();
-                    tmpPImage.SmallDiamterAvg = new List<float>();
-                    tmpPImage.WiAvg = new List<float>();
-                    tmpPImage.WoAvg = new List<float>();
-                    tmpPImage.LengthAvg = new List<float>();
-                    tmpPImage.DOverd = new List<float>();
-                    tmpPImage.LenOverD = new List<float>();
-
-                    for (int j = 0; j < opermode + 1; j++)
-                    {
-                        simC = new SimpleC();
-                        simC.X = (int)PropSamples[i].BigC[j].Center.X;
-                        simC.Y = (int)PropSamples[i].BigC[j].Center.Y;
-                        simC.Radius = (int)PropSamples[i].BigC[j].Radius;
-                        tmpPImage.BigC.Add(simC);
-                        lSimC=new List<SimpleC>();
-                        lSmallDi = new List<float>();
-                        lWi = new List<float>();
-                        lWo = new List<float>();
-                        for (int k = 0; k < 7; k++)
+                    case "OHGC":
+                        foreach(SingleHoleGrain stmp in pgrind.getOHGCList())
                         {
-                            simC = new SimpleC();
-                            simC.X = (int)PropSamples[i].SmallC[j,k].Center.X;
-                            simC.Y = (int)PropSamples[i].SmallC[j,k].Center.Y;
-                            simC.Radius = (int)PropSamples[i].SmallC[j,k].Radius;
-                            lSimC.Add(simC);
-
-                            lSmallDi.Add(PropSamples[i].SmallDiamter[j, k]);
-                            lWi.Add(PropSamples[i].Wi[j, k]);
-                            lWo.Add(PropSamples[i].Wo[j, k]);
+                            stmp.SrcImg.Save(sfile1 + "_" + (pgrind.getOHGCList().IndexOf(stmp) + 1).ToString() + ".bmp");
                         }
-
-                        tmpPImage.SmallC.Add(lSimC);
-                        tmpPImage.SmallDiamter.Add(lSmallDi);
-                        tmpPImage.Wi.Add(lWi);
-                        tmpPImage.Wo.Add(lWo);
-
-                        sfile1 = fileDir + "\\" + i.ToString() + "_cut" + j.ToString() + ".bmp";
-                        PropSamples[i].SrcImage[j].Save(sfile1);
-
-                        tmpPImage.SrcImage.Add(sfile1);
-
-                        lens = new List<float>();
-                        lSideImg = new List<string>();
-                        ListHLItems = new List<List<int>>();
-
-                        for (int k = 0; k < 4; k++)
+                        break;
+                    case "OHGN":
+                        foreach (SingleHoleGrain stmp in pgrind.getOHGCList())
                         {
-                            lens.Add(PropSamples[i].Length[j, k]);
-                            sfile2 = fileDir + "\\" + i.ToString() + "_cut" + j.ToString() + "_S" + k.ToString() + ".bmp";
-                            PropSamples[i].SideSrcImage[j, k].Save(sfile2);
-                            lSideImg.Add(sfile2);
-                            HLItems = new List<int>();
-                            HLItems.Add(PropSamples[i].HLineY[j, k, 0]);
-                            HLItems.Add(PropSamples[i].HLineY[j, k, 1]);
-                            ListHLItems.Add(HLItems);
+                            stmp.SrcImg.Save(sfile1 + "_" + (pgrind.getOHGNList().IndexOf(stmp) + 1).ToString() + ".bmp");
                         }
-                        tmpPImage.Length.Add(lens);
-
-                        tmpPImage.SideSrcImage.Add(lSideImg);
-
-                        tmpPImage.SmallDiamter.Add(lSmallDi);
-
-                        tmpPImage.HLineY.Add(ListHLItems);                        
-
-                        tmpPImage.BigDiameter.Add(PropSamples[i].BigDiameter[j]);
-
-                        tmpPImage.SmallDiamterAvg.Add(PropSamples[i].SmallDiamterAvg[j]);
-
-                        tmpPImage.WiAvg.Add(PropSamples[i].WiAvg[j]);
-
-                        tmpPImage.WoAvg.Add(PropSamples[i].WoAvg[j]);
-
-                        tmpPImage.LengthAvg.Add(PropSamples[i].LengthAvg[j]);
-
-                        tmpPImage.DOverd.Add(PropSamples[i].DOverd[j]);
-                        tmpPImage.LenOverD.Add(PropSamples[i].LenOverD[j]);
-
-                        tmpPImage.FaceUnit = (float)faceUnit;
-                        tmpPImage.SideUnit = (float)sideUnit;
-
-                        tmpPImage.defUnit = defUnit;
-                    }
-                    tmpJSON.PImages.Add(tmpPImage);                    
+                        break;
+                    case "PWDC":
+                        foreach (Powder ptmp in pgrind.getPWDCList())
+                        {
+                            ptmp.SrcImg.Save(sfile1 + "_" + (pgrind.getPWDCList().IndexOf(ptmp) + 1).ToString() + ".bmp");
+                        }
+                        break;
                 }
             }
-            StreamWriter file = File.CreateText(fileDir+"\\result.json");
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.Serialize(file, tmpJSON);
-            file.Close();
-            richTextBox_logs.Text += DateTime.Now.ToString("HH:mm:ss")+"-完成儲存結果至" +fileDir+"\n";*/
         }
         private void Timer_system_Tick(object sender, EventArgs e)
         {
@@ -1001,6 +973,11 @@ namespace PropInnerImageAnalysis
                 for (int i = 0; i < 2; i++) ledOperMode[operMode].BackColor = Color.Red;
                 cboProType.Enabled = false;
                 btn_plc_start.Enabled = false;
+                btn_plc_start.BackColor = Color.Silver;
+                btn_feed01.Enabled = false;
+                btn_feed02.Enabled = false;
+                btn_feed03.Enabled = false;
+                btn_factory_reset.Enabled = false;
                 initVars();
             }
             else
@@ -1014,28 +991,23 @@ namespace PropInnerImageAnalysis
                       ComPort.ReadTimeout = 1000;
                       ComPort.Open();
                       master = ModbusSerialMaster.CreateRtu(ComPort); //設置Modbus RTU連結
-                      ReadXButtons = master.ReadInputs(slaveID, X32, 2);
-                      if (!ReadXButtons[0])
-                      {
-                          if (!ReadXButtons[1])
-                          {
-                              operMode = 3; // 單辨識
-                          }
-                          else
-                          {
-                              operMode = 1; // 自動
-                          }
-                      }
-                      else
-                      {
-                          operMode = 0; // 單研磨
-                      }
+                        ReadXButtons = master.ReadCoils(slaveID, opModeAddr, 3);
+                      if (ReadXButtons[0]) operMode = 3;// // 單研磨
+                      if (ReadXButtons[1]) operMode = 0;// // 單辨識
+                      if (ReadXButtons[2]) operMode = 1;// // 全自動
+
                       ledOperMode[operMode].BackColor = Color.Green;
+                      for(int i=0;i<3;i++)
+                      {
+                            plcStatus[i] = false;
+                      }
+                      if ((operMode == 1) || (operMode == 3)) GrindCount = 1;
                       BeginWork(); //啟用非同步流程
                       isComPortOpened = true;
                       ToggleSWwithLed(gswComport, lblComPortStatus, isComPortOpened);
                       cboComPort.Enabled = false;
                       cboProType.Enabled = true;
+                        ToggleGrindFeed(false, false);
 
                       updateInitUI();
                   }
@@ -1106,7 +1078,7 @@ namespace PropInnerImageAnalysis
                 if (CurrentSample > 0)
                 {
                     CurrentSample--;
-                    dispCurrentSample(CurrentSample);
+                    dispCurrentSample(CurrentSample,CurrGrind);
                 }
             }
         }
@@ -1118,47 +1090,77 @@ namespace PropInnerImageAnalysis
                 if (CurrentSample < listPropGrinds.Count-1)
                 {
                     CurrentSample++;
-                    dispCurrentSample(CurrentSample);
+                    dispCurrentSample(CurrentSample,CurrGrind);
                 }
             }
         }
 
-        private void dispCurrentSample(int Curr)
+        private void dispCurrentSample(int Curr,int CurrGrind)
         {
             PropGrinds tmpG = listPropGrinds[Curr];
             if(PropClassify=="PWDC")
             {
                 List<Powder> lstPD = tmpG.getPWDCList();
-                ob_origin.Image = ImageUtil.ResizeBitmap(lstPD[0].SrcImg, 500, 500); 
+                ob_origin.Image = ImageUtil.ResizeBitmap(lstPD[CurrGrind].SrcImg, 500, 500);
+                label_grind_count.Text = (CurrGrind + 1).ToString() + "/" + lstPD.Count.ToString();
             }
             else
             {
                 List<SingleHoleGrain> lstshg = tmpG.getOHGCList();
-                ob_origin.Image = ImageUtil.ResizeBitmap(lstshg[0].SrcImg, 500, 500);
+                ob_origin.Image = ImageUtil.ResizeBitmap(lstshg[CurrGrind].SrcImg, 500, 500);
+                label_grind_count.Text = (CurrGrind + 1).ToString() + "/" + lstshg.Count.ToString();
             }
 
             textBox_sample_count.Text = (CurrentSample + 1).ToString() + "/" + listPropGrinds.Count.ToString();
-        }
+            //label_grind_count.Text= (CurrGrind + 1).ToString() + "/" + GrindCount.ToString();
 
+            clr_pb_temp();
+            dispGrindSnap(Curr);
+            clr_pb_temp_border();
+            pb_temp[CurrGrind].BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+        }
+        private void dispGrindSnap(int Curr)
+        {
+            PropGrinds tmpG = listPropGrinds[Curr];
+            if (PropClassify == "PWDC")
+            {
+                List<Powder> lstPD = tmpG.getPWDCList();
+                foreach (Powder pd in lstPD)
+                {
+                    pb_temp[lstPD.IndexOf(pd)].Image= ImageUtil.ResizeBitmap(pd.SrcImg, 60, 60);
+                }
+            }
+            else
+            {
+                List<SingleHoleGrain> lstshg = tmpG.getOHGCList();
+                foreach (SingleHoleGrain shg in lstshg)
+                {
+                    pb_temp[lstshg.IndexOf(shg)].Image = ImageUtil.ResizeBitmap(shg.SrcImg, 60, 60);
+                }
+            }
+        }
+        public void clr_pb_temp()
+        {
+            for(int i=0;i<7;i++)
+            {
+                pb_temp[i].Image = null;                
+            }
+        }
+        public void clr_pb_temp_border()
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                pb_temp[i].BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            }
+        }
         private void cboProType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboProType.Text == "") return;
             if (cboProType.Text != "無")
             {
                 btn_factory_reset.Enabled = true;
-
-                txt_feedrate01.Enabled = true;
-                txt_feedrate02.Enabled = true;
-                txt_feedrate03.Enabled = true;
-
-                txt_feedcount01.Enabled = true;
-                txt_feedcount02.Enabled = true;
-                txt_feedcount03.Enabled = true;
-
-                btn_feed01.Enabled = true;
-                btn_feed02.Enabled = true;
-                btn_feed03.Enabled = true;
-
+                ToggleGrindFeed(true,false);
+                
                 isPropTypeSelected = true;
                 updateInitUI();
 
@@ -1207,9 +1209,9 @@ namespace PropInnerImageAnalysis
                 isPropTypeSelected = false;
                 PropType = "";
                 PropClassify = "";
+                ToggleGrindFeed(false,false);
                 master.WriteSingleRegister(slaveID, startChoice, 0);
             }
-
         }
 
         private void Button_abandon_Click(object sender, EventArgs e)
@@ -1544,42 +1546,81 @@ namespace PropInnerImageAnalysis
         /*----------------------------------------------Modbus通訊end-----------------------------------------------*/
         private async Task<string> DoWork()      //非同步執行(機台狀態讀取副程式)
         {
-            if (startFlag == true)
+            if((operMode==1)||( operMode == 0))
             {
                 await Task.Delay(200);
                 readPosition_coil = master.ReadCoils(slaveID, readPosition, 36); //讀取拍照位置暫存器
-            }
+                if ((readPosition_coil[0]))
+                {
+                    polishReady = true;
+                    if(!readPosition_coil[1])
+                    {
+                        if (!isSamplingPressed)
+                        {
+                            btn_sampling.Enabled = true;
+                            btn_sampling.BackColor = Color.PaleGreen;
+                        }
 
+                        dispMachineProcess(3);
+                    }
+                }
+            }
             await Task.Delay(200);
-            if(((operMode==0) || (operMode==1)) && (!polishReady))
+
+            if(!polishReady)
             {
                 readAction_coil = master.ReadCoils(slaveID, readAction, 2);        //處理站號暫存器讀取
 
                 if (readAction_coil[0] == true) dispMachineProcess(1);
-                if (readAction_coil[1] == true) dispMachineProcess(2);
-                polishReady = true;
+                if (readAction_coil[1] == true)
+                {
+                    dispMachineProcess(2);
+                    readM117 = true;
+
+                }
+                if ((operMode == 3) && (readM117))
+                {
+                    bool[] pclStart = master.ReadCoils(slaveID, (ushort)117, 1);
+                    if (pclStart[0])
+                    {
+                        isPLCStartPressed = false;
+                        btn_plc_start.BackColor = Color.Silver;
+                        btn_plc_start.Enabled = true;
+                        startFlag = false;
+                        cboProType.Enabled = true;
+                        dispMachineProcess(-1);
+                    }
+                }
+                /*if (operMode == 3)
+                {
+                    bool[] pclStart = master.ReadCoils(slaveID, (ushort)117, 1);
+                    if (pclStart[0])
+                    {
+                        isPLCStartPressed = false;
+                        btn_plc_start.BackColor = Color.Silver;
+                        btn_plc_start.Enabled = true;
+                        startFlag = false;
+                        dispMachineProcess(-1);
+                    }
+                }*/
             }
-            if((operMode==1) || (operMode==3)) btn_sampling.Enabled = true;
 
-            if ((operMode == 0) && (polishReady)) btn_return.Enabled = true;
-
-            if (isSamplingPressed)   //循環依序讀取 照相位置M接點條件式
+            if (isSamplingPressed)  //循環依序讀取 照相位置M接點條件式
             {
-                dispMachineProcess(3);
-
-                //while (MessageBox.Show((readPosition_coid[startcount] ? startcount.ToString() + "到位" : "未到位"), "問題", MessageBoxButtons.YesNo) != DialogResult.Yes) ;
-
                 if (readPosition_coil[startcount] == true)
                 {
                     if (startcount > 0) master.WriteSingleCoil(slaveID, ushort.Parse((startcount - 1 + writeAddress).ToString()), false);  //寫入取消上一個拍照確認的M接點
-                    //while (MessageBox.Show((readPosition_coid[startcount] ? startcount.ToString() + "到位" : "未到位"), "問題", MessageBoxButtons.YesNo) != DialogResult.Yes) ;
                     await Task.Delay(800);
                     GC.Collect();
                     if (startcount <= 34)
                     {
                         setledSamplePath(startcount, Color.Red,Color.Green);
-                        mainCamShoot = true;
-                        await Task.Delay(takePicDelay);
+                        if((startcount!=14) && (startcount!=15) && (startcount!=20) & (startcount!=21))
+                        {
+                            mainCamShoot = true;
+                            CurrentSample++;
+                            await Task.Delay(takePicDelay);
+                        }
                         master.WriteSingleCoil(slaveID, ushort.Parse((startcount + writeAddress).ToString()), true);//寫入拍照確認 M接點
                     }
 
@@ -1593,42 +1634,33 @@ namespace PropInnerImageAnalysis
                         master.WriteSingleCoil(slaveID, ushort.Parse((startcount + writeAddress).ToString()), false);  //寫入上一個拍照確認的取消M接點
                         startcount = 0;     //count歸零
                         capReady = true;
-                        btn_return.Enabled = true;
+                        startFlag = false;
                         isSamplingPressed = false;
                     }
                 }
             }
-            if (capReady == true)     //拍照完成  切割影像
+            if (capReady == true)     //拍照完成
             {
                 mainCamShoot = true;
+                CurrentSample++;
                 await Task.Delay(takePicDelay);
                 polishReady = false;
                 btn_sampling.Enabled = false;
-                if (operMode == 1) btn_regrind.Enabled = true;
-                /* startFlag = false;
-                polishReady = false;
-                Stop();
-                this.panel9.Enabled = true;
-                this.drawStartBtn.Enabled = true;
-
-                string readingPath = originFile + "/";  //讀取資料夾路徑
-                string[] readPathBmpAll = Directory.GetFiles(readingPath, "*.bmp");
-
-                string[] oldPathBmpAll = Directory.GetFiles("./ReadImg/" + mode1.Text + "/", "*.bmp");
-
-                foreach (string oldfile in oldPathBmpAll)   //清舊的暫存照片資料
+                btn_sampling.BackColor = Color.Silver;
+                if (operMode == 1)
                 {
-                    File.Delete(oldfile);
+                    btn_regrind.Enabled = true;
+                    btn_regrind.BackColor = Color.PaleGreen;
+
+                    btn_return.Enabled = true;
+                    btn_return.BackColor = Color.PaleGreen;
+
                 }
-
-                foreach (string file in readPathBmpAll)   //原始圖像進行分割處理
+                if (operMode == 0)
                 {
-
-                    Image<Bgr, byte> testImage = new Image<Bgr, byte>(file);
-                    ROIcapture(testImage);
-                    testImage.Dispose();
-                    if (deleteFileFlag == true) File.Delete(file);
-                } */
+                    btn_return.Enabled = true;
+                    btn_return.BackColor = Color.PaleGreen;
+                }
                 capReady = false;
             }
             return DateTime.Now.ToString("yyyy/MM/dd  HH:mm:ss");
@@ -1656,8 +1688,7 @@ namespace PropInnerImageAnalysis
                 return;
 
             }
-            
-            
+ 
             switch (cnt)
             {
                 case 0:
@@ -1728,15 +1759,21 @@ namespace PropInnerImageAnalysis
 
         private void btn_plc_start_Click(object sender, EventArgs e)
         {
-            if(!isPLCStartPressed)
+            centerPanel(false);
+            if (!isPLCStartPressed)
             {
                 isPLCStartPressed = true;
-                btn_plc_start.BackColor = Color.PaleGreen;
                 startFlag = true;
                 //btnSampling.Enabled = true;
                 master.WriteSingleCoil(slaveID, PLCStart, true);
                 dispMachineProcess(0);
+                ToggleGrindFeed(false, true);
                 startcount = 0;
+                if ((operMode == 1) || (operMode==0)) GrindCount = 0;
+                btn_plc_start.Enabled = false;
+                btn_plc_start.BackColor = Color.Silver;
+                cboProType.Enabled = false;
+                readM117 = false;
             }
             else
             {
@@ -1746,16 +1783,17 @@ namespace PropInnerImageAnalysis
                 //btnSampling.Enabled = true;
                 master.WriteSingleCoil(slaveID, PLCStart, false);
                 dispMachineProcess(-1);
+                cboProType.Enabled = true;
+                ToggleGrindFeed(true, true);
             }
         }
 
         private void btn_sampling_Click(object sender, EventArgs e)
         {
-            if(!isSamplingPressed)
-            {
-                isSamplingPressed = true;
-                btn_plc_start.BackColor = Color.PaleGreen;
-            }
+            btn_sampling.Enabled = false;
+            btn_sampling.BackColor = Color.Silver;
+            isSamplingPressed = true;
+            polishReady = true;
         }
 
         private void btn_return_Click(object sender, EventArgs e)
@@ -1768,17 +1806,24 @@ namespace PropInnerImageAnalysis
                 master.WriteSingleCoil(slaveID, reGrindCoil[i], false);
             }
             isPLCStartPressed = false;
-            btn_plc_start.BackColor = Color.Silver;
+            btn_plc_start.BackColor = Color.PaleGreen;
+            btn_plc_start.Enabled = true;
             startFlag = false;
-            //btnSampling.Enabled = true;
-            master.WriteSingleCoil(slaveID, PLCStart, false);
-
             dispMachineProcess(-1);
             btn_return.Enabled = false;
-            if(listPropGrinds.Count>0)
+            btn_return.BackColor = Color.Silver;
+
+            btn_regrind.Enabled = false;
+            btn_regrind.BackColor = Color.Silver;
+            //btnSampling.Enabled = true;
+            master.WriteSingleCoil(slaveID, PLCStart, false);
+            cboProType.Enabled = true;
+            if (listPropGrinds.Count>0)
             {
                 CurrentSample = 0;
-                dispCurrentSample(CurrentSample);
+                CurrGrind = 0;
+                dispCurrentSample(CurrentSample,CurrGrind);
+                centerPanel(true);
             }
 
 
@@ -1791,9 +1836,23 @@ namespace PropInnerImageAnalysis
                 MessageBox.Show("已達再研磨次數上限!");
                 return;
             }
-            int cnt = Int32.Parse(txt_grindcount.Text) + 1;
-            master.WriteSingleCoil(slaveID, reGrindCoil[cnt-1], true);
-            txt_grindcount.Text = cnt.ToString();
+            ledSamplePath[35].BackColor = Color.Red;
+            //master.WriteSingleCoil(slaveID, (ushort)286, true);
+            //int cnt = Int32.Parse(txt_grindcount.Text) + 1;
+            master.WriteSingleCoil(slaveID, reGrindCoil[GrindCount], true);
+            GrindCount++;
+            txt_grindcount.Text = GrindCount.ToString();
+            CurrentSample = -1;
+            isSamplingPressed = false;
+            polishReady = false;
+            btn_regrind.Enabled = false;
+            btn_regrind.BackColor = Color.Silver;
+
+            btn_return.Enabled = false;
+            btn_return.BackColor = Color.Silver;
+            ob_origin.Image = null;
+            //startFlag = true;
+
         }
 
         private void Blink_timer_Tick(object sender, EventArgs e)
@@ -1821,6 +1880,107 @@ namespace PropInnerImageAnalysis
         {
             SampleROI = ImageUtil.FindROI(currBMP, 1800, 1800);
             ApplyROIFaceDetection = true;
+        }
+
+        private void btn_offline_load_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txt_feedrate_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //只允許輸入0-9
+            if ((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 13 && e.KeyChar != 45 && e.KeyChar != 46)
+                e.Handled = true;
+            //輸入小數點判斷
+            if (e.KeyChar == 46)
+            {
+                //第二位允許輸入數字而且只能輸入一次
+                if (((TextBox)sender).SelectionStart <= 0 || ((TextBox)sender).Text.IndexOf(".") >= 0) e.Handled = true;
+                //限定小數點出現位置,防止出現三位以上小數的情況
+                if (((TextBox)sender).SelectionStart < ((TextBox)sender).Text.Length - 2) e.Handled = true;
+            }
+            //限定只能輸入兩位小數 
+            if (e.KeyChar != '\b' && (((TextBox)sender).SelectionStart) > (((TextBox)sender).Text.LastIndexOf('.')) + 2 && ((TextBox)sender).Text.IndexOf(".") >= 0)
+                e.Handled = true;
+            //游標在小數點右側時判斷輸入是否合乎規定
+            if (e.KeyChar != '\b' && ((TextBox)sender).SelectionStart >= (((TextBox)sender).Text.LastIndexOf('.')) && ((TextBox)sender).Text.IndexOf(".") >= 0)
+            {
+
+                //游標在小數點右側第一位時判斷
+                if ((((TextBox)sender).SelectionStart) == (((TextBox)sender).Text.LastIndexOf('.')) + 1)
+                {
+                    if ((((TextBox)sender).Text.Length).ToString() == (((TextBox)sender).Text.IndexOf(".") + 3).ToString())
+                        e.Handled = true;
+                }
+                //游標在小數點右側第二位時判斷
+                if ((((TextBox)sender).SelectionStart) == (((TextBox)sender).Text.LastIndexOf('.')) + 2)
+                {
+                    if ((((TextBox)sender).Text.Length - 3).ToString() == ((TextBox)sender).Text.IndexOf(".").ToString()) e.Handled = true;
+                }
+            }
+
+        }
+
+        private void txt_feedcount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 13 && e.KeyChar != 45 && e.KeyChar != 46)
+                e.Handled = true;
+        }
+
+        private void btn_factory_reset_Click(object sender, EventArgs e)
+        {
+            loadFactoryFeed(PropType);
+        }
+
+        private void btn_feed01_Click(object sender, EventArgs e)
+        {
+            setFeed(PropType, 1);
+        }
+
+        private void btn_feed02_Click(object sender, EventArgs e)
+        {
+            setFeed(PropType, 2);
+        }
+
+        private void btn_feed03_Click(object sender, EventArgs e)
+        {
+            setFeed(PropType, 3);
+        }
+
+        private void pb_temp_Click(object sender, EventArgs e)
+        {
+            int idx = Array.IndexOf(pb_temp, (PictureBox)sender);
+            if(idx<GrindCount+1)
+            {
+                CurrGrind = idx;
+                dispCurrentSample(CurrentSample, CurrGrind);
+                
+            }          
+
+        }
+
+        private void btn_working_dir_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog_working_dir.ShowDialog() == DialogResult.OK)
+            {
+                txt_sample_dir.Text = folderBrowserDialog_working_dir.SelectedPath;
+                myConfig.workiDir = txt_sample_dir.Text;
+            }
+        }
+
+        private void btn_save_Click(object sender, EventArgs e)
+        {
+            if (txt_sample_dir.Text != "")
+            {
+                //string str = chkCompleted(operMode);
+                //if (str != "")
+                //{
+                //    MessageBox.Show(str);
+                //    return;
+                //}
+                saveSamples(operMode);
+            }
         }
     }
 

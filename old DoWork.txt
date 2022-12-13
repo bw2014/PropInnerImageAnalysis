@@ -1,0 +1,119 @@
+        private async Task<string> DoWork()      //非同步執行(機台狀態讀取副程式)
+        {
+            if (startFlag == true)
+            {
+                await Task.Delay(200);
+                readPosition_coil = master.ReadCoils(slaveID, readPosition, 36); //讀取拍照位置暫存器
+                if ((readPosition_coil[0]) && ((operMode==1)||(operMode==0)))
+                {
+                    polishReady = true;
+                    if(operMode==1) GrindCount++;
+                }
+            }
+            await Task.Delay(200);
+
+            //panSW = master.ReadCoils(slaveID, (ushort)125, 2);
+            //if (panSW[0]) MessageBox.Show("M125 tirgger!");
+            //if (panSW[1]) MessageBox.Show("M126 tirgger!");
+
+            if (((operMode==1) || (operMode==3)) && (!polishReady))
+            {
+                readAction_coil = master.ReadCoils(slaveID, readAction, 2);        //處理站號暫存器讀取
+
+                if (readAction_coil[0] == true) dispMachineProcess(1);
+                if (readAction_coil[1] == true)
+                {
+                    if(operMode==1)
+                    {
+                        dispMachineProcess(2);
+                    }
+
+                    if(operMode==3)
+                    {
+                        isPLCStartPressed = false;
+                        btn_plc_start.BackColor = Color.Silver;
+                        startFlag = false;
+                        master.WriteSingleCoil(slaveID, PLCStart, false);
+                        dispMachineProcess(-1);
+                        btn_return.Enabled = false;
+                    }
+                }
+            }
+            if((operMode==0) ||((operMode==1) && (polishReady))) btn_sampling.Enabled = true;
+
+            if ((operMode == 1) && (polishReady)) btn_return.Enabled = true;
+
+            if (isSamplingPressed)   //循環依序讀取 照相位置M接點條件式
+            {
+                dispMachineProcess(3);
+
+                //while (MessageBox.Show((readPosition_coid[startcount] ? startcount.ToString() + "到位" : "未到位"), "問題", MessageBoxButtons.YesNo) != DialogResult.Yes) ;
+
+                if (readPosition_coil[startcount] == true)
+                {
+                    if (startcount > 0) master.WriteSingleCoil(slaveID, ushort.Parse((startcount - 1 + writeAddress).ToString()), false);  //寫入取消上一個拍照確認的M接點
+                    //while (MessageBox.Show((readPosition_coid[startcount] ? startcount.ToString() + "到位" : "未到位"), "問題", MessageBoxButtons.YesNo) != DialogResult.Yes) ;
+                    await Task.Delay(800);
+                    GC.Collect();
+                    if (startcount <= 34)
+                    {
+                        setledSamplePath(startcount, Color.Red,Color.Green);
+                        if((startcount!=14) && (startcount!=15) && (startcount!=20) & (startcount!=21))
+                        {
+                            mainCamShoot = true;
+                            CurrentSample++;
+                            await Task.Delay(takePicDelay);
+                        }
+                        master.WriteSingleCoil(slaveID, ushort.Parse((startcount + writeAddress).ToString()), true);//寫入拍照確認 M接點
+                    }
+
+                    if (startcount < 35)
+                    {
+                        startcount++;
+                    }
+                    else
+                    {
+                        setledSamplePath(startcount, Color.Red, Color.Green);
+                        master.WriteSingleCoil(slaveID, ushort.Parse((startcount + writeAddress).ToString()), false);  //寫入上一個拍照確認的取消M接點
+                        startcount = 0;     //count歸零
+                        capReady = true;
+                        btn_return.Enabled = true;
+                        isSamplingPressed = false;
+                    }
+                }
+            }
+            if (capReady == true)     //拍照完成  切割影像
+            {
+                mainCamShoot = true;
+                await Task.Delay(takePicDelay);
+                polishReady = false;
+                btn_sampling.Enabled = false;
+                if (operMode == 1) btn_regrind.Enabled = true;
+                /* startFlag = false;
+                polishReady = false;
+                Stop();
+                this.panel9.Enabled = true;
+                this.drawStartBtn.Enabled = true;
+
+                string readingPath = originFile + "/";  //讀取資料夾路徑
+                string[] readPathBmpAll = Directory.GetFiles(readingPath, "*.bmp");
+
+                string[] oldPathBmpAll = Directory.GetFiles("./ReadImg/" + mode1.Text + "/", "*.bmp");
+
+                foreach (string oldfile in oldPathBmpAll)   //清舊的暫存照片資料
+                {
+                    File.Delete(oldfile);
+                }
+
+                foreach (string file in readPathBmpAll)   //原始圖像進行分割處理
+                {
+
+                    Image<Bgr, byte> testImage = new Image<Bgr, byte>(file);
+                    ROIcapture(testImage);
+                    testImage.Dispose();
+                    if (deleteFileFlag == true) File.Delete(file);
+                } */
+                capReady = false;
+            }
+            return DateTime.Now.ToString("yyyy/MM/dd  HH:mm:ss");
+        }
